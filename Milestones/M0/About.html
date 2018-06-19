@@ -39,6 +39,16 @@
       }
       .row.content {height:auto;} 
     }
+.navbar-default .navbar-nav > li.dropdown:hover > a, 
+.navbar-default .navbar-nav > li.dropdown:hover > a:hover,
+.navbar-default .navbar-nav > li.dropdown:hover > a:focus {
+    background-color: rgb(231, 231, 231);
+    color: rgb(85, 85, 85);
+}
+li.dropdown:hover > .dropdown-menu {
+    display: block;
+}
+
   </style>
 </head>
 <body>
@@ -54,23 +64,24 @@
       <a class="navbar-brand" href="#">    </a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
+
       <ul class="nav navbar-nav">
+
         <li class="active"><a href="#">Home</a></li>
-       <li class="about">
-          <a href="About.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">About<span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="James.html">James Clark</a></li>
+<li class="dropdown">
+       
+<a href="About.html" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
+    
+      <ul class="dropdown-menu">
+         
+   <li><a href="James.html">James Clark</a></li>
             <li><a href="RoyTelles.html">Roy Telles</a></li>
             <li><a href="Patrick.html">Patrick Coico</a></li>
              <li><a href="DandanCai.html">Jenny Cai</a></li>
 	      <li><a href="Michael.html">Michael Lama</a></li>
-	     <li><a href="sam.html">Sam Zheng</a></li>
-          </ul>
-        </li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+	     <li><a href="sam.html">Sam Zheng</a></li>  
+</ul>  
+      
     </div>
   </div>
 </nav>
