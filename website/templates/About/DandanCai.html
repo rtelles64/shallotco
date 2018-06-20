@@ -1,168 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Theme Made By www.w3schools.com - No Copyright -->
+{%extends "IndAbout.html" %}
 
-  <!-- change title to name -->
-  <title>Jenny Dandan Cai</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <style>
-  body {
-      font: 20px Montserrat, sans-serif;
-      line-height: 1.8;
-      color: #f5f6f7;
-  }
-  p {font-size: 16px;}
-  .margin {margin-bottom: 45px;}
-  .bg-1 {
-      background-color: #339FFF; /* Green */
-      color: #ffffff;
-  }
-  .bg-2 {
-      background-color: #474e5d; /* Dark Blue */
-      color: #ffffff;
-  }
-  .bg-3 {
-      background-color: #ffffff; /* White */
-      color: #555555;
-  }
-  .bg-4 {
-      background-color: #2f2f2f; /* Black Gray */
-      color: #fff;
-  }
-  .container-fluid {
-  
-     
-  }
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 450px}
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
-    }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-      background-color: #555;
-      color: white;
-      padding: 15px;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {height:auto;} 
-    }
-.navbar-default .navbar-nav > li.dropdown:hover > a, 
-.navbar-default .navbar-nav > li.dropdown:hover > a:hover,
-.navbar-default .navbar-nav > li.dropdown:hover > a:focus {
-    background-color: rgb(231, 231, 231);
-    color: rgb(85, 85, 85);
-}
-li.dropdown:hover > .dropdown-menu {
-    display: block;
-}
+{%block name%}
+Jenny Dandan Cai
+{%endblock%}
 
-  </style>
-</head>
-<body>
+{%block image%}
+<img src="/static/About/DandanCai.jpg" class="img-responsive img-circle margin" style="display:inline" width="350" height="350">
+{%endblock%}
 
-<!-- Navbar -->
+{%block title%}
+<h3>Backend Engineer</h3>
+{%endblock%}
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">    </a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+{%block bio%}
+<p>I am a graduate student at San Francisco State University in Computer Science specialized in Machine Learning. </p>
+{%endblock%}
 
-      <ul class="nav navbar-nav">
-
-        <li><a href="../index.html">Home</a></li>
-<li class="dropdown">
-       
-<a href = "../About.html" onclick="location.replace('About.html'),'_top'" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
-    
-      <ul class="dropdown-menu">
-         
-   <li><a href="../James.html">James Clark</a></li>
-            <li><a href="../RoyTelles.html">Roy Telles</a></li>
-            <li><a href="../Patrick.html">Patrick Coico</a></li>
-             <li><a href="DandanCai.html">Jenny Cai</a></li>
-	      <li><a href="../Michael.html">Michael Lama</a></li>
-	     <li><a href="../sam.html">Sam Zheng</a></li>
-</ul>  
-      
-    </div>
-  </div>
-</nav>
-
-
-
-<div class="header">
-    <i><font color="Black" > SFSU Software Engineering Project CSC 648-848 Summer 2018. For Demonstration Only </font>
-</i>
-</div>
-
-
-<!-- First Container -->
-<div class="container-fluid bg-1 text-center">
-  <h3 class="margin">Jenny Dandan Cai</h3>
-  <img src="DandanCai.jpg" class="img-responsive img-circle margin" style="display:inline" width="350" height="350">
-  <h3>Backend Engineer</h3>
-</div>
-
-<!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
-  <h3 class="margin">Biography</h3>
-  <p>I am a graduate student at San Francisco State University pursuing a Master of Science in Computer Science specialized in Machine Learning. </p>
-
-</div>
-
-<!-- Third Container (Grid) -->
-<div class="container-fluid bg-3 text-center">
-  <h3 class="margin">Contact</h3><br>
-  <div class="row">
-
-    <div class="col-sm-4">
-    </div>
-    <div class="col-sm-4">
-      <p>Email: dcai1@mail.sfsu.edu</p>
-      <p>GitHub: Jennydandancai</p>
-
-    </div>
-
-    <div class="col-sm-4">
-
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<footer class="container-fluid bg-4 text-center">
-  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
-</footer>
-
-</body>
-</html>
+{% block contact %}
+<p>Email: dcai1@mail.sfsu.edu</p>
+<p>GitHub: Jennydandancai</p>
+{%endblock%}
