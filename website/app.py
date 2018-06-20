@@ -7,33 +7,41 @@ app = Flask(__name__)
 def home():
     return render_template("index.html")
 
+
 @app.route('/About')
 def about():
     return render_template("About.html")
 
-@app.route('/Roy')
+
+@app.route('/About/Roy')
 def Roy():
-    return render_template("RoyTelles.html")
+    return render_template("About/RoyTelles.html")
 
-@app.route('/Jenny')
+
+@app.route('/About/Jenny')
 def Jenny():
-    return render_template("DandanCai.html")
+    return render_template("About/DandanCai.html")
 
-@app.route('/James')
+
+@app.route('/About/James')
 def James():
-    return render_template("James.html")
+    return render_template("About/James.html")
 
-@app.route('/Michael')
+
+@app.route('/About/Michael')
 def Michael():
-    return render_template("Michael.html")
+    return render_template("About/Michael.html")
 
-@app.route('/Patrick')
+
+@app.route('/About/Patrick')
 def Patrick():
-    return render_template("Patrick.html")
+    return render_template("About/Patrick.html")
 
-@app.route('/Sam')
+
+@app.route('/About/Sam')
 def Sam():
-    return render_template("sam.html")
+    return render_template("About/sam.html")
+
 
 if __name__ == '__main__':
     app.run()
