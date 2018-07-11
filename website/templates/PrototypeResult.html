@@ -82,8 +82,14 @@
               
           </select>
           </div><!-- /btn-group -->
-         <input type="searchBox" name="search" id="search" placeholder="Search">
-  <button id="btnSearch" type="button"><i class="fa fa-search"></i></button>
+</div><!-- /btn-group -->
+                <div>
+                <form  method = post>
+                 <input type="searchBox" name="search" id="search" placeholder="Search" value="{{request.form.search}}">
+                 <a href="/Search"><button id="btnSearch" type="button"><i class="fa fa-search"></i> </button></a>
+                </form>
+                </div>
+          </div>
 
         </div><!-- /input-group -->
       </div><!-- /.col-lg-6 -->
@@ -93,29 +99,17 @@
 </div>
 
 <div class="container">    
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading" id="name1">Image 1</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" id="img1" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer" id="desc1">Description</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-primary">
-        <div class="panel-heading" id="name2">Image 2</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" id="img2" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer" id="desc2">Description</div>
-      </div>
-    </div>
-    <div class="col-sm-4"> 
-      <div class="panel panel-primary">
-        <div class="panel-heading" id="name3">Image 3</div>
-        <div class="panel-body"><img src="https://placehold.it/150x80?text=IMAGE" id="img3" class="img-responsive" style="width:100%" alt="Image"></div>
-        <div class="panel-footer" id="desc3">Description</div>
-      </div>
-    </div>
-  </div>
+        <h2>This is my file upload page</h2>
+<!--
+  <table>
+        {% for item in data %}
+        <tr>
+         <td><img.src = 'data:image/jpeg;base64,' + {{image_base64(item[0])}}/></td>
+        </tr>
+        {% endfor %}
+  </table>
+-->
+</div><br>
 </div><br>
 
 <br><br>
