@@ -82,9 +82,14 @@
              
           </select>
           </div><!-- /btn-group -->
-  <input type="searchBox" name="search" id="search" placeholder="Search">
-  <button id="btnSearch" type="button"><i class="fa fa-search"></i></button>
-
+  </div><!-- /btn-group -->
+          <div>
+          <form  method = post>
+           <input type="searchBox" name="search" id="search" placeholder="Search" value="{{request.form.search}}">
+           <a href="/Search"><button id="btnSearch" type="button"><i class="fa fa-search"></i> </button></a>
+          </form>
+          </div>
+          </div>
         </div><!-- /input-group -->
       </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
