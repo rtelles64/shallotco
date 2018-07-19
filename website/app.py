@@ -21,7 +21,7 @@ mysql.init_app(app)
 
 @app.route('/')
 def home():
-	return render_template("Prototype.html")
+	return render_template("shallotHome.html")
 
 
 @app.route('/Search', methods=['POST', 'GET'])
@@ -51,7 +51,7 @@ def searchResult():
 				return render_template("PrototypeResult.html",data=data)
 		else:
 		#	flash("else")
-			return redirect(url_for('/'))		
+			return redirect(url_for('/'))
 	except Exception as e:
 		#flash (e)
 		return render_template("Prototype.html",error = error)
