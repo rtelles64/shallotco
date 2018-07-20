@@ -26,14 +26,14 @@
 
 <br>
 <div class="container">
-  <h3><center>Results</center></h3>
+  <h3>Results</h3>
 
 <div id="imageResult">
     {% for image in data %}
         <div class="column">
         <tr>
                 <h1>{{image[1]}}</h1>
-      <td><p>{{image[2]}}</p> <img src="{{image[0]}}" class="img-thumbnail" alt="waves and rocks3" align="left" width="100" height="100" style="width:100%"/></td>
+      <td><p>{{image[2]}}</p> <img src="{{image[0]}}" class="object-fit_contain" alt="waves and rocks3" align="left"/></td>
 
                 </tr>
 
