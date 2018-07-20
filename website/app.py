@@ -1,5 +1,6 @@
 from flask import Flask, render_template, json, request,flash,url_for
 from flaskext.mysql import MySQL
+import os
 
 #import base64
 mysql = MySQL()
@@ -22,6 +23,31 @@ mysql.init_app(app)
 @app.route('/')
 def home():
 	return render_template("shallotHome.html")
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload():
+	if request.method == 'POST':
+		c = request.form['comment']
+		ca = request.form['category']
+		print(c + ' ' + ca)
+
+		target = os.path.join(APP_ROOT, 'images/')
+		print(target)
+
+		if not os.path.isdir(target):
+			os.mkdir(target)
+			print("directory created")
+
+		for file in request.files.getlist("file"):
+			print(file)
+			filename = file.filename
+			print(filename)
+			destination = "/".join([target, filename])
+			print(destination)
+			file.save(destination)
+
+	return render_template("UploadImage.html")
 
 
 @app.route('/Search', methods=['POST', 'GET'])
