@@ -48,7 +48,7 @@ def searchResult():
 				return redirect(url_for('/'))
 			else:
 			#	flash("it has come to else")
-				return render_template("PrototypeResult.html",data=data)
+				return render_template("ImageResult.html",data=data)
 		else:
 		#	flash("else")
 			return redirect(url_for('/'))
