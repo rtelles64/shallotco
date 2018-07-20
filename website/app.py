@@ -54,7 +54,7 @@ def searchResult():
 			return redirect(url_for('/'))
 	except Exception as e:
 		#flash (e)
-		return render_template("Prototype.html",error = error)
+		return render_template("shallotHome.html",error = error)
 	finally:
 		#flash("Closing DB conn")
 		cursor.close()
@@ -62,6 +62,10 @@ def searchResult():
 @app.route('/About')
 def about():
 	return render_template("About.html")
+
+@app.route('/Register')
+def register():
+    return render_template("register.html")
 
 @app.route('/About/Roy')
 def Roy():
