@@ -1,31 +1,12 @@
 {%extends "ShallotLayout/shallotLayout.html" %}
 
 {%block content%}
-<br><br>
-    <div class="container">
-	<h3><center>Results</center></h3>
-
-		<!--<div class="column">-->
-		{% for item in data %}
-
-                <div class="column">
-    		<tr>
-                <h1>{{item[1]}}</h1>
-	   	<td><p>{{item[2]}}</p> <img src="{{item[0]}}" class="object-fit_contain" alt="image" align="left" width="250" height="250"/></td>
-
-                </tr>
-
-                </div>
-    		{% endfor %}
-		<!--</div>-->
-		<!-- /.row -->
-</div><br>
-{%endblock%}
-
-<!-- <div class="column" id="imageResult">
+<div id="imageResult">
     {% for image in data %}
         <div class="image">
             <img class="object-fit_contain" src="{{image[0]}}">
         </div>
     {% endfor %}
-    </div> -->
+    </div>
+
+{%endblock%}
