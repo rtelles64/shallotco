@@ -1,5 +1,6 @@
-from flask import Flask, render_template, json, request,flash,url_for
+from flask import Flask, render_template, json, request,flash,url_for,send_file
 from flaskext.mysql import MySQL
+import os
 
 #import base64
 mysql = MySQL()
@@ -23,9 +24,45 @@ mysql.init_app(app)
 def home():
 	return render_template("shallotHome.html")
 
+@app.route('/result/<string:image>', methods=['GET', 'POST'])
+def ImagePage(image):
+    print(image)
+    if request.method == 'POST':
+        return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
+
+    return render_template("About/ImagePage.html", downloadImage=image)
+
+
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+@app.route('/upload', methods = ['GET', 'POST'])
+def upload():
+	if request.method == 'POST':
+		c = request.form['comment']
+		ca = request.form['category']
+		print(c + ' ' + ca)
+
+		target = os.path.join(APP_ROOT, 'static/Images/')
+		print(target)
+
+		if not os.path.isdir(target):
+			os.mkdir(target)
+			print("directory created")
+
+		for file in request.files.getlist("file"):
+			print(file)
+			filename = file.filename
+			print(filename)
+			destination = "/".join([target, filename])
+			print(destination)
+			file.save(destination)
+
+	return render_template("UploadImage.html")
+
+
 
 @app.route('/Search', methods=['POST', 'GET'])
 def searchResult():
+	return render_template("ImageResult.html", data=['DandanCai.jpg', 'James.jpg', 'James.jpg', 'James.jpg'])
 	#flash("in search")
 	error =''
 	conn = mysql.connect()
@@ -48,7 +85,7 @@ def searchResult():
 				return redirect(url_for('/'))
 			else:
 			#	flash("it has come to else")
-				return render_template("PrototypeResult.html",data=data)
+				return render_template("ImageResult.html",data=data)
 		else:
 		#	flash("else")
 			return redirect(url_for('/'))

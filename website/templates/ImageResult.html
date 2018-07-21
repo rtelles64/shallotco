@@ -1,0 +1,12 @@
+{%extends "ShallotLayout/shallotLayout.html" %}
+
+{%block content%}
+    <div id="imageResult">
+    {% for image in data %}
+        <div class="image">
+            <a href="result/{{image}}"><img class="object-fit_contain" src="static/About/{{image}}"></a>
+        </div>
+    {% endfor %}
+    </div>
+{%endblock%}
+
