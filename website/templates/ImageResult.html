@@ -1,45 +1,12 @@
 {%extends "ShallotLayout/shallotLayout.html" %}
 
 {%block content%}
-<div class="col-xs-7" style="padding-top: 8px;">
-  <div class="input-group">
-    <div class="input-group-btn search-panel">
-      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-        <span id="search_concept">Filter by</span> <span class="caret"></span>
-      </button>
-      <ul class="dropdown-menu" role="menu">
-        <li><a href="#All">All</a></li>
-        <li><a href="#Clip-art">Clip-art</a></li>
-        <li><a href="#Fashion">Fashion</a></li>
-        <li><a href="#Food">Food</a></li>
-        <li><a href="#Nature">Nature</a></li>
-      </ul>
-    </div>
-    <input type="hidden" name="search_param" value="all" id="search_param">
-    <input type="text" class="form-control" name="x" placeholder="Search...">
-    <span class="input-group-btn">
-      <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-    </span>
-  </div>
-</div> 
-
-
-<br>
-<div class="container">
-  <h3>Results</h3>
-
-<div id="imageResult">
+    <div id="imageResult">
     {% for image in data %}
-        <div class="column">
-        <tr>
-                <h1>{{image[1]}}</h1>
-      <td><p>{{image[2]}}</p> <img src="{{image[0]}}" class="object-fit_contain" alt="waves and rocks3" align="left"/></td>
-
-                </tr>
-
-                </div>
+        <div class="image">
+            <a href="result/{{image}}"><img class="object-fit_contain" src="static/About/{{image}}"></a>
+        </div>
     {% endfor %}
     </div>
-  </div>
-
 {%endblock%}
+
