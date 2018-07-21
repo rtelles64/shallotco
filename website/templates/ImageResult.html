@@ -1,5 +1,9 @@
 {%extends "ShallotLayout/shallotLayout.html" %}
 
+
+
+{%block content%}
+
 <div class="col-xs-7" style="padding-top: 8px;">
   <div class="input-group">
     <div class="input-group-btn search-panel">
@@ -22,7 +26,6 @@
   </div>
 </div>
 
-{%block content%}
     <div id="imageResult">
     {% for image in data %}
         <div class="image">
