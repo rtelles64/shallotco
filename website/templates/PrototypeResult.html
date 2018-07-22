@@ -9,28 +9,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="../static/js/search.js"></script>
-<<<<<<< HEAD
-  <style>
-    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-    .navbar {
-      margin-bottom: 50px;
-      border-radius: 0;
-    }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-=======
 <script>
 // Get the elements with class="column"
 var elements = document.getElementsByClassName("column");
-
 // Two images side by side
 function two() {
     for (i = 0; i < elements.length; i++) {
@@ -47,8 +28,6 @@ function two() {
       margin-bottom: 0;
       border-radius: 0;
     }
-
-
 .column {
     float:left;
     width: 30.33%;
@@ -57,15 +36,10 @@ function two() {
     padding: 0 4px;
     margin-bottom:100px;
 }
-
-
-
-
 .column img {
   margin-top: 8px;
   vertical-align: left;
 }
-
 /* Clear floats after image containers */
 .row::after {
 display: inline-block
@@ -79,15 +53,10 @@ display: inline-block
     flex-wrap: wrap;
     padding: 0 4px;
 }
-
-
-
-
     /* Remove the jumbotron's default bottom margin */
      .jumbotron {
       margin-bottom: 0;
     }
-
     /* Add a gray background color and some padding to the footer */
     .footer {
       position: absolute;
@@ -100,22 +69,18 @@ display: inline-block
       flex-shrink: 0;
       text-align: center;
     }
-
     html {
       position: relative;
       min-height: 100%;
     }
-
     body {
       margin: 0 0 100px;
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
       color: #464646;
     }
-
     * {
       font-size: 100%;
->>>>>>> eabbe9e84c6ca62f0e6b1993d75ab26b2b633c97
     }
   </style>
 </head>
@@ -129,11 +94,7 @@ display: inline-block
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-<<<<<<< HEAD
-        <span class="icon-bar"></span>                        
-=======
         <span class="icon-bar"></span>
->>>>>>> eabbe9e84c6ca62f0e6b1993d75ab26b2b633c97
       </button>
       <a class="navbar-brand" href="#">    </a>
     </div>
@@ -143,49 +104,24 @@ display: inline-block
 
         <li><a href="/">Home</a></li>
 <li class="dropdown">
-<<<<<<< HEAD
-       
-<a href="/About" onclick="location.replace('/About'),'_top'" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
-    
-<ul class="dropdown-menu">
-      
-=======
 
 <a href="/About" onclick="location.replace('/About'),'_top'" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
 
 <ul class="dropdown-menu">
 
->>>>>>> eabbe9e84c6ca62f0e6b1993d75ab26b2b633c97
         <li><a href="/About/James">James Clark</a></li>
         <li><a href="/About/Roy">Roy Telles</a></li>
         <li><a href="/About/Patrick">Patrick Coico</a></li>
         <li><a href="/About/Jenny">Jenny Cai</a></li>
         <li><a href="/About/Michael">Michael Lama</a></li>
         <li><a href="/About/Sam">Sam Zheng</a></li>
-<<<<<<< HEAD
-     
-</ul>  
-      
-=======
 
 </ul>
 
->>>>>>> eabbe9e84c6ca62f0e6b1993d75ab26b2b633c97
     </div>
   </div>
 </nav>
 
-<<<<<<< HEAD
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="input-group">
-          <div class="input-group-btn">
-            
-            <select class="btn btn-default dropdown-toggle">
-              
-=======
 <div class="header">
     <i><font color="Black"> SFSU Software Engineering Project CSC 648-848 Summer 2018. For Demonstration Only </font>
     </i>
@@ -205,25 +141,10 @@ display: inline-block
 
             <select class="btn btn-default dropdown-toggle">
 
->>>>>>> eabbe9e84c6ca62f0e6b1993d75ab26b2b633c97
                 <option value="Nature">Nature</option>
                   <!-- <option value="Forest">Forest</option>
                   <option value="Snow">Snow</option>
                   <option value="Mountains">Mountains</option> -->
-<<<<<<< HEAD
-              
-          </select>
-          </div><!-- /btn-group -->
-</div><!-- /btn-group -->
-                <div>
-                <form  method = post>
-                 <input type="searchBox" name="search" id="search" placeholder="Search" value="{{request.form.search}}">
-                 <a href="/Search"><button id="btnSearch" type="button"><i class="fa fa-search"></i> </button></a>
-                </form>
-                </div>
-          </div>
-
-=======
 
           </select>
           </div><!-- /btn-group -->
@@ -232,28 +153,10 @@ display: inline-block
   	<button id="btnSearch" type="submit"><i class="fa fa-search"></i> </button>
 	</form>
 	</div>
->>>>>>> eabbe9e84c6ca62f0e6b1993d75ab26b2b633c97
         </div><!-- /input-group -->
       </div><!-- /.col-lg-6 -->
     </div><!-- /.row -->
   </div><!-- / .container -->
-<<<<<<< HEAD
-
-</div>
-
-<div class="container">    
-        <h2>This is my file upload page</h2>
-<!--
-  <table>
-        {% for item in data %}
-        <tr>
-         <td><img.src = 'data:image/jpeg;base64,' + {{image_base64(item[0])}}/></td>
-        </tr>
-        {% endfor %}
-  </table>
--->
-</div><br>
-=======
 	<div class="container" style="min-height:100% width:80%">
 	{% with messages = get_flashed_messages() %}
 	  {% if messages %}
@@ -284,20 +187,13 @@ display: inline-block
     		{% endfor %}
 		<!--</div>-->
 		<!-- /.row -->
->>>>>>> eabbe9e84c6ca62f0e6b1993d75ab26b2b633c97
 </div><br>
 
 <br><br>
 
-<<<<<<< HEAD
-<footer class="container-fluid bg-4 text-center">
-  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p> 
-</footer>
-=======
 <div class="footer">
   <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
 </div>
->>>>>>> eabbe9e84c6ca62f0e6b1993d75ab26b2b633c97
 
 </body>
 </html>
