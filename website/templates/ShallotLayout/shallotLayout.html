@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/UploadImage.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/shallotHome.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css')}}">
   <!-- TRENDING script -->
   <script src="{{url_for('static', filename='shallotHome.js')}}"></script>
 </head>
@@ -78,6 +79,11 @@
 <!-- END SearchBar -->
 </div>
 
+<!-- REGISTRATION block -->
+{%block registration%}
+{%endblock%}
+<!-- END registration -->
+
 <!-- ABOUT US here -->
 {%block about%}
 {%endblock%}
@@ -104,4 +110,5 @@
 </body>
 <!-- SEARCHBAR script -->
 <script src="{{url_for('static',filename='search.js')}}"></script>
+<script src="{{ url_for('static', filename='registration.js')}}"></script>
 </html>
