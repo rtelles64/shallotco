@@ -36,7 +36,7 @@ def searchResult():
 		#	flash("in post")
 			_search = request.form['search']
 		#	flash(_search)
-			order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
+			order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
 			#flash(order)
                        # arg='%' + _search + '%'
 			cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
