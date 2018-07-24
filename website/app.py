@@ -62,7 +62,7 @@ def upload():
 
 @app.route('/Search', methods=['POST', 'GET'])
 def searchResult():
-	return render_template("ImageResult.html", data=['DandanCai.jpg', 'James.jpg', 'James.jpg', 'James.jpg'])
+
 	#flash("in search")
 	error =''
 	conn = mysql.connect()
@@ -73,7 +73,7 @@ def searchResult():
 		#	flash("in post")
 			_search = request.form['search']
 		#	flash(_search)
-			order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
+			order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
 			#flash(order)
                        # arg='%' + _search + '%'
 			cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
@@ -96,6 +96,7 @@ def searchResult():
 		#flash("Closing DB conn")
 		cursor.close()
 		conn.close()
+
 @app.route('/About')
 def about():
 	return render_template("About.html")
