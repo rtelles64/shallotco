@@ -1,6 +1,10 @@
 {%extends "ShallotLayout/shallotLayout.html"%}
-
-{%block registration%}
+{%block head%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css') }}">
+<!-- REGISTRATION script -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/registration.js')}}"></script>
+{%endblock%}
+{%block body%}
   <div class="form-size">
     <form class="needs-validation" novalidate>
       <div class="form-group">
