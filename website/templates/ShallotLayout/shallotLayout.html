@@ -91,11 +91,13 @@
             <li><a href="#Nature">Nature</a></li>
           </ul>
         </div>
+        <form action="/Search" method="post">
         <input type="hidden" name="search_param" value="all" id="search_param">
         <input type="text" class="form-control" name="search" placeholder="Search term..." value="{{ request.form.search }}">
         <span class="input-group-btn">
           <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
         </span>
+      </form>
       </div>
     </div>
   </div>
