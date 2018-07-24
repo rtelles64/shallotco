@@ -1,0 +1,24 @@
+{%extends "ShallotLayout/shallotLayout.html" %}
+{%block head%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}">
+{%endblock%}
+{%block body%}
+<br>
+<div class="container">
+  <h3><center>Results</center></h3>
+
+<div id="imageResult">
+    {% for image in data %}
+        <div class="column">
+
+                <h1>{{image[1]}}</h1>
+      <p>{{image[2]}}</p> <img src="{{image[0]}}" class="object-fit_contain" alt="waves and rocks3" align="left"/>
+
+
+
+                </div>
+    {% endfor %}
+    </div>
+  </div>
+
+{%endblock%}

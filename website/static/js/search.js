@@ -1,6 +1,5 @@
-
 	$('#btnSearch').click(function(){
-		
+
 		$.ajax({
 			url: '/',
 			data: $('form').serialize(),

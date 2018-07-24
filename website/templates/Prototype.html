@@ -15,36 +15,32 @@
       margin-bottom: 0;
       border-radius: 0;
     }
-
     /* Remove the jumbotron's default bottom margin */
      .jumbotron {
       margin-bottom: 0;
     }
-
     html {
       position: relative;
       min-height: 100%;
     }
-
     body {
       margin: 0 0 100px;
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
       color: #464646;
     }
-
     /* Add a gray background color and some padding to the footer */
-    footer {
+    .footer {
       position: absolute;
+      right: 0;
       left: 0;
       bottom: 0;
       width: 100%;
       background-color: #f2f2f2;
       padding: 25px;
       flex-shrink: 0;
-      vertical-align: middle;
+      text-align: center;
     }
-
     * {
       font-size: 100%;
     }
@@ -140,7 +136,6 @@
 		{% endfor %}
 	  {% endif %}
 	{% endwith %}
-
 	</div>
 -->
 <!-- <div class="container">
@@ -168,7 +163,6 @@
     </div>
   </div>
 </div><br>
-
 <div class="container">
   <div class="row">
     <div class="col-sm-4">
@@ -196,7 +190,7 @@
 </div> -->
 <br><br>
 
-<footer class="footer container-fluid text-center">
+<div class="footer">
   <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
 </footer>
 

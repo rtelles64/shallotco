@@ -1,0 +1,60 @@
+/* Remove the navbar's default rounded borders and increase the bottom margin */
+.navbar {
+  margin-bottom: 8px;
+  border-radius: 0;
+  background-color: #33334d;
+}
+
+.container .credit
+{
+    margin: 20px 0;
+}
+
+/* Add a gray background color and some padding to the footer */
+#footer {
+  height: auto;
+  background-color: #f2f2f2;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  vertical-align: middle;
+  text-size-adjust: none;
+  min-width: auto;
+}
+
+#footer > .container
+{
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 13px;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin: 0 0 100px;
+  font: 18px Montserrat, sans-serif;
+  line-height: 1.8;
+  color: #464646;
+}
+
+* {
+  font-size: 100%;
+}
+
+.navbar-default .navbar-nav > li.dropdown:hover > a,
+.navbar-default .navbar-nav > li.dropdown:hover > a:hover,
+.navbar-default .navbar-nav > li.dropdown:hover > a:focus {
+    background-color: rgb(231, 231, 231);
+    color: rgb(85, 85, 85);
+}
+
+li.dropdown:hover > .dropdown-menu {
+    display: block;
+}

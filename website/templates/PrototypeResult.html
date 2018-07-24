@@ -12,7 +12,6 @@
 <script>
 // Get the elements with class="column"
 var elements = document.getElementsByClassName("column");
-
 // Two images side by side
 function two() {
     for (i = 0; i < elements.length; i++) {
@@ -29,8 +28,6 @@ function two() {
       margin-bottom: 0;
       border-radius: 0;
     }
-
-
 .column {
     float:left;
     width: 30.33%;
@@ -39,15 +36,10 @@ function two() {
     padding: 0 4px;
     margin-bottom:100px;
 }
-
-
-
-
 .column img {
   margin-top: 8px;
   vertical-align: left;
 }
-
 /* Clear floats after image containers */
 .row::after {
 display: inline-block
@@ -61,28 +53,32 @@ display: inline-block
     flex-wrap: wrap;
     padding: 0 4px;
 }
-
-
-
-
     /* Remove the jumbotron's default bottom margin */
      .jumbotron {
       margin-bottom: 0;
     }
-
     /* Add a gray background color and some padding to the footer */
-    footer {
+    .footer {
+      position: absolute;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      width: 100%;
       background-color: #f2f2f2;
       padding: 25px;
+      flex-shrink: 0;
+      text-align: center;
     }
-
+    html {
+      position: relative;
+      min-height: 100%;
+    }
     body {
       margin: 0 0 100px;
       font: 20px Montserrat, sans-serif;
       line-height: 1.8;
       color: #464646;
     }
-
     * {
       font-size: 100%;
     }
@@ -176,7 +172,6 @@ display: inline-block
 	</div>
 <div class="container">
 	<h3><center>Results</center></h3>
-  		<p><center>Click on an image to go to its page and view more details</center></p>
 
 		<!--<div class="column">-->
 		{% for item in data %}
@@ -196,9 +191,9 @@ display: inline-block
 
 <br><br>
 
-<footer class="container-fluid bg-4 text-center">
+<div class="footer">
   <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
-</footer>
+</div>
 
 </body>
 </html>
