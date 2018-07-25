@@ -1,24 +1,96 @@
 {%extends "ShallotLayout/shallotLayout.html" %}
 {%block head%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}">
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
+<style>
+div.gallery {
+   border: 1px solid #ccc;
+}
+
+div.gallery:hover {
+   border: 1px solid #777;
+}
+
+div.gallery img {
+   width: 100%;
+   height: auto;
+}
+
+div.desc {
+   padding: 15px;
+   text-align: center;
+}
+
+* {
+   box-sizing: border-box;
+}
+
+.responsive {
+   padding: 0 6px;
+   float: left;
+   width: 24.99999%;
+}
+
+@media only screen and (max-width: 700px) {
+   .responsive {
+       width: 49.99999%;
+       margin: 6px 0;
+   }
+}
+
+@media only screen and (max-width: 500px) {
+   .responsive {
+       width: 100%;
+   }
+}
+
+.clearfix:after {
+   content: “”;
+   display: table;
+   clear: both;
+}
+</style>
 {%endblock%}
 {%block body%}
 <br>
 <div class="container">
   <h3><center>Results</center></h3>
+<form action="/ImageInfo" method="post">
+<!-- <div id="imageResult"> -->
 
-<div id="imageResult">
+  <!-- <div class="row"> -->
     {% for image in data %}
-        <div class="column">
-
-                <h1>{{image[1]}}</h1>
-      <p>{{image[2]}}</p> <a href="/ImageInfo"><img src="{{image[0]}}" class="object-fit_contain" alt="waves and rocks3" align="left"/></a>
-
-
-
-                </div>
+        <!-- <div class="column"> -->
+        <div class="responsive">
+          <div class="gallery">
+            <a href="/ImageInfo"><img src="{{image[0]}}" name="search" id="{{image[0]}}" value="{{ request.form.search }}" class="object-fit_contain" alt="waves and rocks3" align="left"/></a>
+            <div class="desc">
+              <h1>{{image[1]}}</h1>
+              <p>{{image[2]}}</p>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
     {% endfor %}
-    </div>
-  </div>
 
+    <!-- </div> -->
+
+  <!-- </div> -->
+  </form>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/resultImage.js') }}"></script>
+<script>
+  function reroute(img) {
+    window.location.replace('http://shallotco.com/' + img);
+  }
+
+  // Get the elements with class="column"
+  var elements = document.getElementsByClassName("column");
+
+  // Four images side by side
+  function four() {
+      for (i = 0; i < elements.length; i++) {
+          elements[i].style.msFlex = "25%";  // IE10
+          elements[i].style.flex = "25%";
+      }
+  }
+</script>
 {%endblock%}
