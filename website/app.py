@@ -97,6 +97,10 @@ def searchResult():
 		cursor.close()
 		conn.close()
 
+@app.route('/ImageInfo')
+def imageInfo():
+    return render_template("ImagePage.html",data=data)
+
 @app.route('/About')
 def about():
 	return render_template("About.html")

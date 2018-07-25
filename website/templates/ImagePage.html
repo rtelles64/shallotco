@@ -1,12 +1,14 @@
 {%extends "ShallotLayout/shallotLayout.html" %}
-
-{%block content%}
+{%block head%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
+{%endblock%}
+{%block body%}
         <br>
         <div id="imagePage" class = "container-fluid text-center">
-            <h1>Image</h1>
+            <h1>{{image[1]}}</h1>
             <div>
                 <div class="image">
-                    <img class="object-fit_contain" src="../{{downloadImage}}">
+                    <img class="object-fit_contain" src="{{image[0]}}">
                 </div>
             </div>
             <br>
@@ -17,7 +19,7 @@
 
             <center>
                 <div class="description">
-                        need to search data base for this
+                        {{image[2]}}
                 </div>
             </center>
 
