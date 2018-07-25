@@ -107,7 +107,7 @@ def imageInfo():
 		#flash(request.method)
 		if request.method == 'POST':
 		#	flash("in post")
-			_search = request.form['image']
+			_search = request.form['search']
 		#	flash(_search)
 			order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
 			#flash(order)
@@ -126,7 +126,7 @@ def imageInfo():
 		#	flash("else")
 			return redirect(url_for('/'))
 	except Exception as e:
-		#flash (e)
+		flash (e)
 		return render_template("shallotHome.html",error = error)
 	finally:
 		#flash("Closing DB conn")
