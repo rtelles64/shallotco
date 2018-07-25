@@ -99,7 +99,7 @@ def searchResult():
 
 @app.route('/ImageInfo')
 def imageInfo():
-    return render_template("ImagePage.html")
+    return render_template("ImagePage.html",data=data)
 
 @app.route('/About')
 def about():
