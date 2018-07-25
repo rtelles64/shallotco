@@ -7,19 +7,16 @@
 <div class="container">
   <h3><center>Results</center></h3>
 <form action="/ImageInfo" method="post">
-<!-- <div id="imageResult"> -->
+<div id="imageResult">
   <div class="row">
-
-    {% for image in data %}
         <div class="column">
-
+{% for image in data %}
                 <h1>{{image[1]}}</h1>
       <p>{{image[2]}}</p> <a href="/ImageInfo"><img src="{{image[0]}}" name="search" id="{{image[0]}}" value="{{ request.form.search }}" class="object-fit_contain" alt="waves and rocks3" align="left"/></a>
-
+{% endfor %}
         </div>
-
-    {% endfor %}
     </div>
+  </div>
     <script type="text/javascript" src="{{ url_for('static', filename='js/resultImage.js') }}"></script>
   <!-- </div> -->
   </form>
