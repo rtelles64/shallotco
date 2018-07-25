@@ -10,6 +10,6 @@
             }
 
             #imageResult .image {
-            float: left;
+            /* float: left; */
             margin: 50px;
             }
