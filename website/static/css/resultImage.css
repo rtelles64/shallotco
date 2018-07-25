@@ -1,8 +1,8 @@
-            /*
+    
             #imageResult .object-fit_contain {
                 object-fit: contain;
             }
-            */
+
             #imageResult img {
             height: 250px;
             width: 250px;
