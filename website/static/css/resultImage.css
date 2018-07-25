@@ -1,4 +1,4 @@
-    
+
             #imageResult .object-fit_contain {
                 object-fit: contain;
             }
@@ -11,5 +11,5 @@
 
             #imageResult .image {
             float: left;
-            margin: 20px;
+            margin: 50px;
             }
