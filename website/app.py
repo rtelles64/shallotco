@@ -99,7 +99,39 @@ def searchResult():
 
 @app.route('/ImageInfo')
 def imageInfo():
-    return render_template("ImagePage.html",data=data)
+	
+	error =''
+	conn = mysql.connect()
+	cursor = conn.cursor()
+	try:
+		#flash(request.method)
+		if request.method == 'POST':
+		#	flash("in post")
+			_search = request.form['image']
+		#	flash(_search)
+			order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+			#flash(order)
+                       # arg='%' + _search + '%'
+			cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
+		#	flash("after")
+			conn.commit()
+			data=cursor.fetchall()
+		#	flash(data)
+			if(len(data) == 0):
+				return redirect(url_for('/'))
+			else:
+			#	flash("it has come to else")
+  				  return render_template("ImagePage.html",data=data)
+		else:
+		#	flash("else")
+			return redirect(url_for('/'))
+	except Exception as e:
+		#flash (e)
+		return render_template("shallotHome.html",error = error)
+	finally:
+		#flash("Closing DB conn")
+		cursor.close()
+		conn.close()
 
 @app.route('/About')
 def about():
