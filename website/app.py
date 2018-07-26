@@ -90,6 +90,7 @@ def searchResult():
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
+            flash(data)
             _categoryId=data[0][0]
             flash(_categoryId)
             order = "SELECT categoryId, filePath, ImageName, Descr FROM ApprovedImg WHERE (IdCategory= %s and (ImageName Like '%s' OR Descr LIKE '%s')) or (%s=0 and (ImageName Like '%s' OR Descr LIKE '%s'))"
