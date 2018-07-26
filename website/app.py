@@ -43,7 +43,7 @@ def ImagePage(image):
     flash(filePath)
     # if request.method == 'POST':
     #     return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
-    return render_template("ImagePage.html", filepath=filePath)
+    return render_template("ImagePage.html", filePath=filePath)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 @app.route('/upload', methods = ['GET', 'POST'])
