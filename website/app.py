@@ -36,7 +36,7 @@ def home():
 def ImagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT filePath FROM ApprovedImg WHERE ImageName = '%s'"
+    imgcmd = "SELECT filePath FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     filePath = cursor.fetchall()
@@ -84,12 +84,12 @@ def searchResult():
         #	flash(_search)
             # order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
             _categoryName = request.form['category']
-            categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = '%s' "
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s "
             cursor.execute(categoryId,_categoryName)
             conn.commit()
             data=cursor.fetchall()
             _categoryId=data[0]
-            order = "SELECT CategoryId, filePath, ImageName, Descr FROM ApprovedImg WHERE (categoryId='%d' and (ImageName Like '%s' OR Descr LIKE '%s')) or ('%d'=0 and (ImageName Like '%s' OR Descr LIKE '%s'))"
+            order = "SELECT CategoryId, filePath, ImageName, Descr FROM ApprovedImg WHERE (categoryId= '%d' and (ImageName Like '%s' OR Descr LIKE '%s')) or ('%d'=0 and (ImageName Like '%s' OR Descr LIKE '%s'))"
 
             cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%',_categoryId,'%'+_search+'%','%'+_search+'%'))
         #	flash("after")
