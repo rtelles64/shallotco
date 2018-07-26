@@ -25,7 +25,7 @@ def home():
     # flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgCmd = "SELECT filePath, ImageName, Descr From ApprovedImg WHERE Views >= 350"
+    imgCmd = "SELECT filePath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
@@ -36,7 +36,7 @@ def home():
 def ImagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT filePath, ImageName FROM ApprovedImg WHERE ImageName = %s"
+    imgcmd = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
@@ -83,7 +83,6 @@ def searchResult():
             # flash("in post")
             _search = request.form['search']
             # flash(_search)
-            # order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
             _categoryName = request.form['category']
             # flash(_categoryName)
             categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
@@ -92,10 +91,6 @@ def searchResult():
             # flash("comeing to commit")
             data=cursor.fetchall()
             # flash(data)
-            # order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE (IdCategory = %s and (ImageName Like %s OR Descr LIKE %s)) or (%s=0 and (ImageName Like %s OR Descr LIKE %s))"
-            # cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%','%'+_search+'%','%'+_search+'%'))
-            # flash("after")
-            # conn.commit()
             if (len(data) == 0):
                 # flash("come if")
                 order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
@@ -107,9 +102,7 @@ def searchResult():
                 # flash(_categoryId)
                 # flash("come to else")
                 order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
-                 # and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
-                # cursor.execute(order,int(_categoryId))
                 conn.commit()
                 # flash("come here else")
             imgData=cursor.fetchall()
@@ -130,40 +123,6 @@ def searchResult():
     #flash("Closing DB conn")
         cursor.close()
         conn.close()
-@app.route('/ImageInfo')
-def imageInfo():
-	error =''
-	conn = mysql.connect()
-	cursor = conn.cursor()
-	try:
-		#flash(request.method)
-		if request.method == 'POST':
-		#	flash("in post")
-			_search = request.form['search']
-		#	flash(_search)
-			order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
-			#flash(order)
-                       # arg='%' + _search + '%'
-			cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
-		#	flash("after")
-			conn.commit()
-			data=cursor.fetchall()
-		#	flash(data)
-			if(len(data) == 0):
-				return redirect(url_for('/'))
-			else:
-			#	flash("it has come to else")
-  				  return render_template("ImagePage.html",data=data)
-		else:
-		#	flash("else")
-			return redirect(url_for('/'))
-	except Exception as e:
-		flash (e)
-		return render_template("shallotHome.html",error = error)
-	finally:
-		#flash("Closing DB conn")
-		cursor.close()
-		conn.close()
 
 @app.route('/About')
 def about():
