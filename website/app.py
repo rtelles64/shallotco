@@ -40,8 +40,8 @@ def ImagePage(image):
     cursor.execute(imgcmd, image)
     conn.commit()
     filePath = cursor.fetchall()
-    if request.method == 'POST':
-        return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
+    # if request.method == 'POST':
+    #     return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
     return render_template("ImagePage.html", filepath=filePath)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
