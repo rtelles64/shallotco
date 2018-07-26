@@ -22,6 +22,7 @@ mysql.init_app(app)
 
 @app.route('/')
 def home():
+    flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
     imgCmd = "SELECT filePath From ApprovedImg WHERE Views >= 250"
