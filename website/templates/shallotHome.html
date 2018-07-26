@@ -11,16 +11,13 @@
   <!-- Full-width images with number text -->
 
   <!-- Thumbnail images -->
-  <div id="Trending Images">
       {% for image in data %}
           <div class="column">
-          <tr class="spaceUnder">
-            <td> <img src="{{image[0]}}" align="left" style="width:500px;height:400px;" hspace="20" vspace="20"></td>
+          <tr>
+            <td> <a href="/Search/{{image[1]}}"> <img src="{{image[0]}}" align="left" style="width:500px;height:400px;" hspace="20" vspace="20"></a></td>
           </tr>
           </div>
-
       {% endfor %}
-  </div>
 </div>
 {%endblock%}
 <!-- END trending -->

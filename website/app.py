@@ -25,7 +25,7 @@ def home():
     flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgCmd = "SELECT filePath From ApprovedImg WHERE Views >= 250"
+    imgCmd = "SELECT filePath, ImageName From ApprovedImg WHERE Views >= 250"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
@@ -109,7 +109,6 @@ def searchResult():
         conn.close()
 @app.route('/ImageInfo')
 def imageInfo():
-
 	error =''
 	conn = mysql.connect()
 	cursor = conn.cursor()
