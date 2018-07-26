@@ -14,11 +14,13 @@
   <div id="Trending Images">
       {% for image in data %}
           <div class="column">
+            <div class="form-row">
           <tr>
             <td> <img src="{{image[0]}}" class="object-fit_contain" align="left" style="width:500px;height:400px;" hspace="20"></td>
           </tr>
+        </div>
           </div>
-          <br>
+
       {% endfor %}
   </div>
 </div>
