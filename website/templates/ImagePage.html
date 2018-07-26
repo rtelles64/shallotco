@@ -6,6 +6,8 @@
 
 {%block head%}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 {%endblock%}
 
 {%block body%}
@@ -15,8 +17,9 @@
   <!-- Full-width images with number text -->
   {% for data in data %}
   <p style="text-align:center;">{{data[1]}}</p>
-  <p style="text-align:center;"><a href="{{data[0]}}" download="{{data[1]}}"><img src="{{data[0]}}" style="width:700px;height:600px;"></a></p>
+  <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
   <p style="text-align:center;">{{data[2]}}</p>
+  <p style="text-align:center;"><a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a></p>
   {% endfor %}
   <br>
 </div>
