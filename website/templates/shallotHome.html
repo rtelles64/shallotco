@@ -6,6 +6,7 @@
 <!-- TRENDING here -->
 {%block body%}
 <!-- Container for the image gallery -->
+<br>
 <div class="container">
   <!-- Full-width images with number text -->
 
@@ -14,7 +15,7 @@
       {% for image in data %}
           <div class="column">
           <tr>
-            <td> <img src="{{image[0]}}" class="object-fit_contain" align="left" style="width:500px;height:400px;"></td>
+            <td> <img src="{{image[0]}}" class="object-fit_contain" align="left" style="width:500px;height:400px;"><p> </p></td>
           </tr>
           </div>
       {% endfor %}
