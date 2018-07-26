@@ -40,6 +40,7 @@ def ImagePage(image):
     cursor.execute(imgcmd, image)
     conn.commit()
     filePath = cursor.fetchall()
+    flash(filePath)
     # if request.method == 'POST':
     #     return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
     return render_template("ImagePage.html", filepath=filePath)
@@ -103,7 +104,7 @@ def searchResult():
        		#flash("it has come to else")
                 return render_template("ImageResult.html",data=data)
         else:
-    #	flash("else")
+    	# flash("else")
             return redirect(url_for('/'))
     except Exception as e:
     #flash (e)
