@@ -7,10 +7,13 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
 {%endblock%}
 {%block body%}
-        <br>
-        <div id="imagePage" class = "container">
-            {% for path in filePath %}
-                <img src="{{path[0]}}">
-            {% endfor %}
-        </div>
+<!-- Container for the image gallery -->
+<br>
+<div class="container">
+      {% for path in filePath %}
+          <tr>
+            <td> <img src="{{path[0]}}"></td>
+          </tr> 
+      {% endfor %}
+</div>
 {%endblock%}
