@@ -28,6 +28,7 @@ def home():
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
+    flash(data)
     return render_template("shallotHome.html",data=data)
 
 @app.route('/Search/<string:image>', methods=['GET', 'POST'])
