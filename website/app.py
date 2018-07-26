@@ -106,7 +106,7 @@ def searchResult():
                 flash("come here if")
             else:
                 flash("come to else")
-                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE IdCategory=%s and ImageName Like %s OR Descr LIKE %s"
+                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE IdCategory=%d and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order,(_categoryId, '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
                 flash("come here else")
