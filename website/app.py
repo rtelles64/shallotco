@@ -22,14 +22,14 @@ mysql.init_app(app)
 
 @app.route('/')
 def home():
-    flash("in home page")
+    # flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
     imgCmd = "SELECT filePath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
-    flash(data)
+    # flash(data)
     return render_template("shallotHome.html",data=data)
 
 @app.route('/Search/<string:image>', methods=['GET', 'POST'])
@@ -80,9 +80,9 @@ def searchResult():
     try:
     #flash(request.method)
         if request.method == 'POST':
-    #	flash("in post")
+            flash("in post")
             _search = request.form['search']
-        #	flash(_search)
+            flash(_search)
             # order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
             _categoryName = request.form['category']
             flash(_categoryName)
