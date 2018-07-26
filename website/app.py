@@ -94,10 +94,21 @@ def searchResult():
             flash(data)
             _categoryId=data[0][0]
             flash(_categoryId)
-            order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE (IdCategory = %s and (ImageName Like %s OR Descr LIKE %s)) or (%s=0 and (ImageName Like %s OR Descr LIKE %s))"
-            cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%','%'+_search+'%','%'+_search+'%'))
-            flash("after")
-            conn.commit()
+            # order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE (IdCategory = %s and (ImageName Like %s OR Descr LIKE %s)) or (%s=0 and (ImageName Like %s OR Descr LIKE %s))"
+            # cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%','%'+_search+'%','%'+_search+'%'))
+            # flash("after")
+            # conn.commit()
+            if(_categoryId == ""){
+                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
+                conn.commit()
+                flash("come here if")
+            }else{
+                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE IdCategory=%s and ImageName Like %s OR Descr LIKE %s"
+                cursor.execute(order,(_categoryId, '%'+_search+'%','%'+_search+'%'))
+                conn.commit()
+                flash("come here else")
+            }
             imgData=cursor.fetchall()
             flash(imgData)
             if(len(imgData) == 0):
