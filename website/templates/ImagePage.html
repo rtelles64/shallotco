@@ -10,7 +10,9 @@
         <br>
         <div id="imagePage" class = "container-fluid text-center">
               <div class="image">
-                  <img class="object-fit_contain" src="/static/Images/{{image}}">
+                  {% for path in filePath %}
+                  <img class="object-fit_contain" src="{{path[0]}}">
+                  {% endfor %}
               </div>
 
             <!-- <form id = "download-form" method="POST">
