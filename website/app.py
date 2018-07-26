@@ -89,6 +89,7 @@ def searchResult():
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s "
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
+            flash("comeing to commit")
             data=cursor.fetchall()
             flash(data)
             _categoryId=data[0][0]
