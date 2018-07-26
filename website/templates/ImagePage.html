@@ -13,18 +13,8 @@
 <br>
 <div class="container">
   <!-- Full-width images with number text -->
-<p> Come here </p>
-{% for path in filePath %}
-<img src="{{path[0]}}" style="width:600px;height:500px;">
-{% endfor %}
-  <!-- Thumbnail images -->
-  <!-- {% for path in filePath %}
-      <div class="column">
-        <p> {{path[0]}}</p>
-      <tr>
-        <td><img src="{{path[0]}}"></td>
-      </tr>
-      </div>
-  {% endfor %} -->
+  {% for path in filePath %}
+    <img src="{{path[0]}}" style="width:700px;height:700px;" align="middle" >
+  {% endfor %}
 </div>
 {%endblock%}
