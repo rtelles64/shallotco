@@ -80,40 +80,40 @@ def searchResult():
     try:
     #flash(request.method)
         if request.method == 'POST':
-            flash("in post")
+            # flash("in post")
             _search = request.form['search']
-            flash(_search)
+            # flash(_search)
             # order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
             _categoryName = request.form['category']
-            flash(_categoryName)
+            # flash(_categoryName)
             categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
-            flash("comeing to commit")
+            # flash("comeing to commit")
             data=cursor.fetchall()
-            flash(data)
+            # flash(data)
             # order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE (IdCategory = %s and (ImageName Like %s OR Descr LIKE %s)) or (%s=0 and (ImageName Like %s OR Descr LIKE %s))"
             # cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%','%'+_search+'%','%'+_search+'%'))
             # flash("after")
             # conn.commit()
             if (len(data) == 0):
-                flash("come if")
+                # flash("come if")
                 order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
-                flash("come here if")
+                # flash("come here if")
             else:
                 _categoryId=data[0][0]
-                flash(_categoryId)
-                flash("come to else")
+                # flash(_categoryId)
+                # flash("come to else")
                 order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
                  # and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 # cursor.execute(order,int(_categoryId))
                 conn.commit()
-                flash("come here else")
+                # flash("come here else")
             imgData=cursor.fetchall()
-            flash(imgData)
+            # flash(imgData)
             if(len(imgData) == 0):
                 flash("Sorry, the image is not available, but here is our trending images for you")
                 return redirect(url_for('/'))
