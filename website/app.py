@@ -36,14 +36,14 @@ def home():
 def ImagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT filePath FROM ApprovedImg WHERE ImageName = %s"
+    imgcmd = "SELECT filePath, ImageName FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
-    filePath = cursor.fetchall()
-    flash(filePath)
+    data = cursor.fetchall()
+    flash(data)
     # if request.method == 'POST':
     #     return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
-    return render_template("ImagePage.html", filePath=filePath)
+    return render_template("ImagePage.html", data=data)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 @app.route('/upload', methods = ['GET', 'POST'])
@@ -106,7 +106,7 @@ def searchResult():
                 _categoryId=data[0][0]
                 flash(_categoryId)
                 flash("come to else")
-                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and ImageName Like %s or Descr LIKE %s"
+                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
                  # and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 # cursor.execute(order,int(_categoryId))

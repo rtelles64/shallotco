@@ -13,8 +13,9 @@
 <br>
 <div class="container">
   <!-- Full-width images with number text -->
-  {% for path in filePath %}
-  <p style="text-align:center;"><img src="{{path[0]}}" style="width:700px;height:600px;"></p>
+  {% for data in data %}
+  {{data[1]}}
+  <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
   {% endfor %}
 </div>
 {%endblock%}
