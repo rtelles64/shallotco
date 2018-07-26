@@ -58,20 +58,16 @@ div.desc {
 <br>
 <div class="container">
   <h3><center>Results</center></h3>
-<form action="/ImageInfo" method="post">
+<form method="post">
 <!-- <div id="imageResult"> -->
 
   <!-- <div class="row"> -->
-    {% for image in data %}
+    {% for image in imgData %}
         <!-- <div class="column"> -->
-        <div class="responsive">
-          <div class="gallery">
-            <a href="/ImageInfo"><img src="{{image[1]}}" name="search" id="{{image[1]}}" value="{{ request.form.search }}" class="object-fit_contain" alt="waves and rocks3" align="left"/></a>
-            <div class="desc">
-              <h1>{{image[2]}}</h1>
-              <p>{{image[3]}}</p>
-            </div>
-          </div>
+        <div class="column">
+        <tr>
+          <td> <a href="/Search/{{image[2]}}"> <img src="{{image[1]}}" align="left" style="width:500px;height:400px;" hspace="20" vspace="20"></a></td>
+        </tr>
         </div>
         <!-- </div> -->
     {% endfor %}

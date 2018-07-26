@@ -86,23 +86,23 @@ def searchResult():
             # order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
             _categoryName = request.form['category']
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s "
-            cursor.execute(categoryId,_categoryName)
+            cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
-            _categoryId=data[0]
-            order = "SELECT CategoryId, filePath, ImageName, Descr FROM ApprovedImg WHERE (categoryId= '%d' and (ImageName Like '%s' OR Descr LIKE '%s')) or ('%d'=0 and (ImageName Like '%s' OR Descr LIKE '%s'))"
+            _categoryId=data[0][0]
+            order = "SELECT categoryId, filePath, ImageName, Descr FROM ApprovedImg WHERE (IdCategory= %d and (ImageName Like '%s' OR Descr LIKE '%s')) or (%d=0 and (ImageName Like '%s' OR Descr LIKE '%s'))"
 
             cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%',_categoryId,'%'+_search+'%','%'+_search+'%'))
         #	flash("after")
             conn.commit()
             imgData=cursor.fetchall()
         #	flash(data)
-            if(len(data) == 0):
+            if(len(imgData) == 0):
                 flash("Sorry, the image is not available, but here is our trending images for you")
                 return redirect(url_for('/'))
             else:
        		#flash("it has come to else")
-                return render_template("ImageResult.html",data=data)
+                return render_template("ImageResult.html",imgData=imgData)
         else:
     	# flash("else")
             return redirect(url_for('/'))
