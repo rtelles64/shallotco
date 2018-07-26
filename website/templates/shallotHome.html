@@ -1,76 +1,13 @@
 {%extends "ShallotLayout/shallotLayout.html"%}
 
 <!-- SEARCHBAR GOES HERE -->
-{%block searchbar%}
-  <div class="row">
-    <div class="col-xs-8 col-xs-offset-2">
-      <div class="input-group">
-        <div class="input-group-btn search-panel">
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-            <span id="search_concept">Filter by</span> <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#All">All</a></li>
-            <li><a href="#Clip-art">Clip-art</a></li>
-            <li><a href="#Fashion">Fashion</a></li>
-            <li><a href="#Food">Food</a></li>
-            <li><a href="#Nature">Nature</a></li>
-          </ul>
-        </div>
-        <input type="hidden" name="search_param" value="all" id="search_param">
-        <input type="text" class="form-control" name="x" placeholder="Search term...">
-        <span class="input-group-btn">
-          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
-        </span>
-      </div>
-    </div>
-  </div>
-{%endblock%}
+
 <!-- END SearchBar -->
 <!-- TRENDING here -->
-{%block trending%}
-<h3><center>Trending</center></h3>
+{%block body%}
 <!-- Container for the image gallery -->
 <div class="container">
   <!-- Full-width images with number text -->
-  <div class="mySlides">
-    <div class="numbertext">1 / 6</div>
-      <img src="{{url_for('static', filename='Images/IMG_20170113_140535.jpg')}}" style="width:100%">
-  </div>
-
-  <div class="mySlides">
-    <div class="numbertext">2 / 6</div>
-      <img src="{{url_for('static', filename='Images/IMG_20170603_155316.jpg')}}" style="width:100%">
-  </div>
-
-  <div class="mySlides">
-    <div class="numbertext">3 / 6</div>
-      <img src="{{url_for('static', filename='Images/IMG_20170701_211634.jpg')}}" style="width:100%">
-  </div>
-
-  <div class="mySlides">
-    <div class="numbertext">4 / 6</div>
-      <img src="{{url_for('static', filename='Images/IMG_20170806_154155.jpg')}}" style="width:100%">
-  </div>
-
-  <div class="mySlides">
-    <div class="numbertext">5 / 6</div>
-      <img src="{{url_for('static', filename='Images/IMG_20170807_153806.jpg')}}" style="width:100%">
-  </div>
-
-  <div class="mySlides">
-    <div class="numbertext">6 / 6</div>
-      <img src="{{url_for('static', filename='Images/IMG_20170611_160224.jpg')}}" style="width:100%">
-  </div>
-
-  <!-- Next and previous buttons -->
-  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-  <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-  <!-- Image text -->
-  <div class="caption-container">
-    <p id="caption"></p>
-  </div>
 
   <!-- Thumbnail images -->
   <div id="Trending Images">
