@@ -8,11 +8,9 @@
 {%endblock%}
 {%block body%}
         <br>
-        <div id="imagePage" class = "container-fluid text-center">
-              <div class="image">
-                  {% for path in filePath %}
-                  <img class="object-fit_contain" src="{{path[0]}}">
-                  {% endfor %}
-              </div>
+        <div id="imagePage" class = "container">
+            {% for path in filePath %}
+                <img src="{{path[0]}}">
+            {% endfor %}
         </div>
 {%endblock%}
