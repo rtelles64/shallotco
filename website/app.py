@@ -86,7 +86,7 @@ def searchResult():
             # order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
             _categoryName = request.form['category']
             flash(_categoryName)
-            categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s "
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             flash("comeing to commit")
