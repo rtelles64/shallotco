@@ -84,3 +84,7 @@
 .demo:hover {
   opacity: 1;
 }
+
+tr.spaceUnder>td {
+  padding-bottom: 1em;
+}

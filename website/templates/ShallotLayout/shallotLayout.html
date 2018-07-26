@@ -85,18 +85,17 @@
         <div class="input-group-btn search-panel">
           <form action="/Search" method="post">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <span id="search_concept">Filter by</span> <span class="caret"></span>
+              <span id="search_concept">All</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="#All">All</a></li>
-              <li><a href="#Clip-art">Clip-art</a></li>
+              <li><a href="#Clip Art">Clip Art</a></li>
               <li><a href="#Fashion">Fashion</a></li>
               <li><a href="#Food">Food</a></li>
               <li><a href="#Nature">Nature</a></li>
             </ul>
           </div>
-          <input type="hidden" name="search_param" value="all" id="search_param">
-          <input type="text" class="form-control" name="search" placeholder="Search term..." value="{{ request.form.search }}">
+          <input type="hidden" name="category" value="{{request.form.category}}" id="search_param">
+          <input type="text" class="form-control" name="search" placeholder="Search term..." value="{{request.form.search}}">
           <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
           </span>
@@ -104,6 +103,20 @@
       </div>
     </div>
   </div>
+  <div class="container" style="min-height:100% width:80%">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    {{message}}
+    </div>
+  {% endfor %}
+  {% endif %}
+{% endwith %}
+
+</div>
+  <div class="input-group">
   {%block body%}
   {%endblock%}
 </div>
@@ -120,6 +133,15 @@
 </body>
 <script>
 // This overrides the 'ordered list' functions and turns it into drop down
+// $(document).ready(function(e){
+//     $('.search-panel .dropdown-menu').find('a').click(function(e) {
+// 		e.preventDefault();
+// 		var param = $(this).attr("href").replace("#","");
+// 		var concept = $(this).text();
+// 		$('.search-panel span#search_concept').text(concept);
+// 		$('.input-group #search_param').val(param);
+// 	});
+// });
 $(document).ready(function(e){
     $('.search-panel .dropdown-menu').find('a').click(function(e) {
 		e.preventDefault();
@@ -128,6 +150,15 @@ $(document).ready(function(e){
 		$('.search-panel span#search_concept').text(concept);
 		$('.input-group #search_param').val(param);
 	});
+
+  const mySel = document.getElementById("search_param");
+  mySel.addEventListener("change",function() {
+    localStorage.setItem("selValue",this.value); // save it
+  });
+  let val = localStorage.getItem("selValue");
+  if (val) mySel.value=val; // set the dropdown
+  // trigger the change in case there are other events on the select
+  mySel.onchange();
 });
 </script>
 </html>

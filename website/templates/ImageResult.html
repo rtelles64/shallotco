@@ -58,20 +58,29 @@ div.desc {
 <br>
 <div class="container">
   <h3><center>Results</center></h3>
-<form action="/ImageInfo" method="post">
+<form method="post">
 <!-- <div id="imageResult"> -->
 
   <!-- <div class="row"> -->
-    {% for image in data %}
+  <div class="container" style="min-height:100% width:80%">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    {{message}}
+    </div>
+  {% endfor %}
+  {% endif %}
+{% endwith %}
+
+</div>
+    {% for image in imgData %}
         <!-- <div class="column"> -->
-        <div class="responsive">
-          <div class="gallery">
-            <a href="/ImageInfo"><img src="{{image[0]}}" name="search" id="{{image[0]}}" value="{{ request.form.search }}" class="object-fit_contain" alt="waves and rocks3" align="left"/></a>
-            <div class="desc">
-              <h1>{{image[1]}}</h1>
-              <p>{{image[2]}}</p>
-            </div>
-          </div>
+        <div class="column">
+        <tr>
+          <td> <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[1]}}"> <img src="{{image[0]}}" align="left" style="width:500px;height:400px;" hspace="20" vspace="20" /></a></td>
+        </tr>
         </div>
         <!-- </div> -->
     {% endfor %}
