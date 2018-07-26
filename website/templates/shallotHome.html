@@ -1,16 +1,37 @@
-<!--Home Page-->
-<!--Front End: Roy Telles & Sam Zheng-->
-<!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
-
 {%extends "ShallotLayout/shallotLayout.html"%}
-{%block head%}
-<script src="{{url_for('static', filename='js/shallotHome.js')}}"></script>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/shallotHome.css') }}">
-{%endblock%}
-{%block body%}
-<!-- TRENDING here -->
-<h3><center>Trending</center></h3>
 
+<!-- SEARCHBAR GOES HERE -->
+{%block searchbar%}
+  <div class="row">
+    <div class="col-xs-8 col-xs-offset-2">
+      <div class="input-group">
+        <div class="input-group-btn search-panel">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            <span id="search_concept">Filter by</span> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="#All">All</a></li>
+            <li><a href="#Clip-art">Clip-art</a></li>
+            <li><a href="#Fashion">Fashion</a></li>
+            <li><a href="#Food">Food</a></li>
+            <li><a href="#Nature">Nature</a></li>
+          </ul>
+        </div>
+        <input type="hidden" name="search_param" value="all" id="search_param">
+        <input type="text" class="form-control" name="x" placeholder="Search term...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+        </span>
+      </div>
+    </div>
+  </div>
+{%endblock%}
+<!-- END SearchBar -->
+<!-- TRENDING here -->
+{%block trending%}
+<h3><center>Trending</center></h3>
+<!-- Container for the image gallery -->
+<div class="container">
   <!-- Full-width images with number text -->
   <div class="mySlides">
     <div class="numbertext">1 / 6</div>
@@ -52,26 +73,15 @@
   </div>
 
   <!-- Thumbnail images -->
-  <div class="row">
-    <div class="column">
-      <img class="demo cursor" src="{{url_for('static', filename='Images/IMG_20170113_140535.jpg')}}" style="width:100%" onclick="currentSlide(1)" alt="Snowy Woods">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="{{url_for('static', filename='Images/IMG_20170603_155316.jpg')}}" style="width:100%" onclick="currentSlide(2)" alt="Waterfall">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="{{url_for('static', filename='Images/IMG_20170701_211634.jpg')}}" style="width:100%" onclick="currentSlide(3)" alt="Woody Sunset">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="{{url_for('static', filename='Images/IMG_20170806_154155.jpg')}}" style="width:100%" onclick="currentSlide(4)" alt="Tidepool">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="{{url_for('static', filename='Images/IMG_20170807_153806.jpg')}}" style="width:100%" onclick="currentSlide(5)" alt="Water Rocks">
-    </div>
-    <div class="column">
-      <img class="demo cursor" src="{{url_for('static', filename='Images/IMG_20170611_160224.jpg')}}" style="width:100%" onclick="currentSlide(6)" alt="Mossy Tree">
-    </div>
+  <div id="Trending Images">
+      {% for image in data %}
+          <div class="column">
+          <tr>
+            <img src="{{image[0]}}" class="object-fit_contain" align="left" style="width:500px;height:600px;"></td>
+          </tr>
+          </div>
+      {% endfor %}
   </div>
-
-<!-- END trending -->
+</div>
 {%endblock%}
+<!-- END trending -->
