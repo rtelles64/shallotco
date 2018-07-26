@@ -92,19 +92,19 @@ def searchResult():
             flash("comeing to commit")
             data=cursor.fetchall()
             flash(data)
-            _categoryId=data[0][0]
-            flash(_categoryId)
             # order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE (IdCategory = %s and (ImageName Like %s OR Descr LIKE %s)) or (%s=0 and (ImageName Like %s OR Descr LIKE %s))"
             # cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%','%'+_search+'%','%'+_search+'%'))
             # flash("after")
             # conn.commit()
-            if (_categoryId == ""):
+            if (len(data) == 0):
                 flash("come if")
                 order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
                 flash("come here if")
             else:
+                _categoryId=data[0][0]
+                flash(_categoryId)
                 flash("come to else")
                 order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE IdCategory=%s"
                  # and (ImageName Like %s OR Descr LIKE %s)"
