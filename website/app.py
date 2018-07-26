@@ -87,7 +87,7 @@ def searchResult():
             order = "SELECT CategoryId, filePath, ImageName, Descr FROM ApprovedImg WHERE (categoryId='%d' and (ImageName Like '%s' OR Descr LIKE '%s')) or ('%d'=0 and (ImageName Like '%s' OR Descr LIKE '%s'))"
 
             cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%',_categoryId,'%'+_search+'%','%'+_search+'%'))
-        #	flash("after")
+        	flash("after")
             conn.commit()
             imgData=cursor.fetchall()
         #	flash(data)
@@ -95,7 +95,7 @@ def searchResult():
                 flash("Sorry, the image is not available, but here is our trending images for you")
                 return redirect(url_for('/'))
             else:
-       		flash("it has come to else")
+       		#flash("it has come to else")
                 return render_template("ImageResult.html",data=data)
         else:
     #	flash("else")
