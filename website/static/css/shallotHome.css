@@ -85,8 +85,6 @@
   opacity: 1;
 }
 
-tr{
-  margin-left: 20%;
-  margin-right: 10%;
-  margin-bottom: :10%;
+tr.spaceUnder>td {
+  padding-bottom: 1em;
 }
