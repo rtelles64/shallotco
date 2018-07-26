@@ -85,7 +85,7 @@
         <div class="input-group-btn search-panel">
           <form action="/Search" method="post">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              <span id="search_concept" name="category" value="{{request.form.category}}">All</span> <span class="caret"></span>
+              <span id="search_concept">All</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#Clip-art">Clip-art</a></li>
@@ -94,7 +94,7 @@
               <li><a href="#Nature">Nature</a></li>
             </ul>
           </div>
-          <input type="hidden" name="search_param" value="all" id="search_param">
+          <input type="hidden" name="search_param" name="category" value="{{request.form.category}}" id="search_param">
           <input type="text" class="form-control" name="search" placeholder="Search term..." value="{{request.form.search}}">
           <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
