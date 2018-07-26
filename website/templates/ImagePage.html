@@ -16,10 +16,10 @@
 <div class="container">
   <!-- Full-width images with number text -->
   {% for data in data %}
+  <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
   <p style="text-align:center;">{{data[1]}}</p>
   <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
   <p style="text-align:center;">{{data[2]}}</p>
-  <p style="text-align:center;"><a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a></p>
   {% endfor %}
   <br>
 </div>
