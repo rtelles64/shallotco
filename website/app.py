@@ -98,7 +98,7 @@ def searchResult():
         #	flash("after")
             conn.commit()
             imgData=cursor.fetchall()
-        	flash(imgData)
+            flash(imgData)
             if(len(imgData) == 0):
                 flash("Sorry, the image is not available, but here is our trending images for you")
                 return redirect(url_for('/'))
