@@ -25,7 +25,7 @@ def home():
     flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgCmd = "SELECT filePath, ImageName From ApprovedImg WHERE Views >= 250"
+    imgCmd = "SELECT filePath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
@@ -34,10 +34,9 @@ def home():
 
 @app.route('/Search/<string:image>', methods=['GET', 'POST'])
 def ImagePage(image):
-    print(image)
     if request.method == 'POST':
         return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
-    return render_template("About/ImagePage.html", downloadImage=image)
+    return render_template("ImagePage.html", image=image)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 @app.route('/upload', methods = ['GET', 'POST'])
