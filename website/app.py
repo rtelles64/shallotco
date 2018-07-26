@@ -85,18 +85,20 @@ def searchResult():
         #	flash(_search)
             # order = "SELECT filePath, ImageName, Descr FROM Image WHERE ImageName Like %s OR Descr LIKE %s"
             _categoryName = request.form['category']
+            flash(_categoryName)
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s "
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
             _categoryId=data[0][0]
+            flash(_categoryId)
             order = "SELECT categoryId, filePath, ImageName, Descr FROM ApprovedImg WHERE (IdCategory= %d and (ImageName Like '%s' OR Descr LIKE '%s')) or (%d=0 and (ImageName Like '%s' OR Descr LIKE '%s'))"
 
             cursor.execute(order,(_categoryId,'%'+_search+'%','%'+_search+'%',_categoryId,'%'+_search+'%','%'+_search+'%'))
         #	flash("after")
             conn.commit()
             imgData=cursor.fetchall()
-        #	flash(data)
+        	flash(imgData)
             if(len(imgData) == 0):
                 flash("Sorry, the image is not available, but here is our trending images for you")
                 return redirect(url_for('/'))
