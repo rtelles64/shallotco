@@ -99,11 +99,13 @@ def searchResult():
             # flash("after")
             # conn.commit()
             if (_categoryId == ""):
+                flash("come if")
                 order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
                 flash("come here if")
             else:
+                flash("come to else")
                 order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE IdCategory=%s and ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,(_categoryId, '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
