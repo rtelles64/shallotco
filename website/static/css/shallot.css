@@ -1,8 +1,20 @@
+/* CSS for logo banner */
+.bg-2 {
+    background-color: #f2f2f2; /* Banner color Grey */
+    color: #000000; /* Font color black */
+}
+
+.banner {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 /* Remove the navbar's default rounded borders and increase the bottom margin */
 .navbar {
-  margin-bottom: 8px;
+  margin-bottom: 0;
   border-radius: 0;
-  background-color: #33334d;
+  background-color: #252326;
+  color: #252326;
 }
 
 .container .credit
@@ -41,7 +53,7 @@ body {
   margin: 0 0 100px;
   font: 18px Montserrat, sans-serif;
   line-height: 1.8;
-  color: #464646;
+  color: #252326;
 }
 
 * {
