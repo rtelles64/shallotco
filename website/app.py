@@ -25,7 +25,7 @@ def home():
     # flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgCmd = "SELECT filePath, ImageName From ApprovedImg WHERE Views >= 350"
+    imgCmd = "SELECT filePath, ImageName, Descr From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
@@ -40,7 +40,7 @@ def ImagePage(image):
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
-    flash(data)
+    # flash(data)
     # if request.method == 'POST':
     #     return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
     return render_template("ImagePage.html", data=data)

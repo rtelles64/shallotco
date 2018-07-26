@@ -133,6 +133,15 @@
 </body>
 <script>
 // This overrides the 'ordered list' functions and turns it into drop down
+// $(document).ready(function(e){
+//     $('.search-panel .dropdown-menu').find('a').click(function(e) {
+// 		e.preventDefault();
+// 		var param = $(this).attr("href").replace("#","");
+// 		var concept = $(this).text();
+// 		$('.search-panel span#search_concept').text(concept);
+// 		$('.input-group #search_param').val(param);
+// 	});
+// });
 $(document).ready(function(e){
     $('.search-panel .dropdown-menu').find('a').click(function(e) {
 		e.preventDefault();
@@ -141,6 +150,15 @@ $(document).ready(function(e){
 		$('.search-panel span#search_concept').text(concept);
 		$('.input-group #search_param').val(param);
 	});
+
+  const mySel = document.getElementById("search_param");
+  mySel.addEventListener("change",function() {
+    localStorage.setItem("selValue",this.value); // save it
+  });
+  let val = localStorage.getItem("selValue");
+  if (val) mySel.value=val; // set the dropdown
+  // trigger the change in case there are other events on the select
+  mySel.onchange();
 });
 </script>
 </html>
