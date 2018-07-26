@@ -2,7 +2,8 @@
 <!--Front End: Roy Telles & Sam Zheng-->
 <!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
 
-{%extends "ShallotLayout/shallotLayout.html" %}
+{%extends "ShallotLayout/shallotLayout.html"%}
+
 {%block head%}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
 {%endblock%}
@@ -11,23 +12,15 @@
 <!-- Container for the image gallery -->
 <br>
 <div class="container">
+  <!-- Full-width images with number text -->
 
-  <div name="flash" class="container" style="min-height:100% width:80%">
-  	{% with messages = get_flashed_messages() %}
-  	  {% if messages %}
-  	    {% for message in messages %}
-  		  <div class="alert alert-warning alert-dismissible" role="alert">
-  		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-  			{{message}}
-  		  </div>
-  		{% endfor %}
-  	  {% endif %}
-  	{% endwith %}
-  	</div>
-      <!-- {% for path in filePath %} -->
+  <!-- Thumbnail images -->
+      {% for path in filePath %}
+          <div class="column">
           <tr>
-            <td> <img src="/static/Images/PANO_20170604_154045.jpg"></td>
+            <td><img src="{{path[0]}}"></td>
           </tr>
-      <!-- {% endfor %} -->
+          </div>
+      {% endfor %}
 </div>
 {%endblock%}
