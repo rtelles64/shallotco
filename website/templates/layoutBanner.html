@@ -38,8 +38,8 @@
               <li><a href="#Nature">Nature</a></li>
             </ul>
           </div>
-          <input type="hidden" name="search_param" value="all" id="search_param">
-          <input type="text" class="form-control" name="search" placeholder="Search term..." value="{{ request.form.search }}">
+          <input type="hidden" name="category" value="{{request.form.category}}" id="search_param">
+          <input type="text" class="form-control" name="search" placeholder="Search term..." value="{{request.form.search}}">
           <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
           </span>
