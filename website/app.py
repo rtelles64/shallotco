@@ -75,6 +75,7 @@ def UploadImage():
                 value=((10,_imageName,_descr,_categoryId,filePath))
                 cursor.execute(order,value)
                 conn.commit()
+            return render_template("UploadImage.html")
         else:
     	# flash("else")
             return redirect(url_for('/'))
