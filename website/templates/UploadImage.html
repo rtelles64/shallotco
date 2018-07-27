@@ -18,7 +18,7 @@
                 <br><br>
                 <div>
                     Image Category:
-                    <select name="category">
+                    <select name="category" value="{{request.form.category}}">
                         <option value="Nature">Nature</option>
                         <option value="Fashion">Fashion</option>
                         <option value="Food">Food</option>
@@ -28,9 +28,9 @@
                 <br>
 
                 Description:
-                <input class="messageBox" type="text" name="description" placeholder="Leave your description" size="75"/>
+                <input class="messageBox" type="text" name="description" placeholder="Leave your description" size="75" value="{{request.form.description}}"/>
                 Image Name:
-                <input type="text" name="imageName" placeholder="Please provide your image name" size="75"/>
+                <input type="text" name="imageName" placeholder="Please provide your image name" size="75" value="{{request.form.imageName}}"/>
 
                 <br><br>
 
