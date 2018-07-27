@@ -31,12 +31,13 @@
 {%block banner%}
 <header class="card-header">
   <center><h2 class="card-title mt-2">Results</h4></center>
+    <center><h5>images found: {{len(imgData)}}</h5></center>
 </header>
 {%endblock%}
 
 {%block results%}
 <br>
-<h5>images found: {{imageFound}}</h5>
+
 <form method="post">
 
     <div class = "container-fluid">
