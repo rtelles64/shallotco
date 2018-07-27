@@ -55,7 +55,7 @@ def UploadImage():
     flash("coming to uploadImage")
     conn = mysql.connect()
     cur = conn.cursor()
-	if request.method == 'POST':
+    if request.method == 'POST':
         flash("coming to post")
 		_descr = request.form['description']
 		_categoryName = request.form['category']
