@@ -55,25 +55,36 @@ def UploadImage():
     flash("coming to uploadImage")
     conn = mysql.connect()
     cursor = conn.cursor()
-    if request.method == 'POST':
-        flash("coming to post")
-        _descr = request.form['description']
-        _categoryName = request.form['category']
-        _imageName = request.form['imageName']
-        categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
-        cursor.execute(categoryCmd,_categoryName)
-        conn.commit()
-        data=cursor.fetchall()
-        _categoryId=data[0][0]
-        flash(_categoryId)
-        for file in request.files.getlist("file"):
-            filename = file.filename
-            flash(filename)
-            filePath = "/static/Images/" + filename
-            order="INSERT INTO PendingImg (userId,ImageName,Descr,categoryId,filePath) VALUES (%s,%s,%s,%s,%s)"
-            value=((10,_imageName,_descr,_categoryId,filePath))
-            cursor.execute(order,value)
+    try:
+        if request.method == 'POST':
+            flash("coming to post")
+            _descr = request.form['description']
+            _categoryName = request.form['category']
+            _imageName = request.form['imageName']
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
+            cursor.execute(categoryCmd,_categoryName)
             conn.commit()
+            data=cursor.fetchall()
+            _categoryId=data[0][0]
+            flash(_categoryId)
+            for file in request.files.getlist("file"):
+                filename = file.filename
+                flash(filename)
+                filePath = "/static/Images/" + filename
+                order="INSERT INTO PendingImg (userId,ImageName,Descr,categoryId,filePath) VALUES (%s,%s,%s,%s,%s)"
+                value=((10,_imageName,_descr,_categoryId,filePath))
+                cursor.execute(order,value)
+                conn.commit()
+        else:
+    	# flash("else")
+            return redirect(url_for('/'))
+    except Exception as e:
+        #flash (e)
+        return render_template("UploadImage.html",error = error)
+    finally:
+        #flash("Closing DB conn")
+        cursor.close()
+        conn.close()
 
 
 
