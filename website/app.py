@@ -57,8 +57,8 @@ def UploadImage():
     cur = conn.cursor()
     if request.method == 'POST':
         flash("coming to post")
-		_descr = request.form['description']
-		_categoryName = request.form['category']
+        _descr = request.form['description']
+        _categoryName = request.form['category']
         _imageName = request.form['imageName']
         categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
         cursor.execute(categoryCmd,_categoryName)
@@ -66,29 +66,14 @@ def UploadImage():
         data=cursor.fetchall()
         _categoryId=data[0][0]
         flash(_categoryId)
-
-
-
-		# imagePath = os.path.join(APP_ROOT, 'static/Images/')
-
-		# if not os.path.isdir(imagePath):
-		# 	os.mkdir(imagePath)
-
-		for file in request.files.getlist("file"):
-			filename = file.filename
+        for file in request.files.getlist("file"):
+            filename = file.filename
             flash(filename)
-			# destination = "/".join([target, filename])
-			# file.save(destination)
             filePath = "/static/Images/" + filename
             order="INSERT INTO Photo (userId,ImageName,Descr,categoryId,filePath) VALUES (%s,%s,%s,%s,%s)"
             value=((10,_imageName,_descr,_categoryId,filePath))
-            cur.execute(x,y)
+            cur.execute(order,value)
             conn.commit()
-
-
-
-
-	return render_template("UploadImage.html")
 
 
 
