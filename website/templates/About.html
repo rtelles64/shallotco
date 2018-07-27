@@ -1,13 +1,22 @@
-{%extends "ShallotLayout/shallotLayout.html"%}
+<!--Main About Page-->
+<!--Contains information and links to everyone's bios.
+<!--Front End: Roy Telles & Sam Zheng-->
+<!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
 
+{%extends "ShallotLayout/shallotLayout.html"%}
+{%block banner%}
+<header class="card-header">
+  <h2 class="card-title mt-2">About Us!</h4>
+</header>
+{%endblock%}
 {%block body%}
 <div class="container-fluid text-center">
     <div class="row content">
         <div class="col-sm-2 sidenav">
         </div>
         <div class="col-sm-8 text-left">
-            <h1>About Us</h1>
-            <p>We are Team 2 in CSC 648 during the 2018 Summer session at San Francisco State University.</p>
+
+            <center><p>We are Team 2 in CSC 648 during the 2018 Summer session at San Francisco State University.</p></center>
             <hr>
             <img src="/static/About/James.jpg" class="img-responsive img-circle margin" style="display:inline" width="350"
                  height="350">

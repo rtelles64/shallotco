@@ -1,53 +1,79 @@
-label {
+
+  body {
+    padding-bottom: 20px;
+    text-align: center;
+  }
+
+  .selector-for-some-widget {
+    box-sizing: content-box;
+  }
+
+  label {
+      display: inline-block;
+  }
+/* CENTER FORM ON PAGE */
+  div.form {
+    display: block;
+    text-align: center;
+  }
+
+  form {
     display: inline-block;
-}
-
-.form-size {
-  max-width: 640px;
-  margin: 0 auto;
-
-  background-color: #E9E9E9;
-  padding: 20px;
-
-  border: 1px solid #D5D5D5;
-  -webkit-border-radius: 5px;
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
-
-/* The message box is shown when the user clicks on the password field */
-#message {
-  display:none;
-  background: #f1f1f1;
-  color: #000;
-  position: relative;
-  padding: 20px;
-  margin-top: 10px;
-}
-  /* Message box */
-  #message p {
-    padding: 10px 35px;
-    font-size: 18px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
   }
 
-  /* Add a green text color and a checkmark when requirements are met */
-  .valid {
-    color: green;
-  }
+  /* END center form */
+/*
+  .form-size {
+    max-width: 640px;
+    left: 40%;
+    margin: 0 auto;
+    align-content: center;
 
-  .valid:before {
+    background-color: #E9E9E9;
+    padding: 20px;
+
+    border: 1px solid #D5D5D5;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+  } */
+
+  /* The message box is shown when the user clicks on the password field */
+  #message {
+    display:none;
+    background: #f1f1f1;
+    color: #000;
     position: relative;
-    left: -35px;
-    content: "\2611";
+    padding: 20px;
+    margin-top: 10px;
   }
+    /* Message box */
+    #message p {
+      padding: 10px 35px;
+      font-size: 18px;
+    }
 
-  /* Add red text and "x" when requirements are wrong */
-  .invalid {
-    color: red;
-  }
+    /* Add a green text color and a checkmark when requirements are met */
+    .valid {
+      color: green;
+    }
 
-  .invalid:before {
-    position: relative;
-    left: -35px;
-    content: "\2610";
-  }
+    .valid:before {
+      position: relative;
+      left: -35px;
+      content: "\2611";
+    }
+
+    /* Add red text and "x" when requirements are wrong */
+    .invalid {
+      color: red;
+    }
+
+    .invalid:before {
+      position: relative;
+      left: -35px;
+      content: "\2610";
+    }

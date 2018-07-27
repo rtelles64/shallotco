@@ -1,31 +1,26 @@
-{%extends "ShallotLayout/shallotLayout.html" %}
+<!--Image Information Page-->
+<!--Front End: Roy Telles & Sam Zheng-->
+<!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
 
-{%block content%}
-        <br>
-        <div id="imagePage" class = "container-fluid text-center">
-            <h1>Image</h1>
-            <div>
-                <div class="image">
-                    <img class="object-fit_contain" src="../{{downloadImage}}">
-                </div>
-            </div>
-            <br>
+{%extends "ShallotLayout/shallotLayout.html"%}
 
-            <form id = "download-form" method="POST">
-                <input class="DownloadButton" type="submit" value="Click here to download">
-            </form>
+{%block head%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-            <center>
-                <div class="description">
-                        need to search data base for this
-                </div>
-            </center>
+{%endblock%}
 
-            <div class="uploader">
-                <h3>Uploader: <a href="25zs">25zs</a></h3>
-            </div>
-
-            <br><br>
-            <input class="CancelButton" type="submit" value="Cancel">
-        </div>
+{%block body%}
+<!-- Container for the image gallery -->
+<br>
+<div class="container">
+  <!-- Full-width images with number text -->
+  {% for data in data %}
+  <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+  <p style="text-align:center;">{{data[1]}}</p>
+  <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
+  <p style="text-align:center;">{{data[2]}}</p>
+  {% endfor %}
+  <br>
+</div>
 {%endblock%}

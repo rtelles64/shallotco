@@ -22,16 +22,28 @@ mysql.init_app(app)
 
 @app.route('/')
 def home():
-	return render_template("shallotHome.html")
+    # flash("in home page")
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    imgCmd = "SELECT filePath, ImageName From ApprovedImg WHERE Views >= 350"
+    cursor.execute(imgCmd)
+    conn.commit()
+    data=cursor.fetchall()
+    # flash(data)
+    return render_template("shallotHome.html",data=data)
 
-@app.route('/result/<string:image>', methods=['GET', 'POST'])
+@app.route('/Search/<string:image>', methods=['GET', 'POST'])
 def ImagePage(image):
-    print(image)
-    if request.method == 'POST':
-        return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
-
-    return render_template("About/ImagePage.html", downloadImage=image)
-
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    imgcmd = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName = %s"
+    cursor.execute(imgcmd, image)
+    conn.commit()
+    data = cursor.fetchall()
+    # flash(data)
+    # if request.method == 'POST':
+    #     return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
+    return render_template("ImagePage.html", data=data)
 
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 @app.route('/upload', methods = ['GET', 'POST'])
@@ -62,40 +74,55 @@ def upload():
 
 @app.route('/Search', methods=['POST', 'GET'])
 def searchResult():
-
-	#flash("in search")
-	error =''
-	conn = mysql.connect()
-	cursor = conn.cursor()
-	try:
-		#flash(request.method)
-		if request.method == 'POST':
-		#	flash("in post")
-			_search = request.form['search']
-		#	flash(_search)
-			order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
-			#flash(order)
-                       # arg='%' + _search + '%'
-			cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
-		#	flash("after")
-			conn.commit()
-			data=cursor.fetchall()
-		#	flash(data)
-			if(len(data) == 0):
-				return redirect(url_for('/'))
-			else:
-			#	flash("it has come to else")
-				return render_template("ImageResult.html",data=data)
-		else:
-		#	flash("else")
-			return redirect(url_for('/'))
-	except Exception as e:
-		#flash (e)
-		return render_template("shallotHome.html",error = error)
-	finally:
-		#flash("Closing DB conn")
-		cursor.close()
-		conn.close()
+    error =''
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    try:
+    #flash(request.method)
+        if request.method == 'POST':
+            # flash("in post")
+            _search = request.form['search']
+            # flash(_search)
+            _categoryName = request.form['category']
+            # flash(_categoryName)
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
+            cursor.execute(categoryCmd,_categoryName)
+            conn.commit()
+            # flash("comeing to commit")
+            data=cursor.fetchall()
+            # flash(data)
+            if (len(data) == 0):
+                # flash("come if")
+                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
+                conn.commit()
+                # flash("come here if")
+            else:
+                _categoryId=data[0][0]
+                # flash(_categoryId)
+                # flash("come to else")
+                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
+                cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
+                conn.commit()
+                # flash("come here else")
+            imgData=cursor.fetchall()
+            # flash(imgData)
+            if(len(imgData) == 0):
+                flash("Sorry, the image is not available, but here is our trending images for you")
+                return redirect(url_for('/'))
+            else:
+       		#flash("it has come to else")
+                return render_template("ImageResult.html",imgData=imgData)
+        else:
+    	# flash("else")
+            return redirect(url_for('/'))
+    except Exception as e:
+    #flash (e)
+        return render_template("shallotHome.html",error = error)
+    finally:
+    #flash("Closing DB conn")
+        cursor.close()
+        conn.close()
 
 @app.route('/About')
 def about():
