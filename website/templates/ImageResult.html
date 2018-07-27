@@ -36,16 +36,14 @@
 <br>
 <form method="post">
 
-  <div class="container-fluid">
-    <div id="imageResult">
+
       {% for image in imgData %}
         <div class = "image">
             <a href="/Search/{{image[1]}}"><img class="object-fit_contain" src="{{image[0]}}"></a>
         </div>
         <h5>testing</h5>
       {% endblock %}
-    </div>
-  </div>
+
 
   </form>
   <script type="text/javascript" src="{{ url_for('static', filename='js/resultImage.js') }}"></script>
