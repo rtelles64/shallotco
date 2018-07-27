@@ -72,7 +72,7 @@ def UploadImage():
             filePath = "/static/Images/" + filename
             order="INSERT INTO Photo (userId,ImageName,Descr,categoryId,filePath) VALUES (%s,%s,%s,%s,%s)"
             value=((10,_imageName,_descr,_categoryId,filePath))
-            cur.execute(order,value)
+            cursor.execute(order,value)
             conn.commit()
 
 
