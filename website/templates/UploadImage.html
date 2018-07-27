@@ -11,10 +11,11 @@
         <br>
         <br>
         <div id="uploadImage" class = "container-fluid searchBar text-center">
-          <div align="center">
+          <h1 style="text-align:center;">Please choose the image that you want to upload</h1>
             <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
-              <h1 style="text-align:center;">Please choose the image that you want to upload</h1>
-                <input class = "container-fluid text-center upload" type="file" size="100" value="clickME" name="file" accept="image/*" multiple>
+              <div class="form-group" style="display: center;">
+              <br><br>
+                <input class = "container-fluid text-center upload" type="file" size="200" value="clickME" name="file" accept="image/*" multiple>
                 <br><br>
                 <div>
                     Image Category:
@@ -26,58 +27,24 @@
                     </select>
                 </div>
                 <br>
-
+                <div>
                 Description:
-                <input class="messageBox" type="text" name="description" placeholder="Leave your description" size="75" value="{{request.form.description}}"/>
+                <input class="messageBox" type="text" name="description" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
+              </div>
+                <br>
+                <div>
                 Image Name:
-                <input type="text" name="imageName" placeholder="Please provide your image name" size="75" value="{{request.form.imageName}}"/>
-
+                <input type="text" name="imageName" placeholder="Please provide your image name" size="50" value="{{request.form.imageName}}"/>
+              </div>
                 <br><br>
 
                 <input class="button" type="submit" value="Upload">
+                </div>
             </form>
-          </div>
 
-            <div class="container" style="min-height:100% width:80%">
-          {% with messages = get_flashed_messages() %}
-            {% if messages %}
-              {% for message in messages %}
-              <div class="alert alert-warning alert-dismissible" role="alert">
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-              {{message}}
-              </div>
-            {% endfor %}
-            {% endif %}
-          {% endwith %}
-
-          </div>
-        </div>
+            <style>
+            form{
+              margin-left: 280px;
+            }
+            </style>
 {%endblock%}
-
-<!-- <input type='file' onchange="readURL(this);" />
-    <img id="blah" src="#" alt="your image" /> -->
-    <!-- <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
-<meta charset=utf-8 />
-<title>JS Bin</title>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
-<!-- <style>
-  article, aside, figure, footer, header, hgroup,
-  menu, nav, section { display: block; }
-</style> --> -->
-<!-- function readURL(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-
-            reader.onload = function (e) {
-                $('#blah')
-                    .attr('src', e.target.result)
-                    .width(150)
-                    .height(200);
-            };
-
-            reader.readAsDataURL(input.files[0]);
-        }
-    } -->
