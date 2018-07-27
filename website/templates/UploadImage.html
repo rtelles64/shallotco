@@ -3,65 +3,87 @@
 <!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
 
 {%extends "ShallotLayout/shallotLayout.html" %};
-
-{%block content%}
-        <br><br><br>
+{%block head%}
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+{%endhead%}
+{%block body%}
+        <br>
+        <br>
+        <br>
         <div id="uploadImage" class = "container-fluid searchBar text-center">
-            <h1>Image Uploader</h1>
-            <br><br><br><br>
-
-
-            <!--all action variables,button here, except the cancel button-->
-            <!--all action variables,button here, except the cancel button-->
-            <!-- url_for('Search')  redirect function name goes in here!!!!!!!!!!-->
-            <!-- url_for('Search')  redirect function name goes in here!!!!!!!!!!-->
-            <form id = "upload-form" action = "{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
-                <input class = "container-fluid text-center upload" type="file" value="clickME" name="file" accept="/" multiple>
+          <div align="center">
+            <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
+              <h1 style="text-align:center;">Please choose the image that you want to upload</h1>
+                <input class = "container-fluid text-center upload" type="file" size="100" value="clickME" name="file" accept="/" multiple>
                 <br><br>
                 <div>
                     Image Category:
                     <select name="category">
-                        <option value="nature">nature</option>
-                        <option value="people">people</option>
-                        <option value="animal">animal</option>
+                        <option value="Nature">Nature</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Food">Food</option>
+                        <option value="Clip Art">Clip Art</option>
                     </select>
                 </div>
                 <br>
 
-                Message:
-                <input class="messageBox" type="text" name='comment' id="searchBar" placeholder="Leave a Comments" size="75"/>
+                Description:
+                <input class="messageBox" type="text" name="description" placeholder="Leave your description" size="75"/>
+                Image Name:
+                <input type="text" name="imageName" placeholder="Please provide your image name" size="75"/>
 
                 <br><br>
+
                 <input class="button" type="submit" value="Upload">
             </form>
+          </div>
+            <p style="text-align:center;"><input class="button" type="submit" value="Cancel"></p>
+            <div class="container" style="min-height:100% width:80%">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+              <div class="alert alert-warning alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+              {{message}}
+              </div>
+            {% endfor %}
+            {% endif %}
+          {% endwith %}
 
-
-
-
-
-
-
-            <input class="button" type="submit" value="Cancel">
+          </div>
             <br><br><br><br><br><br><br><br>
             <hr>
-            <div class="policy">
-                POLICY: Fluorine Uranium Carbon Potassium
-                Bismuth Technetium Helium Sulfur Germanium Tau
-                Molybdenum Neon Yttrium Aluminium Lepton
-                Thorium	Rhenium	Electron Tellurium Americium
-                Lepton Electron Alpha Particle Deuterium
-                Hydrogen Alpha Particle	Vanadium Electron
-                Nobelium Iodine	Deuterium Electron Alpha Particle
-                Iodine Deuterium Electron Alpha Particle
-                Protactinium Sulfur	Sulfur
-                Vanadium Argon Iodine Alpha Particle Boron Lepton Electron
-                Francium Molybdenum Phosphorus Yttrium Thorium Oxygen Nitrogen
-                Tau	Oxygen Hydrogen	Thulium	Lepton Alpha Particle Neodymium
-                Vanadium Iodine	Cerium Vanadium	Erbium Sulfur Alpha Particle 7/19/2018
-            </div>
 
         </div>
 
 
 
 {%endblock%}
+
+<!-- <input type='file' onchange="readURL(this);" />
+    <img id="blah" src="#" alt="your image" /> -->
+    <!-- <link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+<meta charset=utf-8 />
+<title>JS Bin</title>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<!-- <style>
+  article, aside, figure, footer, header, hgroup,
+  menu, nav, section { display: block; }
+</style> --> -->
+<!-- function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    } -->

@@ -21,7 +21,7 @@ mysql.init_app(app)
 
 
 @app.route('/')
-def home():
+def Home():
     # flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -45,28 +45,48 @@ def ImagePage(image):
     #     return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
     return render_template("ImagePage.html", data=data)
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-@app.route('/upload', methods = ['GET', 'POST'])
-def upload():
+@app.route('/Upload')
+def Upload():
+    return render_template("UploadImage.html")
+
+# APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+@app.route('/UploadImage', methods = ['GET', 'POST'])
+def UploadImage():
+    flash("coming to uploadImage")
+    conn = mysql.connect()
+    cur = conn.cursor()
 	if request.method == 'POST':
-		c = request.form['comment']
-		ca = request.form['category']
-		print(c + ' ' + ca)
+        flash("coming to post")
+		_descr = request.form['description']
+		_categoryName = request.form['category']
+        _imageName = request.form['imageName']
+        categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
+        cursor.execute(categoryCmd,_categoryName)
+        conn.commit()
+        data=cursor.fetchall()
+        _categoryId=data[0][0]
+        flash(_categoryId)
 
-		target = os.path.join(APP_ROOT, 'static/Images/')
-		print(target)
 
-		if not os.path.isdir(target):
-			os.mkdir(target)
-			print("directory created")
+
+		# imagePath = os.path.join(APP_ROOT, 'static/Images/')
+
+		# if not os.path.isdir(imagePath):
+		# 	os.mkdir(imagePath)
 
 		for file in request.files.getlist("file"):
-			print(file)
 			filename = file.filename
-			print(filename)
-			destination = "/".join([target, filename])
-			print(destination)
-			file.save(destination)
+            flash(filename)
+			# destination = "/".join([target, filename])
+			# file.save(destination)
+            filePath = "/static/Images/" + filename
+            order="INSERT INTO Photo (userId,ImageName,Descr,categoryId,filePath) VALUES (%s,%s,%s,%s,%s)"
+            value=((10,_imageName,_descr,_categoryId,filePath))
+            cur.execute(x,y)
+            conn.commit()
+
+
+
 
 	return render_template("UploadImage.html")
 
