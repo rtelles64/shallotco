@@ -14,7 +14,7 @@
           <div align="center">
             <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
               <h1 style="text-align:center;">Please choose the image that you want to upload</h1>
-                <input class = "container-fluid text-center upload" type="file" size="100" value="clickME" name="file" accept="/" multiple>
+                <input class = "container-fluid text-center upload" type="file" size="100" value="clickME" name="file" accept="image/*" multiple>
                 <br><br>
                 <div>
                     Image Category:
@@ -37,7 +37,7 @@
                 <input class="button" type="submit" value="Upload">
             </form>
           </div>
-            <p style="text-align:center;"><input class="button" type="submit" value="Cancel"></p>
+
             <div class="container" style="min-height:100% width:80%">
           {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -51,8 +51,7 @@
           {% endwith %}
 
           </div>
-            <br><br><br><br><br><br><br><br>
-            <hr>
+
 
         </div>
 
