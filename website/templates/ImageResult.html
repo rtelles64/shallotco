@@ -1,8 +1,7 @@
 <!--Image Result Page-->
 <!--Front End: Roy Telles & Sam Zheng-->
 <!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
-
-{%extends "ShallotLayout/shallotLayout.html" %}
+{%include "layoutBanner.html"%}
 {%block head%}
 <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
 <style>
@@ -54,10 +53,13 @@ div.desc {
 }
 </style>
 {%endblock%}
-{%block body%}
+{%block banner%}
+<header class="card-header">
+  <center><h2 class="card-title mt-2">Results</h4></center>
+</header>
+{%endblock%}
+{%block results%}
 <br>
-<div class="container">
-  <h3><center>Results</center></h3>
 <form method="post">
 <!-- <div id="imageResult"> -->
 
