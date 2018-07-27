@@ -70,7 +70,7 @@ def UploadImage():
             filename = file.filename
             flash(filename)
             filePath = "/static/Images/" + filename
-            order="INSERT INTO Photo (userId,ImageName,Descr,categoryId,filePath) VALUES (%s,%s,%s,%s,%s)"
+            order="INSERT INTO PendingImg (userId,ImageName,Descr,categoryId,filePath) VALUES (%s,%s,%s,%s,%s)"
             value=((10,_imageName,_descr,_categoryId,filePath))
             cursor.execute(order,value)
             conn.commit()
