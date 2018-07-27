@@ -27,25 +27,31 @@
             }
 </style>
 {%endblock%}
+
 {%block banner%}
 <header class="card-header">
   <center><h2 class="card-title mt-2">Results</h4></center>
 </header>
 {%endblock%}
+
 {%block results%}
 <br>
 <form method="post">
 
-
-      {% for image in imgData %}
-        <div class = "image">
-            <a href="/Search/{{image[1]}}"><img class="object-fit_contain" src="{{image[0]}}"></a>
+</div>
+    {% for image in imgData %}
+        <!-- <div class="column"> -->
+        <div class="column">
+        <tr>
+          <td> <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[1]}}"> <img src="{{image[0]}}" align="left" style="width:500px;height:400px;" hspace="20" vspace="20" /></a></td>
+        </tr>
         </div>
-        <h5>testing</h5>
-      {% endblock %}
+        <!-- </div> -->
+    {% endfor %}
 
 
-  </form>
+</form>
+
   <script type="text/javascript" src="{{ url_for('static', filename='js/resultImage.js') }}"></script>
 <script>
   function reroute(img) {
