@@ -209,7 +209,7 @@ def login():
             flash(data[0][0])
             #flash(attempted_username)
             #flash(attempted_password)
-            if attempted_password == data[0][0]:
+            if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 flash("coming to if")
                 return redirect(url_for('home'))
             else:
