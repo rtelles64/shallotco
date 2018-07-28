@@ -29,17 +29,17 @@
             <label>Username * </label>
             <input type="text" class="form-control" placeholder="UserName" name="userName" value="{{request.form.userName}}">
           </div> <!-- form-group end.// -->
-          <div class="form-group" name="gender" value="{{request.form.gender}}">
+          <div class="form-group" name="gender">
             <label class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="male">
+              <input class="form-check-input" type="radio" name="gender" value="Male">
               <span class="form-check-label"> Male </span>
             </label>
             <label class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="female">
+              <input class="form-check-input" type="radio" name="gender" value="Female">
               <span class="form-check-label"> Female </span>
             </label>
             <label class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="notState">
+              <input class="form-check-input" type="radio" name="gender" value="NotState">
               <span class="form-check-label"> Prefer Not to State </span>
             </label>
           </div> <!-- form-group end.// -->
