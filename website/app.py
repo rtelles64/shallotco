@@ -168,7 +168,7 @@ def login():
             #flash(attempted_password)
             if attempted_password == data[0][0]:
                 flash("coming to if")
-                return redirect(url_for('/'))
+                return redirect(url_for('Register'))
             else:
                 flash("coming to else")
                 error = "Invalid credentials. Try Again."
