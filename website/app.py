@@ -171,6 +171,7 @@ def register():
             _lastName = request.form['lastName']
             flash(_lastName)
             _day = request.form['day']
+            flash(_day)
             _month = request.form['month']
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
