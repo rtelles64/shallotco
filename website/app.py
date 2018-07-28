@@ -145,9 +145,33 @@ def searchResult():
 def about():
 	return render_template("About.html")
 
-@app.route('/Register')
+@app.route('/Register', methods=["GET","POST"])
 def register():
     return render_template("register.html")
+
+@app.route('/Login/', methods=["GET","POST"])
+def login():
+    error = ''
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    try:
+        if request.method == "POST":
+            attempted_username = request.form['username']
+            attempted_password = request.form['password']
+            userCmd = "SELECT password FROM User WHERE UserName = %s"
+            cursor.execute(userCmd, attempted_username)
+            conn.commit()
+            data = cursor.fetchall()
+            #flash(attempted_username)
+            #flash(attempted_password)
+            if attempted_password == data[0][0]:
+                return redirect(url_for('/'))
+            else:
+                error = "Invalid credentials. Try Again."
+        return render_template("login.html", error = error)
+    except Exception as e:
+        #flash(e)
+        return render_template("Login.html", error = error)
 
 @app.route('/About/Roy')
 def Roy():
