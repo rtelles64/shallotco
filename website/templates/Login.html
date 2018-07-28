@@ -13,14 +13,14 @@
 			<input type="password" class="form-control" placeholder = "Password" name="password" value="{{request.form.password}}">
 			<input class="btn btn-default" type="submit" value="Login">
 		</form> -->
-    <form action=""  method="post">
-			{% if error %}
-				<p class="error"><strong>Error:</strong>{{error}}</p>
-			{% endif %}
+		{% if error %}
+			<p class="error"><strong>Error:</strong>{{error}}</p>
+		{% endif %}
+    <form action="/Login"  method="post">
       <label class="active">Username:</label>
-        <input type="text" class="form-control" placeholder="Username" name="username" value="">
+        <input type="text" class="form-control" placeholder="Username" name="username" value="{{request.form.username}}">
           <label class="active">Password:</label>
-         <input type="password" class="form-control" placeholder="Password" name="password" value="">
+         <input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password}}">
         <input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
       </form>
       <div class="container">
