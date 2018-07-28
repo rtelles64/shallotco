@@ -157,10 +157,10 @@ def register():
             flash("come to post")
             _user = request.form['userName']
             flash(_user)
-            _password = request.form['password']
+            _password = sha256_crypt.encrypt(str(request.form['password']))
             flash(_password)
-            passHash = sha256_crypt.encrypt(str(_password))
-            flash(passHash)	
+            #passHash = sha256_crypt.encrypt(str(_password))
+            #flash(passHash)	
             _email = request.form['email']
             flash(_email)
             _gender = request.form['gender']
