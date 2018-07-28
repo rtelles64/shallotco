@@ -21,7 +21,7 @@ mysql.init_app(app)
 
 
 @app.route('/')
-def Home():
+def home():
     # flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -33,7 +33,7 @@ def Home():
     return render_template("shallotHome.html",data=data)
 
 @app.route('/Search/<string:image>', methods=['GET', 'POST'])
-def ImagePage(image):
+def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
     imgcmd = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName = %s"
@@ -46,12 +46,12 @@ def ImagePage(image):
     return render_template("ImagePage.html", data=data)
 
 @app.route('/Upload')
-def Upload():
+def upload():
     return render_template("UploadImage.html")
 
 # APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 @app.route('/UploadImage', methods = ['GET', 'POST'])
-def UploadImage():
+def uploadImage():
     flash("coming to uploadImage")
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -149,7 +149,7 @@ def about():
 def register():
     return render_template("register.html")
 
-@app.route('/Login/', methods=["GET","POST"])
+@app.route('/Login', methods=["GET","POST"])
 def login():
     error = ''
     conn = mysql.connect()
