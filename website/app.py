@@ -163,9 +163,11 @@ def login():
             conn.commit()
             data = cursor.fetchall()
             flash(data)
+            flash(data[0][0])
             #flash(attempted_username)
             #flash(attempted_password)
             if attempted_password == data[0][0]:
+                flash("coming to if")
                 return redirect(url_for('/'))
             else:
                 error = "Invalid credentials. Try Again."
