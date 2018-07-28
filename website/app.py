@@ -158,7 +158,7 @@ def register():
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
             #check if user name has existed in the DB
-            x = c.execute("SELECT * FROM USER WHERE UserName = (%s)",(_user))
+            x = cursor.execute("SELECT * FROM USER WHERE UserName = (%s)",(_user))
             if int(x) > 0:
                 error = 'This user name has existed, please choose a different username!'
                 #simple return to register page if error occurs
