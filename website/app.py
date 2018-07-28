@@ -162,6 +162,7 @@ def login():
             cursor.execute(userCmd, attempted_username)
             conn.commit()
             data = cursor.fetchall()
+            flash(data)
             #flash(attempted_username)
             #flash(attempted_password)
             if attempted_password == data[0][0]:
