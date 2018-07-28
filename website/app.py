@@ -98,9 +98,12 @@ def uploadImage():
         if request.method == 'POST':
             flash("coming to post")
             _descr = request.form['description']
+            flash("_descr")
             _categoryName = request.form['category']
+            flash("category")
             _imageName = request.form['imageName']
-            categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
+            flash("_imageName")
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
