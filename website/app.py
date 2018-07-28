@@ -158,11 +158,11 @@ def register():
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
             #check if user name has existed in the DB
-            x = cursor.execute("SELECT * FROM USER WHERE UserName = (%s)",(_user))
-            if int(x) > 0:
-                error = 'This user name has existed, please choose a different username!'
-                #simple return to register page if error occurs
-                return render_template("register.html", error=error)
+            # x = cursor.execute("SELECT * FROM USER WHERE UserName = (%s)",(_user))
+            # if int(x) > 0:
+            #     error = 'This user name has existed, please choose a different username!'
+            #     #simple return to register page if error occurs
+            #     return render_template("register.html", error=error)
             #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
