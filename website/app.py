@@ -1,13 +1,15 @@
+#app.py: Definition of routes for web application Shallotco.com.
+#__author__ = "Jenny, Mike, Patrick"
+
 from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file
 from flaskext.mysql import MySQL
 import os
 
-#import base64
 mysql = MySQL()
 app = Flask(__name__)
 app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
 
-# MySQL configurations BACK END TEAM!!!!!!!!!!!!!!!!
+#Configure DB to allow to connect to DB
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'BackEnd2921'
 app.config['MYSQL_DATABASE_DB'] = 'mydb'
@@ -19,19 +21,57 @@ app.config.update(
 
 mysql.init_app(app)
 
-
+#define home page
 @app.route('/')
 def home():
-    # flash("in home page")
+    #create db connection
     conn = mysql.connect()
     cursor = conn.cursor()
     imgCmd = "SELECT FilePath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
-    # flash(data)
+    #render home page with the data that is being sent from DB
     return render_template("shallotHome.html",data=data)
 
+#define search page
+@app.route('/Search', methods=['POST', 'GET'])
+def searchResult():
+    error =''
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    try:
+        if request.method == 'POST':
+            _search = request.form['search']
+            _categoryName = request.form['category']
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
+            cursor.execute(categoryCmd,_categoryName)
+            conn.commit()
+            data=cursor.fetchall()
+            if (len(data) == 0):
+                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
+                conn.commit()
+            else:
+                _categoryId=data[0][0]
+                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
+                cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
+                conn.commit()
+            imgData=cursor.fetchall()
+            if(len(imgData) == 0):
+                error = "Sorry, the image is not available, but here is our trending images for you:"
+                return redirect(url_for('home'))
+            else:
+                return render_template("ImageResult.html",imgData=imgData, error=error)
+        else:
+            return redirect(url_for('home'))
+    except Exception as e:
+        return render_template("shallotHome.html",error = error)
+    finally:
+        cursor.close()
+        conn.close()
+
+#define searching for one particular image
 @app.route('/Search/<string:image>', methods=['GET', 'POST'])
 def imagePage(image):
     conn = mysql.connect()
@@ -40,16 +80,15 @@ def imagePage(image):
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
-    # flash(data)
-    # if request.method == 'POST':
-    #     return send_file(image, attachment_filename='testing.jpg', as_attachment=True)
     return render_template("ImagePage.html", data=data)
 
-@app.route('/Upload')
-def upload():
-    return render_template("UploadImage.html")
+# @app.route('/Upload')
+# def upload():
+#     return render_template("UploadImage.html")
 
 # APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+#define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
     flash("coming to uploadImage")
@@ -65,79 +104,31 @@ def uploadImage():
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
+            #data is a nested list, get category id from list
             _categoryId=data[0][0]
             flash(_categoryId)
+            #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
                 flash(filename)
+                #create the file path
                 filePath = "/static/Images/" + filename
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
                 value=((10,_imageName,_descr,_categoryId,filePath))
-                cursor.execute(order,value)
+                x= cursor.execute(order,value)
+                if int(x) > 0:
+                    error = "Sorry, we are not able to upload your image, please try again."
+                    return render_template("UploadImage.html", error=error)
                 conn.commit()
+            #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
-        else:
-    	# flash("else")
-            return redirect(url_for('home'))
+        #if there is no post, simply return to upload image page
+        return render_template("UploadImage.html")
     except Exception as e:
-        #flash (e)
+        error = 'Sorry, we are not able to upload your image'
         return render_template("UploadImage.html",error = error)
     finally:
         #flash("Closing DB conn")
-        cursor.close()
-        conn.close()
-
-
-
-@app.route('/Search', methods=['POST', 'GET'])
-def searchResult():
-    error =''
-    conn = mysql.connect()
-    cursor = conn.cursor()
-    try:
-    #flash(request.method)
-        if request.method == 'POST':
-            # flash("in post")
-            _search = request.form['search']
-            # flash(_search)
-            _categoryName = request.form['category']
-            # flash(_categoryName)
-            categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
-            cursor.execute(categoryCmd,_categoryName)
-            conn.commit()
-            # flash("comeing to commit")
-            data=cursor.fetchall()
-            # flash(data)
-            if (len(data) == 0):
-                # flash("come if")
-                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
-                cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
-                conn.commit()
-                # flash("come here if")
-            else:
-                _categoryId=data[0][0]
-                # flash(_categoryId)
-                # flash("come to else")
-                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
-                cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
-                conn.commit()
-                # flash("come here else")
-            imgData=cursor.fetchall()
-            # flash(imgData)
-            if(len(imgData) == 0):
-                flash("Sorry, the image is not available, but here is our trending images for you")
-                return redirect(url_for('home'))
-            else:
-       		#flash("it has come to else")
-                return render_template("ImageResult.html",imgData=imgData)
-        else:
-    	# flash("else")
-            return redirect(url_for('home'))
-    except Exception as e:
-    #flash (e)
-        return render_template("shallotHome.html",error = error)
-    finally:
-    #flash("Closing DB conn")
         cursor.close()
         conn.close()
 
@@ -145,46 +136,44 @@ def searchResult():
 def about():
 	return render_template("About.html")
 
+#define register page
 @app.route('/Register', methods=["GET","POST"])
 def register():
     error =''
     conn = mysql.connect()
     cursor = conn.cursor()
-    flash("In method")
     try:
         if request.method == 'POST':
-            flash("come to post")
+            #get all the fields value
             _user = request.form['userName']
-            flash(_user)
             _password = request.form['password']
-            flash(_password)
             _email = request.form['email']
-            flash(_email)
             _gender = request.form['gender']
-            flash(_gender)
             _city = request.form['city']
-            flash(_city)
             _country = request.form['city']
-            flash(_country)
             _firstName = request.form['firstName']
-            flash(_firstName)
             _lastName = request.form['lastName']
-            flash(_lastName)
             _day = request.form['day']
-            flash(_day)
             _month = request.form['month']
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
-            flash(_dob)
+            #check if user name has existed in the DB
+            x = c.execute("SELECT * FROM USER WHERE UserName = (%s)",(_user))
+            if int(x) > 0:
+                error = 'This user name has existed, please choose a different username!'
+                #simple return to register page if error occurs
+                return render_template("register.html", error=error)
+            #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
             conn.commit()
+            #return to homepage when user is successfully registered
             return redirect(url_for('home'))
-        flash("come here once")
+        #if there is no post, render register page
         return render_template("register.html")
     except Exception as e:
-        flash("come here twice")
-        return render_template("register.html")
+        error="sorry, an error has occured when register, please try again"
+        return render_template("register.html", error=error)
     finally:
         cursor.close()
         conn.close()
@@ -204,18 +193,15 @@ def login():
             data = cursor.fetchall()
             flash(data)
             flash(data[0][0])
-            #flash(attempted_username)
-            #flash(attempted_password)
             if attempted_password == data[0][0]:
-                flash("coming to if")
+                #user info has matched with db record
                 return redirect(url_for('home'))
             else:
-                flash("coming to else")
+                #error has occured when login
                 error = "Invalid credentials. Try Again."
-        flash("didnt do post")
         return render_template("Login.html", error = error)
     except Exception as e:
-        #flash(e)
+        error = "Login failed, please try again"
         return render_template("Login.html", error = error)
 
 @app.route('/About/Roy')

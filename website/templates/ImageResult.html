@@ -56,6 +56,9 @@ div.desc {
 {%endblock%}
 {%block body%}
 <br>
+{% if error %}
+  <p class="error"><strong>Error:</strong>{{error}}</p>
+{% endif %}
 <div class="container">
   <h3><center>Results</center></h3>
 <form method="post">
