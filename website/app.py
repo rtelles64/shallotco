@@ -168,9 +168,12 @@ def login():
             #flash(attempted_password)
             if attempted_password == data[0][0]:
                 flash("coming to if")
-                return redirect(url_for('/'))
+                # return redirect(url_for('/'))
+                return render_template("shallotHome.html",data=data)
             else:
+                flash("coming to else")
                 error = "Invalid credentials. Try Again."
+        flash("didnt do post")
         return render_template("Login.html", error = error)
     except Exception as e:
         #flash(e)
