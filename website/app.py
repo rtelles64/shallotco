@@ -78,7 +78,7 @@ def uploadImage():
             return render_template("UploadImage.html")
         else:
     	# flash("else")
-            return redirect(url_for('/'))
+            return redirect(url_for('home'))
     except Exception as e:
         #flash (e)
         return render_template("UploadImage.html",error = error)
@@ -126,13 +126,13 @@ def searchResult():
             # flash(imgData)
             if(len(imgData) == 0):
                 flash("Sorry, the image is not available, but here is our trending images for you")
-                return redirect(url_for('/'))
+                return redirect(url_for('home'))
             else:
        		#flash("it has come to else")
                 return render_template("ImageResult.html",imgData=imgData)
         else:
     	# flash("else")
-            return redirect(url_for('/'))
+            return redirect(url_for('home'))
     except Exception as e:
     #flash (e)
         return render_template("shallotHome.html",error = error)
@@ -168,7 +168,7 @@ def login():
             #flash(attempted_password)
             if attempted_password == data[0][0]:
                 flash("coming to if")
-                return redirect(url_for('Register'))
+                return redirect(url_for('home'))
             else:
                 flash("coming to else")
                 error = "Invalid credentials. Try Again."
