@@ -34,3 +34,19 @@
                 margin: 25px;
                 size: 200px;
             }
+
+.btn {
+     background-color: #00008B;
+   }
+ .btn {
+     background-color: rgb(231, 231, 231);
+     color: rgb(85, 85, 85);
+     border: none;
+     margin-left: 40%
+     color: white;
+     padding: 12px 30px;
+     color: white;
+     padding: 12px 30px;
+     cursor: pointer;
+     font-size: 40px;
+ }
