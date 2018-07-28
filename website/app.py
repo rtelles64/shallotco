@@ -1,6 +1,7 @@
 from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file
 from flaskext.mysql import MySQL
 import os
+from passlib.hash import sha256_crypt
 
 #import base64
 mysql = MySQL()
@@ -158,6 +159,8 @@ def register():
             flash(_user)
             _password = request.form['password']
             flash(_password)
+	    passHash = sha256_crypt.encrypt(sitr(_password))
+	    flash(passHash)	
             _email = request.form['email']
             flash(_email)
             _gender = request.form['gender']
