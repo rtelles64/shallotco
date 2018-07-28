@@ -155,23 +155,34 @@ def register():
         if request.method == 'POST':
             flash("come to post")
             _user = request.form['userName']
+            flash(_user)
             _password = request.form['password']
+            flash(_password)
             _email = request.form['email']
+            flash(_email)
             _gender = request.form['gender']
+            flash(_gender)
             _city = request.form['city']
+            flash(_city)
             _country = request.form['city']
+            flash(_country)
             _firstName = request.form['firstName']
+            flash(_firstName)
             _lastName = request.form['lastName']
+            flash(_lastName)
             _day = request.form['day']
             _month = request.form['month']
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
+            flash(_dob)
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
             conn.commit()
             return redirect(url_for('home'))
+        flash("come here once")
         return render_template("register.html")
     except Exception as e:
+        flash("come here twice")
         return render_template("register.html")
     finally:
         cursor.close()
