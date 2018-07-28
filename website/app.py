@@ -115,10 +115,10 @@ def uploadImage():
                 filePath = "/static/Images/" + filename
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
                 value=((10,_imageName,_descr,_categoryId,filePath))
-                x= cursor.execute(order,value)
-                if int(x) > 0:
-                    error = "Sorry, we are not able to upload your image, please try again."
-                    return render_template("UploadImage.html", error=error)
+                cursor.execute(order,value)
+                # if int(x) > 0:
+                #     error = "Sorry, we are not able to upload your image, please try again."
+                #     return render_template("UploadImage.html", error=error)
                 conn.commit()
             #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
