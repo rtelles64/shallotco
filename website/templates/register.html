@@ -15,10 +15,12 @@
         <h4 class="card-title mt-2">Sign up</h4>
       </header>
       <article class="card-body">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" action="/Register" method="post" novalidate>
           <div class="col form-group">
             <label>First name </label>
             <input type="text" class="form-control" placeholder="First Name" name="firstName" value="{{request.form.firstName}}">
+          </div>
+            <div class="col form-group">
             <label>Last name </label>
             <input type="text" class="form-control" placeholder="Last Name" name="lastName" value="{{request.form.lastName}}">
           </div>

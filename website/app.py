@@ -153,6 +153,7 @@ def register():
     flash("In method")
     try:
         if request.method == 'POST':
+            flash("come to post")
             _user = request.form['userName']
             _password = request.form['password']
             _email = request.form['email']
