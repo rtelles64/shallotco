@@ -16,42 +16,63 @@
       </header>
       <article class="card-body">
         <form class="needs-validation" novalidate>
+          <div class="col form-group">
+            <label>First name </label>
+            <input type="text" class="form-control" placeholder="First Name" name="firstName" value="{{request.form.firstName}}">
+            <label>Last name </label>
+            <input type="text" class="form-control" placeholder="Last Name" name="lastName" value="{{request.form.lastName}}">
+          </div>
+          <!-- form-group end.// -->
+          <div class="col form-group">
+            <label>Username * </label>
+            <input type="text" class="form-control" placeholder="UserName" name="userName" value="{{request.form.userName}}">
+          </div> <!-- form-group end.// -->
+          <div class="form-group">
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="male" value="{{request.form.male}}">
+              <span class="form-check-label"> Male </span>
+            </label>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="female" value="{{request.form.female}}">
+              <span class="form-check-label"> Female </span>
+            </label>
+            <label class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="notState" value="{{request.form.notState}}">
+              <span class="form-check-label"> Prefer Not to State </span>
+            </label>
+          </div> <!-- form-group end.// -->
           <div class="form-group" style="display: center;">
-            <label>Email address</label><i class="fa fa-asterisk text-danger"></i>
-            <input type="email" class="form-control" placeholder="johndoe@email.com" id="email" name="email" required>
+            <label>Email address *</label>
+            <input type="email" class="form-control" placeholder="johndoe@email.com" id="email" name="email" value="{{request.form.email}}" required>
             <small class="form-text text-muted">We'll never share your email with anyone else.</small>
           </div> <!-- form-group end.// -->
           <div class="form-group">
-            <label>Create password</label><i class="fa fa-asterisk text-danger"></i>
-            <input class="form-control" type="password" id="password" name="password" placeholder="Password" required>
-          </div> <!-- form-group end.// -->
-          <div class="col form-group">
-            <label>Username </label><i class="fa fa-asterisk text-danger"></i>
-            <input type="text" class="form-control" placeholder="">
+            <label>Create password *</label>
+            <input class="form-control" type="password" id="password" name="password" placeholder="Password" value="{{request.form.password}}" required>
           </div> <!-- form-group end.// -->
 
           <!-- DOB -->
-          <label for="repeat-psw">Date of birth</label><i class="fa fa-asterisk text-danger"></i>
+          <label for="repeat-psw">Date of birth *</label>
           <div class="form-row">
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control">
+              <select id="inputState" class="form-control" name="month" value="{{request.form.month}}">
                 <option selected>Month</option>
-                <option>Jan</option>
-                <option>Feb</option>
-                <option>Mar</option>
-                <option>Apr</option>
-                <option>May</option>
-                <option>Jun</option>
-                <option>Jul</option>
-                <option>Aug</option>
-                <option>Sep</option>
-                <option>Oct</option>
-                <option>Nov</option>
-                <option>Dec</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
               </select>
             </div>
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control">
+              <select id="inputState" class="form-control" name= "day" value="{{request.form.day}}" >
                 <option selected>Day</option>
                 <option>01</option>
                 <option>02</option>
@@ -87,7 +108,7 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control">
+              <select id="inputState" class="form-control" name="year" value="{{request.form.year}}">
                 <option selected>Year</option>
                 <option>2008</option>
                 <option>2007</option>
@@ -122,32 +143,14 @@
             </div>
           </div>
           <!-- END dob -->
-          <div class="col form-group">
-            <label>First name </label>
-            <input type="text" class="form-control" placeholder="">
-          </div> <!-- form-group end.// -->
-          <div class="form-group">
-            <label class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" value="option1">
-              <span class="form-check-label"> Male </span>
-            </label>
-            <label class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" value="option2">
-              <span class="form-check-label"> Female </span>
-            </label>
-            <label class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="gender" value="option2">
-              <span class="form-check-label"> Prefer Not to State </span>
-            </label>
-          </div> <!-- form-group end.// -->
           <div class="form-row">
             <div class="form-group col-md-6">
               <label>City</label>
-              <input type="text" class="form-control">
+              <input type="text" class="form-control" placeholder="City"name="city" value="{{request.form.city}}">
             </div> <!-- form-group end.// -->
             <div class="form-group col-md-6">
               <label>Country</label>
-              <select id="inputState" class="form-control">
+              <select id="inputState" class="form-control" name="country" value="{{request.form.country}}">
                 <option> Choose...</option>
                 <option>Uzbekistan</option>
                 <option>Russia</option>

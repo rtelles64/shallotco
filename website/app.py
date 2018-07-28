@@ -25,7 +25,7 @@ def home():
     # flash("in home page")
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgCmd = "SELECT filePath, ImageName From ApprovedImg WHERE Views >= 350"
+    imgCmd = "SELECT FilePath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
@@ -36,7 +36,7 @@ def home():
 def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName = %s"
+    imgcmd = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
@@ -71,7 +71,7 @@ def uploadImage():
                 filename = file.filename
                 flash(filename)
                 filePath = "/static/Images/" + filename
-                order="INSERT INTO PendingImg (userId,ImageName,Descr,categoryId,filePath) VALUES (%s,%s,%s,%s,%s)"
+                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
                 value=((10,_imageName,_descr,_categoryId,filePath))
                 cursor.execute(order,value)
                 conn.commit()
@@ -110,7 +110,7 @@ def searchResult():
             # flash(data)
             if (len(data) == 0):
                 # flash("come if")
-                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
                 # flash("come here if")
@@ -118,7 +118,7 @@ def searchResult():
                 _categoryId=data[0][0]
                 # flash(_categoryId)
                 # flash("come to else")
-                order = "SELECT filePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
+                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE categoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
                 # flash("come here else")
@@ -147,7 +147,34 @@ def about():
 
 @app.route('/Register', methods=["GET","POST"])
 def register():
-    return render_template("register.html")
+    error =''
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    flash("In method")
+    try:
+        if request.method == 'POST':
+            _user = request.form['userName']
+            _password = request.form['password']
+            _email = request.form['email']
+            _gender = request.form['gender']
+            _city = request.form['city']
+            _country = request.form['city']
+            _firstName = request.form['firstName']
+            _lastName = request.form['lastName']
+            _day = request.form['day']
+            _month = request.form['month']
+            _year = request.form['year']
+            _dob=_month +"/" + _day + "/" + _year
+            MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
+            conn.commit()
+            return redirect(url_for('home'))
+        return render_template("register.html")
+    except Exception as e:
+        return render_template("register.html")
+    finally:
+        cursor.close()
+        conn.close()
 
 @app.route('/Login', methods=["GET","POST"])
 def login():
@@ -158,7 +185,7 @@ def login():
         if request.method == "POST":
             attempted_username = request.form['username']
             attempted_password = request.form['password']
-            userCmd = "SELECT password FROM User WHERE UserName = %s"
+            userCmd = "SELECT Password FROM User WHERE UserName = %s"
             cursor.execute(userCmd, attempted_username)
             conn.commit()
             data = cursor.fetchall()
