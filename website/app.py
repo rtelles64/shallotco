@@ -1,4 +1,4 @@
-from flask import Flask, render_template, json, request,flash,url_for,send_file
+from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file
 from flaskext.mysql import MySQL
 import os
 
@@ -168,8 +168,7 @@ def login():
             #flash(attempted_password)
             if attempted_password == data[0][0]:
                 flash("coming to if")
-                # return redirect(url_for('/'))
-                return render_template("shallotHome.html",data=data)
+                return redirect(url_for('/'))
             else:
                 flash("coming to else")
                 error = "Invalid credentials. Try Again."
