@@ -44,7 +44,7 @@ def searchResult():
         if request.method == 'POST':
             _search = request.form['search']
             _categoryName = request.form['category']
-            categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
@@ -184,7 +184,9 @@ def register():
             #     return render_template("register.html", error=error)
             #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            flash("writing command")
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
+            flash("finish execute")
             conn.commit()
             flash("finish commit")
             #return to homepage when user is successfully registered
