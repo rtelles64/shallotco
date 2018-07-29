@@ -4,6 +4,7 @@
 from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file
 from flaskext.mysql import MySQL
 import os
+from passlib.hash import sha256_crypt
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -157,8 +158,10 @@ def register():
             #get all the fields value
             _user = request.form['userName']
             flash(_user)
-            _password = request.form['password']
+            _password = sha256_crypt.encrypt(str(request.form['password']))
             flash(_password)
+            #passHash = sha256_crypt.encrypt(str(_password))
+            #flash(passHash)	
             _email = request.form['email']
             flash(_email)
             _gender = request.form['gender']
@@ -215,8 +218,10 @@ def login():
             data = cursor.fetchall()
             flash(data)
             flash(data[0][0])
-            if attempted_password == data[0][0]:
-                #user info has matched with db record
+            #flash(attempted_username)
+            #flash(attempted_password)
+            if sha256_crypt.verify(attempted_password,data[0][0]) == True:
+                flash("coming to if")
                 return redirect(url_for('home'))
             else:
                 #error has occured when login
