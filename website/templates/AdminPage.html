@@ -1,91 +1,102 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <style>
-        body {font-family: Arial;}
-
-        /* Style the tab */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        /* Style the buttons inside the tab */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-            background-color: #ddd;
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active {
-            background-color: #ccc;
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-        }
-        table {
-            font-family: arial, sans-serif;
-            border-collapse: collapse;
-            width: 100%;
-        }
-        td, th {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        .clickable {
-            cursor : pointer;
-        }
-        .object-fit_contain {
-            object-fit: contain;
-        }
-
-        img {
-            height: 250px;
-            width: 250px;
-            background-color: rgb(112, 103, 103);
-        }
-
-        .image {
-            float: left;
-            margin: 20px;
-            padding-left: 100px;
-        }
-
-        .object-fit_contain:hover{
-            color: #424242;
-          -webkit-transition: all .3s ease-in;
-          -moz-transition: all .3s ease-in;
-          -ms-transition: all .3s ease-in;
-          -o-transition: all .3s ease-in;
-          transition: all .3s ease-in;
-          opacity: 1;
-          transform: scale(2);
-          -ms-transform: scale(2); /* IE 9 */
-          -webkit-transform: scale(2); /* Safari and Chrome */
-        }
+<!--Image Result Page-->
+<!--Front End: Roy Telles & Sam Zheng-->
+<!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
+{%include "layoutBanner.html"%}
+{%block head%}
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
+<style>
+    body {font-family: Arial;}
+    
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+    
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+    
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+    
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+    
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    #clickable {
+        cursor : pointer;
+    }
+    .object-fit_contain {
+        object-fit: contain;
+    }
+    
+    img {
+        height: 250px;
+        width: 250px;
+        background-color: rgb(112, 103, 103);
+    }
+    
+    .image {
+        float: left;
+        margin: 20px;
+        padding-left: 100px;
+    }
+    
+    .object-fit_contain:hover{
+        color: #424242; 
+      -webkit-transition: all .3s ease-in;
+      -moz-transition: all .3s ease-in;
+      -ms-transition: all .3s ease-in;
+      -o-transition: all .3s ease-in;
+      transition: all .3s ease-in;
+      opacity: 1;
+      transform: scale(2);
+      -ms-transform: scale(2); /* IE 9 */
+      -webkit-transform: scale(2); /* Safari and Chrome */
+    }
     </style>
-</head>
-<body>
+{%endblock%}
+
+
+{%block banner%}
+<header class="card-header">
+  <center><h2 class="card-title mt-2">Results</h2></center>
+</header>
+{%endblock%}
+
+
+
+{%block body%}
 <p>Admin Page</p>
 
 <div class="tab">
@@ -114,7 +125,7 @@
             <td>{{row[3]}}</td>
             <td>{{row[4]}}</td>
             <td>{{row[5]}}</td>
-            <td><input class="DeleteButton" type="submit" value="Delete this fool"></td>
+            <td><input class="DeleteButton" type="submit" value="Delete"></td>
         </tr>
         {% endfor %}
     </table>
@@ -161,7 +172,7 @@
                 </div>
             </td>
             <td>{{row[1]}}</td>
-            <td><input class="DeleteButton" type="submit" value="Delete this fool"></td>
+            <td><input class="DeleteButton" type="submit" value="Delete"></td>
         </tr>
         {% endfor %}
     </table>
@@ -226,6 +237,5 @@
     function backButton() {
         window.history.back();
     }
-</script>
-</body>
-</html>
+
+{%endblock%}
