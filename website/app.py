@@ -44,7 +44,7 @@ def searchResult():
         if request.method == 'POST':
             _search = request.form['search']
             _categoryName = request.form['category']
-            categoryCmd = "SELECT IdCategory FROM Category WHERE CatgeoryName = %s"
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
@@ -156,17 +156,26 @@ def register():
         if request.method == 'POST':
             #get all the fields value
             _user = request.form['userName']
+            flash(_user)
             _password = request.form['password']
+            flash(_password)
             _email = request.form['email']
+            flash(_email)
             _gender = request.form['gender']
+            flash(_gender)
             _city = request.form['city']
-            _country = request.form['city']
+            flash(_city)
+            _country = request.form['country']
+            flash(_country)
             _firstName = request.form['firstName']
+            flash(_firstName)
             _lastName = request.form['lastName']
+            flash(_lastName)
             _day = request.form['day']
             _month = request.form['month']
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
+            flash(_dob)
             #check if user name has existed in the DB
             # x = cursor.execute("SELECT * FROM USER WHERE UserName = %s",(_user))
             # if int(x) > 0:
@@ -175,8 +184,11 @@ def register():
             #     return render_template("register.html", error=error)
             #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            flash("writing command")
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
+            flash("finish execute")
             conn.commit()
+            flash("finish commit")
             #return to homepage when user is successfully registered
             return redirect(url_for('home'))
         #if there is no post, render register page
