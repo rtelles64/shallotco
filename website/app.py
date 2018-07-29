@@ -156,17 +156,26 @@ def register():
         if request.method == 'POST':
             #get all the fields value
             _user = request.form['userName']
+            flash(_user)
             _password = request.form['password']
+            flash(_password)
             _email = request.form['email']
+            flash(_email)
             _gender = request.form['gender']
+            flash(_gender)
             _city = request.form['city']
-            _country = request.form['city']
+            flash(_city)
+            _country = request.form['country']
+            flash(_country)
             _firstName = request.form['firstName']
+            flash(_firstName)
             _lastName = request.form['lastName']
+            flash(_lastName)
             _day = request.form['day']
             _month = request.form['month']
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
+            flash(_dob)
             #check if user name has existed in the DB
             # x = cursor.execute("SELECT * FROM USER WHERE UserName = %s",(_user))
             # if int(x) > 0:
