@@ -135,7 +135,7 @@
     <table id="pendingTable">
         <tr>
             <th>Image</th>
-            <th>Uploader</th>
+            <th class="clickable" onclick="sortTable(6)">Uploader</th>
             <th>Action</th>
         </tr>
         {% for row in pendingData %}
@@ -161,7 +161,7 @@
     <table id="approvedTable">
         <tr>
             <th>Approved Image</th>
-            <th>Uploader</th>
+            <th class="clickable" onclick="sortTable(7)">Uploader</th>
             <th>Delete</th>
         </tr>
         {% for row in approvedData %}
@@ -201,6 +201,14 @@
     function sortTable(n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
       table = document.getElementById("userTable");
+      if(n == 6){
+          n = n - 5;
+          table = document.getElementById("pendingTable");
+      } 
+      else if(n == 7){
+          n = n - 6;
+          table = document.getElementById("approvedTable");
+      }
       switching = true;
       dir = "asc";
       while (switching) {
