@@ -135,6 +135,13 @@ def uploadImage():
         cursor.close()
         conn.close()
 
+@app.route('/admin')
+def adminPage():
+    arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
+    arg2 = [['/static/Images/IMG_20170113_140535.jpg', '25zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
+    arg3 = [['/static/Images/IMG_20170113_140535.jpg', '25zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
+    return render_template("/AdminPage.html", userData = arg, pendingData = arg2, approvedData = arg3)
+
 @app.route('/About')
 def about():
 	return render_template("About.html")
