@@ -186,6 +186,7 @@ def register():
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
             conn.commit()
+            flash("finish commit")
             #return to homepage when user is successfully registered
             return redirect(url_for('home'))
         #if there is no post, render register page
