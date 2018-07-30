@@ -152,7 +152,7 @@
           <label>Last name </label>
           <input type="text" class="form-control" placeholder="Last Name" name="lastName" value="{{request.form.lastName}}">
         </div>
-        <div class="form-group" name="gender">
+        <!-- <div class="form-group" name="gender">
           <label class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="gender" value="Male">
             <span class="form-check-label"> Male </span>
@@ -164,8 +164,17 @@
           <label class="form-check form-check-inline">
             <input class="form-check-input" type="radio" name="gender" value="NotState">
             <span class="form-check-label"> Prefer Not to State </span>
-          </label>
-        </div> <!-- form-group end.// -->
+          </label> -->
+        <!-- </div> --> <!-- form-group end.// -->
+        <div class="form-group col-md-6">
+            <label>Gender</label>
+            <select id="inputGender" class="form-control" name="gender" value="{{request.form.gender}}">
+              <option value = "Not Selected"> Choose...</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other/Prefer not to answer</option>
+            </select>
+          </div> <!-- form-group end.// -->
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>City</label>
