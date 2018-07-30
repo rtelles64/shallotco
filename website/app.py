@@ -55,7 +55,7 @@ def searchResult():
                 conn.commit()
             else:
                 _categoryId=data[0][0]
-                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE IdCategory=%s and (ImageName Like %s OR Descr LIKE %s)"
+                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             imgData=cursor.fetchall()
