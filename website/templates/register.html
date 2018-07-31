@@ -37,17 +37,17 @@
       <form class="needs-validation" action="/Register" method="post" novalidate>
         <div class="form-group">
           <label>Email address &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
-          <input type="email" class="form-control" placeholder="johndoe@email.com" id="email" name="email" value="{{request.form.email}}" required>
+          <input type="email" class="form-control" maxlength="254" placeholder="johndoe@email.com" id="email" name="email" value="{{request.form.email}}" required>
           <small class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div> <!-- form-group end.// -->
         <div class="form-group">
           <!-- &nbsp is "non breaking space" -->
           <label>Create password &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
-          <input class="form-control" type="password" id="password" name="password" placeholder="Password" value="{{request.form.password}}" required>
+          <input class="form-control" type="password" id="password" name="password" maxlength="30" placeholder="Password" value="{{request.form.password}}" required>
         </div> <!-- form-group end.// -->
         <div class="col form-group">
           <label>Username &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
-          <input type="text" class="form-control" placeholder="UserName" name="userName" value="{{request.form.userName}}">
+          <input type="text" class="form-control" maxlength="50" placeholder="UserName" name="userName" value="{{request.form.userName}}">
         </div> <!-- form-group end.// -->
 
         <!-- DOB -->
@@ -146,11 +146,11 @@
         <!-- END dob -->
         <div class="col form-group">
           <label>First name </label>
-          <input type="text" class="form-control" placeholder="First Name" name="firstName" value="{{request.form.firstName}}">
+          <input type="text" class="form-control" maxlength="44" placeholder="First Name" name="firstName" value="{{request.form.firstName}}">
         </div> <!-- form-group end.// -->
         <div class="col form-group">
           <label>Last name </label>
-          <input type="text" class="form-control" placeholder="Last Name" name="lastName" value="{{request.form.lastName}}">
+          <input type="text" class="form-control" maxlength="44" placeholder="Last Name" name="lastName" value="{{request.form.lastName}}">
         </div>
         <!-- <div class="form-group" name="gender">
           <label class="form-check form-check-inline">
@@ -178,7 +178,7 @@
         <div class="form-row">
           <div class="form-group col-md-6">
             <label>City</label>
-            <input type="text" class="form-control" placeholder="City"name="city" value="{{request.form.city}}">
+            <input type="text" class="form-control" maxlength="64" placeholder="City"name="city" value="{{request.form.city}}">
           </div> <!-- form-group end.// -->
           <div class="form-group col-md-6">
             <label>Country</label>

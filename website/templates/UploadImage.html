@@ -32,12 +32,12 @@
                 <br>
                 <div>
                 Description:
-                <input class="messageBox" type="text" name="description" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
+                <input class="messageBox" type="text" name="description" maxlength="150" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
               </div>
                 <br>
                 <div>
                 Image Name:
-                <input type="text" name="imageName" placeholder="Please provide your image name" size="50" value="{{request.form.imageName}}"/>
+                <input type="text" name="imageName" maxlength="40" placeholder="Please provide your image name" size="50" value="{{request.form.imageName}}"/>
               </div>
                 <br><br>
                 <input class="button" type="submit" value="Upload">

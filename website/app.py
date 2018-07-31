@@ -58,14 +58,15 @@ def searchResult():
             else:
                 _categoryId=data[0][0]
                 order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
-                cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
+                cursor.execute(order, (int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             imgData=cursor.fetchall()
-            if(len(imgData) == 0):
+            imgCount=len(imgData)
+            if(imgCount == 0):
                 error = "Sorry, the image is not available, but here is our trending images for you:"
                 return redirect(url_for('home'))
             else:
-                return render_template("ImageResult.html",imgData=imgData, error=error)
+                return render_template("ImageResult.html",imgData=imgData, error=error, imgCount=imgCount, search=_search)
         else:
             return redirect(url_for('home'))
     except Exception as e:
