@@ -30,7 +30,7 @@ def home():
     #create db connection
     conn = mysql.connect()
     cursor = conn.cursor()
-    error = request.args['error']  # counterpart for url_for()
+    error = request.args.get('error')  # counterpart for url_for()
     imgCmd = "SELECT FilePath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
