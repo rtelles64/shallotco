@@ -134,7 +134,7 @@ function changePage(page)
         // htmlData = htmlData + href + img;
         imageName = {{imageData}}[i][1];
         imageSrc = {{imageData}}[i][0];
-        htmlData = htmlData + '<a target="_blank" rel="noopener noreferrer" href="/Search/imageName"> <img class="object-fit_contain" src="{{imageData}}[i][0]"/></a>'
+        htmlData = htmlData + '<a target="_blank" rel="noopener noreferrer" href="/Search/imageName"> <img class="object-fit_contain" src="imageSrc"/></a>'
         $('#listingTable').find('.image').html(htmlData);
 
     }
