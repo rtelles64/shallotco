@@ -30,12 +30,13 @@ def home():
     #create db connection
     conn = mysql.connect()
     cursor = conn.cursor()
+    error = request.args.get('error')  # counterpart for url_for()
     imgCmd = "SELECT FilePath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
     #render home page with the data that is being sent from DB
-    return render_template("shallotHome.html",data=data)
+    return render_template("shallotHome.html",data=data,error=error)
 
 #define search page
 @app.route('/Search', methods=['POST', 'GET'])
@@ -63,8 +64,8 @@ def searchResult():
             imgData=cursor.fetchall()
             imgCount=len(imgData)
             if(imgCount == 0):
-                error = "Sorry, the image is not available, but here is our trending images for you:"
-                return redirect(url_for('home'))
+                error = "We are sorry that the image you searched is not available, but here is our trending images for you:"
+                return redirect(url_for('home',error=error))
             else:
                 return render_template("ImageResult.html",imgData=imgData, error=error, imgCount=imgCount, search=_search)
         else:
@@ -80,11 +81,17 @@ def searchResult():
 def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName = %s"
+    imgcmd = "SELECT FilePath, ImageName, Descr, UserId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
-    return render_template("ImagePage.html", data=data)
+    usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
+    cursor.execute(usernamecmd, data[0][3])
+    conn.commit()
+    #get userName with that userId
+    userName=cursor.fetchall()
+    userName=userName[0][0]
+    return render_template("ImagePage.html", data=data,userName=userName)
 
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
