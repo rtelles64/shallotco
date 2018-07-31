@@ -5,6 +5,7 @@ from flask import Flask, render_template, json, redirect, request,flash,url_for,
 from flaskext.mysql import MySQL
 import os
 import gc
+from functools import wraps
 from passlib.hash import sha256_crypt
 
 mysql = MySQL()
