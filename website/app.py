@@ -210,7 +210,6 @@ def register():
 @app.route('/Login', methods=["GET","POST"])
 def login():
     error = ''
-    displayName='Login'
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
@@ -227,10 +226,9 @@ def login():
             #flash(attempted_password)
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 flash("coming to if")
-                displayName = 'Sign Out'
                 session['logged_in'] = True
-                session['username'] = request.form['username']
-                return redirect(url_for('home'),displayName=displayName)
+                # session['username'] = request.form['username']
+                return redirect(url_for('home'))
             else:
                 #error has occured when login
                 error = "Invalid credentials. Try Again."
@@ -239,6 +237,13 @@ def login():
     except Exception as e:
         error = "Login failed, please try again"
         return render_template("Login.html", error = error)
+
+@app.route('/Logout')
+@login_required
+def logout():
+    session.pop('logged_in', None)
+    flash('You were logged out.')
+    return redirect(url_for('home'))
 
 @app.route('/About/Roy')
 def Roy():

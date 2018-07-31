@@ -76,12 +76,27 @@
         <li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li>
         <li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
         <!-- <li><a href="/Login"onclick="location.assign('/Login'),'_top'"><span class="glyphicon glyphicon-log-in"></span> Login</a></li> -->
-        <li><a href="/Login"onclick="location.assign('/Login'),'_top'"><span class="glyphicon glyphicon-log-in"></span>{{displayName}}</a></li>
+        {% if session['logged_in'] == True %}
+                    <li><a href="/Logout" onclick="location.assign('/Logout'),'_top'">Logout <span class="sr-only">(current)</span></a></li>
+                    {% else %}
+                    <li><a href="/Login" onclick="location.assign('/Login'),'_top'">Login <span class="sr-only">(current)</span></a></li>
+                    {% endif %}
       </ul>
       <!-- END Signup/Login buttons -->
     </div> <!-- END collapsible -->
   </div>
 </nav>
+<div class="container" style="min-height:100% width:80%">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+  {{message}}
+  </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
 <!-- END navbar -->
 <!-- BANNER -->
   <div class="banner container-fluid bg-2 text-center">
