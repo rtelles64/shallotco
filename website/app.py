@@ -85,12 +85,6 @@ def imagePage(image):
     data = cursor.fetchall()
     return render_template("ImagePage.html", data=data)
 
-# @app.route('/Upload')
-# def upload():
-#     return render_template("UploadImage.html")
-
-# APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
@@ -232,7 +226,7 @@ def login():
             conn.commit()
             data = cursor.fetchall()
             flash(data)
-            flash(data[0][0]) 
+            flash(data[0][0])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 session['logged_in'] = True
                 return redirect(url_for('home'))
