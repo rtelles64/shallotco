@@ -87,7 +87,9 @@ def imagePage(image):
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
-    userName=cursor.fetchall()[0][0]
+    userName=cursor.fetchall()
+    flash(userName)
+    userName=userName[0][0]
     return render_template("ImagePage.html", data=data,userName=userName)
 
 #define upload image
