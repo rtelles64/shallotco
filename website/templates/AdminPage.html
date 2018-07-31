@@ -60,19 +60,19 @@
         object-fit: contain;
     }
     
-    img {
+    #adminpage img {
         height: 250px;
         width: 250px;
         background-color: rgb(112, 103, 103);
     }
     
-    .image {
+    #adminpage .image {
         float: left;
         margin: 20px;
         padding-left: 100px;
     }
     
-    .object-fit_contain:hover{
+    #adminpage .object-fit_contain:hover{
         color: #424242; 
       -webkit-transition: all .3s ease-in;
       -moz-transition: all .3s ease-in;
@@ -97,6 +97,7 @@
 
 
 {%block body%}
+<div id = "adminpage">
 <p>Admin Page</p>
 
 <div class="tab">
@@ -125,7 +126,7 @@
             <td>{{row[3]}}</td>
             <td>{{row[4]}}</td>
             <td>{{row[5]}}</td>
-            <td><input class="DeleteButton" type="submit" value="Delete"></td>
+            <td><input class="DeleteButton" type="submit" value="Delete" onclick="deleteButton(this)"></td>
         </tr>
         {% endfor %}
     </table>
@@ -135,7 +136,7 @@
     <table id="pendingTable">
         <tr>
             <th>Image</th>
-            <th class="clickable" onclick="sortTable(6)">Uploader</th>
+            <th class="clickable" onclick="sortTable(6)">Uploader &#9650 &#x25BC</th>
             <th>Action</th>
         </tr>
         {% for row in pendingData %}
@@ -148,7 +149,7 @@
             <td>{{row[1]}}</td>
             <td>
                 <input class="AcceptButton" type="submit" value="Accept"><br><br>
-                <input class="DenyButton" type="submit" value="Reject">
+                <input class="DenyButton" type="submit" value="Reject" onclick="deleteButton(this)">
             </td>
         </tr>
         {% endfor %}
@@ -161,7 +162,7 @@
     <table id="approvedTable">
         <tr>
             <th>Approved Image</th>
-            <th class="clickable" onclick="sortTable(7)">Uploader</th>
+            <th class="clickable" onclick="sortTable(7)">Uploader &#9650 &#x25BC</th>
             <th>Delete</th>
         </tr>
         {% for row in approvedData %}
@@ -172,7 +173,7 @@
                 </div>
             </td>
             <td>{{row[1]}}</td>
-            <td><input class="DeleteButton" type="submit" value="Delete"></td>
+            <td><input class="DeleteButton" type="submit" value="Delete" onclick="deleteButton(this)"></td>
         </tr>
         {% endfor %}
     </table>
@@ -245,6 +246,11 @@
     function backButton() {
         window.history.back();
     }
+    function deleteButton(t){
+    index = t.parentNode.parentNode;
+    index.parentNode.removeChild(index);    
+    }
 </script>
 
+</div>
 {%endblock%}

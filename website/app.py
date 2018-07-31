@@ -112,7 +112,8 @@ def searchResult():
                 return redirect(url_for('/'))
             else:
        		#flash("it has come to else")
-                return render_template("ImageResult.html",imgData=imgData)
+                numOfImage = len(imgData)
+                return render_template("ImageResult.html",imgData=imgData, imageFound = numOfImage)
         else:
     	# flash("else")
             return redirect(url_for('/'))
