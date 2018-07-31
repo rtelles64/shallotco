@@ -47,7 +47,7 @@ def searchResult():
         if request.method == 'POST':
             _search = request.form['search']
             _categoryName = request.form['category']
-            categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %d"
+            categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
