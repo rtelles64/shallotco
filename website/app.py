@@ -188,10 +188,13 @@ def register():
             flash("finish execute")
             conn.commit()
             flash("finish commit")
+            #For collecting gabage
             gc.collect()
-            session['logged_in'] = True 
+            #session['logged_in'] = True
+            #send confirmation message when the user has successfully registered
+            flash("Thank you for signing up! Now you can log in")
             #return to homepage when user is successfully registered
-            return redirect(url_for('home'))
+            return redirect(url_for('login'))
         #if there is no post, render register page
         return render_template("register.html")
     except Exception as e:

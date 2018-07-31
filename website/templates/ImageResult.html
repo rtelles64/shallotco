@@ -38,10 +38,11 @@
 <br>
 
 {% if error %}
-  <p class="error"><strong>Error:</strong>{{error}}</p>
+  <p class="error"><strong>Error: </strong>{{error}}</p>
 {% endif %}
 <div class="container">
-  <h3><center>Results</center></h3>
+<h3><center>Results</center></h3>
+
 
 <form method="post">
 
@@ -50,9 +51,7 @@
     {% for image in imgData %}
         <!-- <div class="column"> -->
         <div class="image">
-
           <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[1]}}"> <img class="object-fit_contain" src="{{image[0]}}"/></a>
-        
         </div>
         <!-- </div> -->
     {% endfor %}
