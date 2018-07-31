@@ -3,7 +3,6 @@
 
 from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file,session
 from flaskext.mysql import MySQL
-from flask.ext.security import Security
 import os
 import gc
 from passlib.hash import sha256_crypt
@@ -207,6 +206,16 @@ def register():
     finally:
         cursor.close()
         conn.close()
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first")
+            return redirect(url_for('login'))
+
+    return wrap
 
 @app.route('/Login', methods=["GET","POST"])
 def login():
@@ -242,8 +251,12 @@ def login():
 @app.route('/Logout')
 @login_required
 def logout():
-    session.pop('logged_in', None)
-    flash('You were logged out.')
+    # session.pop('logged_in', None)
+    # flash('You were logged out.')
+    # return redirect(url_for('home'))
+    session.clear()
+    flash("You have been logged out!")
+    gc.collect()
     return redirect(url_for('home'))
 
 @app.route('/About/Roy')
