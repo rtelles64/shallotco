@@ -64,7 +64,7 @@ def searchResult():
             imgCount=len(imgData)
             if(imgCount == 0):
                 error = "Sorry, the image you searched is not available, but here is our trending images for you:"
-                return redirect(url_for('home'))
+                return redirect(url_for('home'),error=error)
             else:
                 return render_template("ImageResult.html",imgData=imgData, error=error, imgCount=imgCount, search=_search)
         else:
@@ -87,8 +87,8 @@ def imagePage(image):
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
+    #get userName with that userId
     userName=cursor.fetchall()
-    flash(userName)
     userName=userName[0][0]
     return render_template("ImagePage.html", data=data,userName=userName)
 
