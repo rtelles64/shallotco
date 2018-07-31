@@ -113,6 +113,7 @@ def searchResult():
             else:
        		#flash("it has come to else")
                 numOfImage = len(imgData)
+                print(numOfImage)
                 return render_template("ImageResult.html",imgData=imgData, imageFound = numOfImage)
         else:
     	# flash("else")
