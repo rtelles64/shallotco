@@ -18,7 +18,7 @@
   {% for data in data %}
   {% if session.logged_in %}
   <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
-  <p style="text-align:center;">{{data[1]}}</p>
+  <p style="text-align:center;">{{data[1]}} ;&nbsp; ;&nbsp; ;&nbsp;Uploaded By: {{data[3]}}</p>
   <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
   <p style="text-align:center;">{{data[2]}}</p>
   {% else %}

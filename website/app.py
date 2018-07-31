@@ -63,7 +63,7 @@ def searchResult():
             imgData=cursor.fetchall()
             imgCount=len(imgData)
             if(imgCount == 0):
-                error = "Sorry, the image is not available, but here is our trending images for you:"
+                error = "Sorry, the image you searched is not available, but here is our trending images for you:"
                 return redirect(url_for('home'))
             else:
                 return render_template("ImageResult.html",imgData=imgData, error=error, imgCount=imgCount, search=_search)
@@ -80,7 +80,7 @@ def searchResult():
 def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName = %s"
+    imgcmd = "SELECT FilePath, ImageName, Descr, UserName FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
