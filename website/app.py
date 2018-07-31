@@ -232,13 +232,9 @@ def login():
             conn.commit()
             data = cursor.fetchall()
             flash(data)
-            flash(data[0][0])
-            #flash(attempted_username)
-            #flash(attempted_password)
+            flash(data[0][0]) 
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
-                flash("coming to if")
                 session['logged_in'] = True
-                # session['username'] = request.form['username']
                 return redirect(url_for('home'))
             else:
                 #error has occured when login
