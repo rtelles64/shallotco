@@ -83,11 +83,11 @@
                     {% endif %} -->
             {% if session.logged_in %}
             <li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li>
-    				<li><a href="/Logout/" onclick="location.assign('/Logout'),'_top'"><span class="glyphicon glyphicon-log-out"></span> Logout </a></li>
+    				<li><a href="/Logout" onclick="location.assign('/Logout'),'_top'"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
     				{% else %}
     				<li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li>
-    				<li><a href="/Login" onclick="location.assign('/Login'),'_top'"><span class="glyphicon glyphicon-log-in"></span> Login</a><li>
-    				<li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-pencil"></span> Sign up</a><li>
+    				<li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-log-in"></span> Login</a><li>
+    				<!-- <li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-pencil"></span> Sign up</a><li> -->
     				{% endif %}
       </ul>
       <!-- END Signup/Login buttons -->
