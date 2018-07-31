@@ -30,12 +30,13 @@ def home():
     #create db connection
     conn = mysql.connect()
     cursor = conn.cursor()
+    error = request.args['error']  # counterpart for url_for()
     imgCmd = "SELECT FilePath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
     #render home page with the data that is being sent from DB
-    return render_template("shallotHome.html",data=data)
+    return render_template("shallotHome.html",data=data,error=error)
 
 #define search page
 @app.route('/Search', methods=['POST', 'GET'])
