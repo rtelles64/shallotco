@@ -1,9 +1,11 @@
 #app.py: Definition of routes for web application Shallotco.com.
 #__author__ = "Jenny, Mike, Patrick"
 
-from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file
+from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file,session
 from flaskext.mysql import MySQL
 import os
+import gc
+from functools import wraps
 from passlib.hash import sha256_crypt
 
 mysql = MySQL()
@@ -83,12 +85,6 @@ def imagePage(image):
     data = cursor.fetchall()
     return render_template("ImagePage.html", data=data)
 
-# @app.route('/Upload')
-# def upload():
-#     return render_template("UploadImage.html")
-
-# APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
@@ -161,7 +157,7 @@ def register():
             _password = sha256_crypt.encrypt(str(request.form['password']))
             flash(_password)
             #passHash = sha256_crypt.encrypt(str(_password))
-            #flash(passHash)	
+            #flash(passHash)
             _email = request.form['email']
             flash(_email)
             _gender = request.form['gender']
@@ -192,6 +188,8 @@ def register():
             flash("finish execute")
             conn.commit()
             flash("finish commit")
+            gc.collect()
+            session['logged_in'] = True 
             #return to homepage when user is successfully registered
             return redirect(url_for('home'))
         #if there is no post, render register page
@@ -202,6 +200,16 @@ def register():
     finally:
         cursor.close()
         conn.close()
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            flash("You need to login first")
+            return redirect(url_for('login'))
+
+    return wrap
 
 @app.route('/Login', methods=["GET","POST"])
 def login():
@@ -218,18 +226,28 @@ def login():
             data = cursor.fetchall()
             flash(data)
             flash(data[0][0])
-            #flash(attempted_username)
-            #flash(attempted_password)
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
-                flash("coming to if")
+                session['logged_in'] = True
                 return redirect(url_for('home'))
             else:
                 #error has occured when login
                 error = "Invalid credentials. Try Again."
+        gc.collect()
         return render_template("Login.html", error = error)
     except Exception as e:
         error = "Login failed, please try again"
         return render_template("Login.html", error = error)
+
+@app.route('/Logout')
+@login_required
+def logout():
+    # session.pop('logged_in', None)
+    # flash('You were logged out.')
+    # return redirect(url_for('home'))
+    session.clear()
+    flash("You have been logged out!")
+    gc.collect()
+    return redirect(url_for('home'))
 
 @app.route('/About/Roy')
 def Roy():
