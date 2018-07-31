@@ -189,8 +189,7 @@ def register():
             conn.commit()
             flash("finish commit")
             gc.collect()
-            session['logged_in'] = True
-            session['username'] = username
+            session['logged_in'] = True 
             #return to homepage when user is successfully registered
             return redirect(url_for('home'))
         #if there is no post, render register page
