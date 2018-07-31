@@ -1,9 +1,10 @@
 #app.py: Definition of routes for web application Shallotco.com.
 #__author__ = "Jenny, Mike, Patrick"
 
-from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file
+from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file,session
 from flaskext.mysql import MySQL
 import os
+import gc
 from passlib.hash import sha256_crypt
 
 mysql = MySQL()
@@ -161,7 +162,7 @@ def register():
             _password = sha256_crypt.encrypt(str(request.form['password']))
             flash(_password)
             #passHash = sha256_crypt.encrypt(str(_password))
-            #flash(passHash)	
+            #flash(passHash)
             _email = request.form['email']
             flash(_email)
             _gender = request.form['gender']
@@ -192,6 +193,9 @@ def register():
             flash("finish execute")
             conn.commit()
             flash("finish commit")
+            gc.collect()
+            session['logged_in'] = True
+            session['username'] = username
             #return to homepage when user is successfully registered
             return redirect(url_for('home'))
         #if there is no post, render register page
@@ -206,6 +210,7 @@ def register():
 @app.route('/Login', methods=["GET","POST"])
 def login():
     error = ''
+    displayName='Login'
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
@@ -222,10 +227,14 @@ def login():
             #flash(attempted_password)
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 flash("coming to if")
-                return redirect(url_for('home'))
+                displayName = 'Sign Out'
+                session['logged_in'] = True
+                session['username'] = request.form['username']
+                return redirect(url_for('home'),displayName=displayName)
             else:
                 #error has occured when login
                 error = "Invalid credentials. Try Again."
+        gc.collect()
         return render_template("Login.html", error = error)
     except Exception as e:
         error = "Login failed, please try again"
