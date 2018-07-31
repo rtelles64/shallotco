@@ -53,7 +53,7 @@ def searchResult():
             data=cursor.fetchall()
             if (len(data) == 0):
                 order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
-                cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
+                cursor.execute(order,('%'+(_search,)+'%','%'+(_search,)+'%'))
                 conn.commit()
             else:
                 _categoryId=data[0][0]
