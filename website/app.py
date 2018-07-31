@@ -3,7 +3,7 @@
 
 from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file,session
 from flaskext.mysql import MySQL
-from flaskext.security import Security
+from flask.ext.security import Security
 import os
 import gc
 from passlib.hash import sha256_crypt
