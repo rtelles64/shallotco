@@ -53,12 +53,12 @@ def searchResult():
             data=cursor.fetchall()
             if (len(data) == 0):
                 order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like @0 OR Descr LIKE @1"
-                cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
+                cursor.execute(order,'%'+_search+'%','%'+_search+'%')
                 conn.commit()
             else:
                 _categoryId=data[0][0]
                 order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=@0 and (ImageName Like @1 OR Descr LIKE @2)"
-                cursor.execute(order,(int(_categoryId), '%'+_search+'%','%'+_search+'%'))
+                cursor.execute(order,int(_categoryId), '%'+_search+'%','%'+_search+'%')
                 conn.commit()
             imgData=cursor.fetchall()
             if(len(imgData) == 0):
