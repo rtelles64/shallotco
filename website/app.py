@@ -89,7 +89,7 @@ def imagePage(image):
     conn.commit()
     userName=cursor.fetchall()
     flash(userName)
-    # userName=userName[0][0]
+    userName=userName[0][0]
     return render_template("ImagePage.html", data=data,userName=userName)
 
 #define upload image
