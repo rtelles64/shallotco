@@ -79,7 +79,7 @@
     				<li><a href="/Logout" onclick="location.assign('/Logout'),'_top'"><span class="glyphicon glyphicon-log-out" style="padding-top: 6px; margin-top: 9px;"></span>Logout</a></li>
     				{% else %}
     				<!-- <li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li> -->
-            <li><a><button type="submit" onclick="alert("Please login before uploading images")" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li>
+            <li><a><button type="submit" onclick="alertMessage()" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li>
             <li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-pencil" style="padding-top: 6px; margin-top: 9px;"></span> Sign up</a><li>
     				<li><a href="/Login" onclick="location.assign('/Login'),'_top'"><span class="glyphicon glyphicon-log-in" style="padding-top: 6px; margin-top: 9px;"></span> Login</a><li>
     				{% endif %}
@@ -123,6 +123,11 @@
 <!-- END footer -->
 <!-- SEARCHBAR script -->
 </body>
+<script>
+function alertMessage() {
+ alert("Please login before uploading images!");
+}
+</script>
 <script>
 // This overrides the 'ordered list' functions and turns it into drop down
 $(document).ready(function(e){
