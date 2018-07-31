@@ -55,7 +55,7 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="http://shallotco.com">
-        <img src="{{ url_for('static', filename='RingsLightPurple.png') }}" style="float: left; height: 3.8rem; padding-top: 6px; margin-top: 6px;">
+        <img src="{{ url_for('static', filename='RingsLightPurple.png') }}" style="float: left; height: 3.8rem; margin-top: -8px;">
       </a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
@@ -79,7 +79,7 @@
     				<li><a href="/Logout" onclick="location.assign('/Logout'),'_top'"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
     				{% else %}
     				<!-- <li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li> -->
-            <li><a><button type="submit" onclick="alertMessage()" class="btn btn-primary" style="padding-top: 6px; margin-top: 8px;">Upload</button></a></li>
+            <li><a><button type="submit" onclick="alertMessage()" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li>
             <li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-pencil"></span> Sign up</a><li>
     				<li><a href="/Login" onclick="location.assign('/Login'),'_top'"><span class="glyphicon glyphicon-log-in"></span> Login</a><li>
     				{% endif %}
