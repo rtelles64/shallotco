@@ -52,12 +52,12 @@ def searchResult():
             conn.commit()
             data=cursor.fetchall()
             if (len(data) == 0):
-                order = "SELECT COUNT(FilePath, ImageName, Descr) AS imgCount FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                order = "SELECT COUNT(*) FROM (SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s) imgCount"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             else:
                 _categoryId=data[0][0]
-                order = "SELECT COUNT(FilePath, ImageName, Descr) AS imgCount FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
+                order = "SELECT COUNT(*) FROM (SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)) imgCount"
                 cursor.execute(order, (int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             imgData=cursor.fetchall()
