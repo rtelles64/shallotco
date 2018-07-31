@@ -132,7 +132,9 @@ function changePage(page)
         // href='/Search/' + {{imgData}}[i][1] + '">';
         // img = '<img class="object-fit_contain" src=" ' + {{imgData}}[i][0] + '" /></a>';
         // htmlData = htmlData + href + img;
-        htmlData = htmlData + '<a target="_blank" rel="noopener noreferrer" href="/Search/{{imageData}}[i][1]"> <img class="object-fit_contain" src="{{imageData}}[i][0]"/></a>'
+        imageName = {{imageData}}[i][1];
+        imageSrc = {{imageData}}[i][0];
+        htmlData = htmlData + '<a target="_blank" rel="noopener noreferrer" href="/Search/imageName"> <img class="object-fit_contain" src="{{imageData}}[i][0]"/></a>'
         $('#listingTable').find('.image').html(htmlData);
 
     }
