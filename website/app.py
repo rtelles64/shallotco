@@ -80,11 +80,15 @@ def searchResult():
 def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT FilePath, ImageName, Descr, UserName FROM ApprovedImg WHERE ImageName = %s"
+    imgcmd = "SELECT FilePath, ImageName, Descr, UserId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
-    return render_template("ImagePage.html", data=data)
+    usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
+    cursor.execute(usernamecmd, data[0][3])
+    conn.commit()
+    userName=cursor.fetchall()[0][0]
+    return render_template("ImagePage.html", data=data,userName)
 
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
