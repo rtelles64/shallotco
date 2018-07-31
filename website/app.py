@@ -88,7 +88,7 @@ def imagePage(image):
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
     userName=cursor.fetchall()[0][0]
-    return render_template("ImagePage.html", data=data,userName)
+    return render_template("ImagePage.html", data=data,userName=userName)
 
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
