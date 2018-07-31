@@ -122,7 +122,7 @@ function changePage(page)
     var btn_prev = document.getElementById("btn_prev");
     var listing_table = document.getElementById("listingTable");
     var page_span = document.getElementById("page");
-    htmlData = '<a target="_blank" rel="noopener noreferrer" href="'
+    htmlData = ''
     // Validate page
     if (page < 1) page = 1;
     if (page > numPages()) page = numPages();
@@ -131,9 +131,10 @@ function changePage(page)
 
     for (var i = (page-1) * records_per_page; i < (page * records_per_page)&& i < {{imgData}}.length; i++) {
         // listing_table.innerHTML += {objJson}[i].adName + "<br>";
-        href='/Search/' + {{imgData}}[i][1] + '">';
-        img = '<img class="object-fit_contain" src=" ' + {{imgData}}[i][0] + '" /></a>';
-        htmlData = htmlData + href + img;
+        // href='/Search/' + {{imgData}}[i][1] + '">';
+        // img = '<img class="object-fit_contain" src=" ' + {{imgData}}[i][0] + '" /></a>';
+        // htmlData = htmlData + href + img;
+        htmlData = htmlData + '<a target="_blank" rel="noopener noreferrer" href="/Search/{{imageData[i][1]}}"> <img class="object-fit_contain" src="{{imageData[i][0]}}"/></a>'
         $('#listingTable').find('.image').html(htmlData);
 
     }
