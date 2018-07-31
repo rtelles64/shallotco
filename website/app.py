@@ -66,7 +66,7 @@ def searchResult():
                 error = "Sorry, the image is not available, but here is our trending images for you:"
                 return redirect(url_for('home'))
             else:
-                return render_template("ImageResult.html",imgData=imgData, error=error, imgCount=imgCount)
+                return render_template("ImageResult.html",imgData=imgData, error=error, imgCount=imgCount, search=_search)
         else:
             return redirect(url_for('home'))
     except Exception as e:
