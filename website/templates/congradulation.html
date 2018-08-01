@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+{%extends "ShallotLayout/shallotLayout.html"%}
 
-<style>
+{%block head%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 #button {
     background-color: #4CAF50;
     border: none;
@@ -16,19 +15,16 @@
     margin: 4px 2px;
     cursor: pointer;
 }
-</style>
+{%endblock%}
 
-</head>
-<body>
 
-    <br><br><br><br><br><br><br><br>
-    <center><h1>Congradulation on creating your Shallot account!</h1></center>
-    <center>
-            <form action="http://shallotco.com/Login">
-                <input id="button" type="submit" value="Click to sign in" />
-            </form>
-    </center>
 
-</div>
-</body>
-</html>
+{%block body%}
+<br><br><br><br><br><br><br><br>
+<center><h1>Congradulation on creating your Shallot account!</h1></center>
+<center>
+        <form action="http://shallotco.com/Login">
+            <input id="button" type="submit" value="Click to sign in" />
+        </form>
+</center>
+{%endblock%}
