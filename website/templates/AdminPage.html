@@ -1,7 +1,7 @@
-<!--Image Result Page-->
+<!--admin Page-->
 <!--Front End: Roy Telles & Sam Zheng-->
 <!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
-{%include "layoutBanner.html"%}
+{%extends “ShallotLayout/shallotLayout.html” %}
 {%block head%}
 <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
 <style>
@@ -98,7 +98,6 @@
 
 {%block body%}
 <div id = "adminpage">
-<p>Admin Page</p>
 
 <div class="tab">
   <button class="tablinks" onclick="adminpage(event, 'Approved')">|Approved Images|</button>
