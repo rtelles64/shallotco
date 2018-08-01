@@ -7,6 +7,8 @@ import os
 import gc
 from functools import wraps
 from passlib.hash import sha256_crypt
+from PIL import Image,ImageOps
+import glob, os
 
 mysql = MySQL()
 app = Flask(__name__)
