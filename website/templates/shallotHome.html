@@ -17,10 +17,21 @@
       {% for image in data %}
           <div class="column">
           <tr>
-            <td> <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[1]}}"> <img src="{{image[0]}}" align="left" style="width:500px;height:400px;" hspace="20" vspace="20"></a></td>
+            <td> <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[1]}}"> <img src="{{image[0]}}" align="left" style="width:500px;height:500px;" hspace="20" vspace="20"></a></td>
           </tr>
           </div>
       {% endfor %}
 </div>
 {%endblock%}
+<style>
+img {
+    border: 1px solid #ddd; /* Gray border */
+    border-radius: 4px;  /* Rounded border */
+}
+
+/* Add a hover effect (blue shadow) */
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+</style>
 <!-- END trending -->
