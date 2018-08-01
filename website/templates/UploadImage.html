@@ -48,6 +48,12 @@
 }
 </style>
 {%endblock%}
+
+
+{%block banner%}
+<center><h1>Upload</h1></center>
+{%endblock%}
+
 {%block body%}
         <br>
         <br>
@@ -57,7 +63,8 @@
         {% endif %}
         <div class = "container-fluid">
         <div id="uploadImage" class = "container-fluid searchBar text-center">
-          <h1 style="text-align:center;">Please choose the image that you want to upload</h1>
+          <h1 style="text-align:center;">Drag and drop an image into the box</h1>
+          <h1 style="text-align:center;">or click the box to browse your image</h1>
             <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
               <div class="form-group" style="display: center;">
               <br><br>
@@ -87,6 +94,10 @@
                 </div>
             </form>
             <br><br><br>
+
+            <div class="policy">
+                Disclaimer: It may take up to 24 hours before the image is visible on the site
+            </div>
 
             </div>
 {%endblock%}
