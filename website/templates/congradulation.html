@@ -1,7 +1,7 @@
 {%extends "ShallotLayout/shallotLayout.html"%}
 
 {%block banner%}
-<center><h4>Congratulations on creating your Shallot account!</h4></center>
+<center><h1>Congratulations on creating your Shallot account!</h1></center>
 {%endblock%}
 
 {%block head%}
@@ -26,9 +26,9 @@
 
 
 {%block body%}
-<a href="http://shallotco.com">
+<center><a href="http://shallotco.com">
     <img src="{{ url_for('static', filename='ShallotPurple.png') }}" class="img-responsive margin" style="display:inline" alt="ShallotLogo" width="645" height="300" margin-bottom: "0px">
-  </a>
+    </a></center>
 <center><h4>Thank you for registering an account with Shallot!</h4></center>
 <center><h4> Please click the button below to sign in!</h4></center>
 <center>
