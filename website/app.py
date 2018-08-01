@@ -38,6 +38,11 @@ def home():
     #render home page with the data that is being sent from DB
     return render_template("shallotHome.html",data=data,error=error)
 
+#congradulation page
+@app.route('/congratulation')
+def congradulation():
+    return render_template("congradulation.html")
+
 #define search page
 @app.route('/Search', methods=['POST', 'GET'])
 def searchResult():
