@@ -31,7 +31,7 @@ def home():
     conn = mysql.connect()
     cursor = conn.cursor()
     error = request.args.get('error')  # counterpart for url_for()
-    imgCmd = "SELECT FilePath, ImageName From ApprovedImg WHERE Views >= 350"
+    imgCmd = "SELECT ThumbPath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()

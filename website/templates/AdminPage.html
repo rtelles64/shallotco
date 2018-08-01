@@ -6,14 +6,14 @@
 <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
 <style>
     body {font-family: Arial;}
-    
+
     /* Style the tab */
     .tab {
         overflow: hidden;
         border: 1px solid #ccc;
         background-color: #f1f1f1;
     }
-    
+
     /* Style the buttons inside the tab */
     .tab button {
         background-color: inherit;
@@ -25,17 +25,17 @@
         transition: 0.3s;
         font-size: 17px;
     }
-    
+
     /* Change background color of buttons on hover */
     .tab button:hover {
         background-color: #ddd;
     }
-    
+
     /* Create an active/current tablink class */
     .tab button.active {
         background-color: #ccc;
     }
-    
+
     /* Style the tab content */
     .tabcontent {
         display: none;
@@ -59,21 +59,21 @@
     .object-fit_contain {
         object-fit: contain;
     }
-    
+
     img {
         height: 250px;
         width: 250px;
         background-color: rgb(112, 103, 103);
     }
-    
+
     .image {
         float: left;
         margin: 20px;
         padding-left: 100px;
     }
-    
+
     .object-fit_contain:hover{
-        color: #424242; 
+        color: #424242;
       -webkit-transition: all .3s ease-in;
       -moz-transition: all .3s ease-in;
       -ms-transition: all .3s ease-in;
@@ -86,16 +86,6 @@
     }
     </style>
 {%endblock%}
-
-
-{%block banner%}
-<header class="card-header">
-  <center><h2 class="card-title mt-2">Results</h2></center>
-</header>
-{%endblock%}
-
-
-
 {%block body%}
 <p>Admin Page</p>
 
