@@ -1,5 +1,9 @@
 {%extends "ShallotLayout/shallotLayout.html"%}
 
+{%block banner%}
+Congratulations on creating your Shallot account!
+{%endblock%}
+
 {%block head%}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,8 +26,8 @@
 
 
 {%block body%}
-<br><br><br><br><br><br><br><br>
-<center><h1>Congradulation on creating your Shallot account!</h1></center>
+<br><br><br><br><br><br>
+<center><h1>Thank you for registering an account with Shallot! Please click the button below to sign in!</h1></center>
 <center>
         <form action="http://shallotco.com/Login">
             <input id="button" type="submit" value="Click to sign in" />
