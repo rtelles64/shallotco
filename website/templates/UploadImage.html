@@ -3,65 +3,50 @@
 <!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
 
 {%extends "ShallotLayout/shallotLayout.html" %};
-
-{%block content%}
-        <br><br><br>
+{%block head%}
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+{%endblock%}
+{%block body%}
+        <br>
+        <br>
+        <br>
+        {% if error %}
+          <p class="error"><strong>Error:</strong>{{error}}</p>
+        {% endif %}
         <div id="uploadImage" class = "container-fluid searchBar text-center">
-            <h1>Image Uploader</h1>
-            <br><br><br><br>
-
-
-            <!--all action variables,button here, except the cancel button-->
-            <!--all action variables,button here, except the cancel button-->
-            <!-- url_for('Search')  redirect function name goes in here!!!!!!!!!!-->
-            <!-- url_for('Search')  redirect function name goes in here!!!!!!!!!!-->
-            <form id = "upload-form" action = "{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
-                <input class = "container-fluid text-center upload" type="file" value="clickME" name="file" accept="/" multiple>
+          <h1 style="text-align:center;">Please choose the image that you want to upload</h1>
+            <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
+              <div class="form-group" style="display: center;">
+              <br><br>
+                <input class = "container-fluid text-center upload" type="file" size="200" value="clickME" name="file" accept="image/*" multiple>
                 <br><br>
                 <div>
                     Image Category:
-                    <select name="category">
-                        <option value="nature">nature</option>
-                        <option value="people">people</option>
-                        <option value="animal">animal</option>
+                    <select name="category" value="{{request.form.category}}">
+                        <option value="Nature">Nature</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Food">Food</option>
+                        <option value="Clip Art">Clip Art</option>
                     </select>
                 </div>
                 <br>
-
-                Message:
-                <input class="messageBox" type="text" name='comment' id="searchBar" placeholder="Leave a Comments" size="75"/>
-
+                <div>
+                Description:
+                <input class="messageBox" type="text" name="description" maxlength="150" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
+              </div>
+                <br>
+                <div>
+                Image Name:
+                <input type="text" name="imageName" maxlength="40" placeholder="Please provide your image name" size="50" value="{{request.form.imageName}}"/>
+              </div>
                 <br><br>
                 <input class="button" type="submit" value="Upload">
+                </div>
             </form>
-
-
-
-
-
-
-
-            <input class="button" type="submit" value="Cancel">
-            <br><br><br><br><br><br><br><br>
-            <hr>
-            <div class="policy">
-                POLICY: Fluorine Uranium Carbon Potassium
-                Bismuth Technetium Helium Sulfur Germanium Tau
-                Molybdenum Neon Yttrium Aluminium Lepton
-                Thorium	Rhenium	Electron Tellurium Americium
-                Lepton Electron Alpha Particle Deuterium
-                Hydrogen Alpha Particle	Vanadium Electron
-                Nobelium Iodine	Deuterium Electron Alpha Particle
-                Iodine Deuterium Electron Alpha Particle
-                Protactinium Sulfur	Sulfur
-                Vanadium Argon Iodine Alpha Particle Boron Lepton Electron
-                Francium Molybdenum Phosphorus Yttrium Thorium Oxygen Nitrogen
-                Tau	Oxygen Hydrogen	Thulium	Lepton Alpha Particle Neodymium
-                Vanadium Iodine	Cerium Vanadium	Erbium Sulfur Alpha Particle 7/19/2018
-            </div>
-
-        </div>
-
-
-
+            <br><br><br>
+            <style>
+            form{
+              margin-left: 280px;
+            }
+            </style>
 {%endblock%}

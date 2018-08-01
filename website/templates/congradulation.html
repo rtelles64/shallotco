@@ -1,0 +1,39 @@
+{%extends "ShallotLayout/shallotLayout.html"%}
+
+{%block banner%}
+<center><h1>Congratulations on creating your Shallot account!</h1></center>
+{%endblock%}
+
+{%block head%}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+#button {
+    background-color: #9C00CD;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+</style>
+{%endblock%}
+
+
+
+{%block body%}
+<center><a href="http://shallotco.com">
+    <img src="{{ url_for('static', filename='ShallotPurple.png') }}" class="img-responsive margin" style="display:inline" alt="ShallotLogo" width="645" height="300" margin-bottom: "0px">
+    </a></center>
+<center><h4>Thank you for registering an account with Shallot!</h4></center>
+<center><h4> Please click the button below to sign in!</h4></center>
+<center>
+        <form action="http://shallotco.com/Login">
+            <input id="button" type="submit" value="Click to sign in" />
+        </form>
+</center>
+{%endblock%}
