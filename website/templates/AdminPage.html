@@ -1,7 +1,7 @@
-<!--Image Result Page-->
+<!--admin Page-->
 <!--Front End: Roy Telles & Sam Zheng-->
 <!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
-{%include "layoutBanner.html"%}
+{%extends "ShallotLayout/shallotLayout.html"%}
 {%block head%}
 <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
 <style>
@@ -60,19 +60,19 @@
         object-fit: contain;
     }
     
-    img {
+    #adminpage img {
         height: 250px;
         width: 250px;
         background-color: rgb(112, 103, 103);
     }
     
-    .image {
+    #adminpage .image {
         float: left;
         margin: 20px;
         padding-left: 100px;
     }
     
-    .object-fit_contain:hover{
+    #adminpage .object-fit_contain:hover{
         color: #424242; 
       -webkit-transition: all .3s ease-in;
       -moz-transition: all .3s ease-in;
@@ -90,14 +90,14 @@
 
 {%block banner%}
 <header class="card-header">
-  <center><h2 class="card-title mt-2">Results</h2></center>
+  <center><h2 class="card-title mt-2">Admin Dashboard</h2></center>
 </header>
 {%endblock%}
 
 
 
 {%block body%}
-<p>Admin Page</p>
+<div id = "adminpage">
 
 <div class="tab">
   <button class="tablinks" onclick="adminpage(event, 'Approved')">|Approved Images|</button>
@@ -125,7 +125,7 @@
             <td>{{row[3]}}</td>
             <td>{{row[4]}}</td>
             <td>{{row[5]}}</td>
-            <td><input class="DeleteButton" type="submit" value="Delete"></td>
+            <td><input class="DeleteButton" type="submit" value="Delete" onclick="deleteButton(this)"></td>
         </tr>
         {% endfor %}
     </table>
@@ -135,7 +135,7 @@
     <table id="pendingTable">
         <tr>
             <th>Image</th>
-            <th>Uploader</th>
+            <th class="clickable" onclick="sortTable(6)">Uploader &#9650 &#x25BC</th>
             <th>Action</th>
         </tr>
         {% for row in pendingData %}
@@ -148,7 +148,7 @@
             <td>{{row[1]}}</td>
             <td>
                 <input class="AcceptButton" type="submit" value="Accept"><br><br>
-                <input class="DenyButton" type="submit" value="Reject">
+                <input class="DenyButton" type="submit" value="Reject" onclick="deleteButton(this)">
             </td>
         </tr>
         {% endfor %}
@@ -160,8 +160,8 @@
 <div id="Approved" class="tabcontent">
     <table id="approvedTable">
         <tr>
-            <th>Approved Image</th>
-            <th>Uploader</th>
+            <th>Image</th>
+            <th class="clickable" onclick="sortTable(7)">Uploader &#9650 &#x25BC</th>
             <th>Delete</th>
         </tr>
         {% for row in approvedData %}
@@ -172,14 +172,17 @@
                 </div>
             </td>
             <td>{{row[1]}}</td>
-            <td><input class="DeleteButton" type="submit" value="Delete"></td>
+            <td><input class="DeleteButton" type="submit" value="Delete" onclick="deleteButton(this)"></td>
         </tr>
         {% endfor %}
     </table>
 </div>
 
-
-<input class="Back" type="submit" value="Back" onclick="backButton()">
+<center>
+    <form action="http://shallotco.com">
+        <input id="button" type="submit" value="Back to home" />
+    </form>
+</center>
 
 
 
@@ -201,6 +204,14 @@
     function sortTable(n) {
       var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
       table = document.getElementById("userTable");
+      if(n == 6){
+          n = n - 5;
+          table = document.getElementById("pendingTable");
+      } 
+      else if(n == 7){
+          n = n - 6;
+          table = document.getElementById("approvedTable");
+      }
       switching = true;
       dir = "asc";
       while (switching) {
@@ -237,6 +248,11 @@
     function backButton() {
         window.history.back();
     }
+    function deleteButton(t){
+    index = t.parentNode.parentNode;
+    index.parentNode.removeChild(index);    
+    }
 </script>
 
+</div>
 {%endblock%}
