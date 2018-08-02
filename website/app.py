@@ -149,7 +149,10 @@ def uploadImage():
                 thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
                 flash("create thumbPath")
                 flash(thumbPath)
-                im.save(thumbPath, ext)
+                if ext == '.jpg':
+                    im.save(thumbPath, 'jpeg')
+                else:
+                    im.save(thumbPath, filename.split('.')[-1])
                 order="INSERT INTO PendingImg (ThumbPath) VALUES %s"
                 cursor.execute(order,thumbPath)
                 flash("execute")
@@ -210,12 +213,6 @@ def register():
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
             flash(_dob)
-            #check if user name has existed in the DB
-            # x = cursor.execute("SELECT * FROM USER WHERE UserName = %s",(_user))
-            # if int(x) > 0:
-            #     error = 'This user name has existed, please choose a different username!'
-            #     #simple return to register page if error occurs
-            #     return render_template("register.html", error=error)
             #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             flash("writing command")
@@ -225,7 +222,6 @@ def register():
             flash("finish commit")
             #For collecting gabage
             gc.collect()
-            #session['logged_in'] = True
             #send confirmation message when the user has successfully registered
             flash("Thank you for signing up! Now you can log in")
             #return to homepage when user is successfully registered
@@ -238,6 +234,7 @@ def register():
     finally:
         cursor.close()
         conn.close()
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -266,6 +263,7 @@ def login():
             flash(data[0][0])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 session['logged_in'] = True
+                session['username'] = attempted_username
                 return redirect(url_for('home'))
             else:
                 #error has occured when login
@@ -279,9 +277,6 @@ def login():
 @app.route('/Logout')
 @login_required
 def logout():
-    # session.pop('logged_in', None)
-    # flash('You were logged out.')
-    # return redirect(url_for('home'))
     session.clear()
     flash("You have been logged out!")
     gc.collect()
