@@ -100,9 +100,9 @@ def imagePage(image):
     conn.commit()
     imgcmd = "SELECT Views FROM ApprovedImg WHERE ImageName = %s"
   
-    flash(cursor.execute(imgcmd, image)
-)
-    #flash(conn.commit()
+    cursor.execute(imgcmd, image)
+
+    flash(conn.commit()
 )
     #data = cursor.fetchall()
    
