@@ -109,16 +109,18 @@
 <div id="User" class="tabcontent">
     <table id="userTable">
         <tr>
-            <th class="clickable" onclick="sortTable(0)">User name &#9650 &#x25BC</th>
-            <th class="clickable" onclick="sortTable(1)">Email &#9650 &#x25BC</th>
-            <th class="clickable" onclick="sortTable(2)">Birth day &#9650 &#x25BC</th>
-            <th class="clickable" onclick="sortTable(3)">First name &#9650 &#x25BC</th>
-            <th class="clickable" onclick="sortTable(4)">Gender &#9650 &#x25BC</th>
-            <th class="clickable" onclick="sortTable(5)">City &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(0)">User ID &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(1)">User name &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(2)">Email &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(3)">Birth day &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(4)">First name &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(5)">Gender &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(6)">City &#9650 &#x25BC</th>
             <th>Delete</th>
         </tr>
         {% for row in userData %}
         <tr>
+            <td>{{row[0]}}</td>
             <td>{{row[1]}}</td>
             <td>{{row[3]}}</td>
             <td>{{row[5]}}</td>
