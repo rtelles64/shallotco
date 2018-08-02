@@ -130,14 +130,15 @@ def uploadImage():
                 value=((10,_imageName,_descr,_categoryId,filePath))
                 cursor.execute(order,value)
                 conn.commit()
-                im = Image.open(filePath)
-                im.thumbnail(size, Image.ANTIALIAS)
-                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
-                im.save(thumbPath, ext)
-                order="INSERT INTO PendingImg (ThumbPath) VALUES %s"
-                value = thumbPath
-                cursor.execute(order,value)
-                conn.commit()
+
+                # im = Image.open(filePath)
+                # im.thumbnail(size, Image.ANTIALIAS)
+                # thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
+                # im.save(thumbPath, ext)
+                # order="INSERT INTO PendingImg (ThumbPath) VALUES %s"
+                # value = thumbPath
+                # cursor.execute(order,value)
+                # conn.commit()
             #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
         #if there is no post, simply return to upload image page
