@@ -108,7 +108,7 @@ def imagePage(image):
     cursor.execute(imgcmd, image)
     conn.commit()
     flash(imgcmd)
-    #data = cursor.fetchall()
+    data2 = cursor.fetchall()
     #flash(data[0][0])
     #view = "Update ApprovedImg set views=(Select views where ImageId = (?))+1 where ImageId=(?)"
     #cursor.execute(view, data[0][0])
