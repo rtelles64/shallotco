@@ -259,7 +259,7 @@ def login():
             #flash(data)
             flash(data[0][1])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
-                if data[0][1] == '1':
+                if data[0][1] == 1:
                     return redirect(url_for('adminPage'))
                 else:
                     session['logged_in'] = True
