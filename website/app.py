@@ -98,6 +98,8 @@ def imagePage(image):
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
+    cursor.fetchall()
+
     imgcmd = "SELECT Views FROM ApprovedImg WHERE ImageName = %s"
   
     cursor.execute(imgcmd, image)
@@ -106,8 +108,6 @@ def imagePage(image):
 
     cursor.fetchall()
    
-    cursor.fetchall()
-
     views = 450
     views = views + 1
     flash(views)    
