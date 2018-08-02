@@ -150,23 +150,23 @@ def uploadImage():
 def adminPage():
     conn = mysql.connect()
     cursor = conn.cursor()
-    try:
-        if request.method == 'POST':
-            _imageID = request.form['imageid']
-            sqlCmd = "Insert into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath) Select UserId,ImageName,Descr,CategoryId,FilePath From PendingImg where PendingImg.ImageId = %s"
-            cursor.execute(sqlCmd,_imageID)
-            conn.commit()
-            data = cursor.fetchall()
-    except Exception as e:
-        error="sorry, an error has occured when register, please try again"
-        return render_template("AdminPage.html", error=error)
-    finally:
-        cursor.close()
-        conn.close()
+    _imageID = request.form['imageid']
+    approvedCmd = "SELECT * FROM ApprovedImg"
+    pendingCmd = "SELECT * FROM PendingImg"
+    userCmd = "SELECT * FROM User"
+    cursor.execute(approvedCmd)
+    conn.commit()
+    approvedData = cursor.fetchall()
+    cursor.execute(pendingCmd)
+    conn.commit()
+    pendingData = cursor.fetchall()
+    cursor.execute(userCmd)
+    conn.commit()
+    userData = cursor.fetchall()
     arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
     arg2 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
-    return render_template("/AdminPage.html", userData = arg, pendingData = arg2, approvedData = arg3)
+    return render_template("/AdminPage.html", userData = userData, pendingData = pendingData, approvedData = approvedData)
 
 @app.route('/About')
 def about():
