@@ -101,6 +101,18 @@ def imagePage(image):
     #get userName with that userId
     userName=cursor.fetchall()
     userName=userName[0][0]
+    #Turning SQL Safe mode off
+    SQLSAFEOFF = "SET SQL_SAFE_UPDATES=0;"
+    cursor.execute(SQLSAFEOFF, image)
+    conn.commit()
+    #Increasing views
+    view = "Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName=%s))+1 where ImageId=(Select ImageId  where ImageName=%s);"
+    cursor.execute(view, image)
+    conn.commit()
+    #Turning SQL Safe mode back on
+    SQLSAFEON = "SET SQL_SAFE_UPDATES=1;"
+    cursor.execute(SQLSAFEON, image)
+    conn.commit()
     return render_template("ImagePage.html", data=data,userName=userName)
 
 #define upload image
