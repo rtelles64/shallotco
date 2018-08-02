@@ -106,6 +106,8 @@ def imagePage(image):
 
     cursor.fetchall()
    
+    cursor.fetchall()
+
     views = 450
     views = views + 1
     flash(views)    
