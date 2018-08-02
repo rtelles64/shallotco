@@ -125,9 +125,6 @@ def uploadImage():
             #create the filepath that is going to store the images
             target = os.path.join(APP_ROOT, 'static/Images', _categoryName)
             flash(target)
-            #if there is no such directory existing, create a new directory
-            if not os.path.isdir(target):
-                os.mkdir(target)
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
