@@ -98,22 +98,22 @@ def imagePage(image):
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
-    #get userName with that userId
-    userName=cursor.fetchall()
-    userName=userName[0][0]
     #Turning SQL Safe mode off
      #SQLSAFEOFF = "SET SQL_SAFE_UPDATES=0;"
      #cursor.execute(SQLSAFEOFF)
      #conn.commit()
      #Increasing views
-     view = "Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName=%s))+1 where ImageId=(Select ImageId  where ImageName=%s);"
+     view = "Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName=%s))+1 where ImageId=(Select ImageId  where ImageName=%s)"
      cursor.execute(view, image)
      conn.commit()
-     flash("It should be incremented now")
+     #flash("It should be incremented now")
     #Turning SQL Safe mode back on
     #SQLSAFEON = "SET SQL_SAFE_UPDATES=1;"
     #cursor.execute(SQLSAFEON)
     #conn.commit()
+    #get userName with that userId
+    userName=cursor.fetchall()
+    userName=userName[0][0]
     return render_template("ImagePage.html", data=data,userName=userName)
 
 #define upload image
