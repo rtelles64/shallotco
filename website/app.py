@@ -102,7 +102,7 @@ def imagePage(image):
   
     flash(cursor.execute(imgcmd, image)
 )
-    flash(conn.commit()
+    #flash(conn.commit()
 )
     #data = cursor.fetchall()
    
