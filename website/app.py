@@ -102,9 +102,9 @@ def imagePage(image):
   
     cursor.execute(imgcmd, image)
 
-    flash(conn.commit()
-)
-    #data = cursor.fetchall()
+    conn.commit()
+
+    cursor.fetchall()
    
     views = 450
     views = views + 1
