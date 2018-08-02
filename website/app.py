@@ -151,7 +151,7 @@ def adminPage():
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
-	if request.method == 'POST':
+        if request.method == 'POST':
 	    _imageID = request.form['imageid']
 	    sqlCmd = "Insert into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath) Select UserId,ImageName,Descr,CategoryId,FilePath From PendingImg where PendingImg.ImageId = %s"
 	    cursor.execute(sqlCmd,_imageID)
