@@ -179,10 +179,11 @@ def uploadImage():
                 flash("create thumbPath")
                 flash(thumbDestination)
                 if ext == '.jpg':
-                   im.save(thumbDestination, 'jpeg')
-                else:flash("coming to else")
-                   flash(filename.split('.')[-1])
-                   im.save(thumbDestination, filename.split('.')[-1])
+                    im.save(thumbDestination, 'jpeg')
+                else:
+                    flash("coming to else")
+                    flash(filename.split('.')[-1])
+                    im.save(thumbDestination, filename.split('.')[-1])
 
             #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
