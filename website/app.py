@@ -107,24 +107,24 @@ def uploadImage():
     cursor = conn.cursor()
     try:
         if request.method == 'POST':
-            flash("coming to post")
+            #flash("coming to post")
             _descr = request.form['description']
-            flash("_descr")
+            #flash("_descr")
             _categoryName = request.form['category']
-            flash("category")
+            #flash("category")
             _imageName = request.form['imageName']
-            flash("_imageName")
+            #flash("_imageName")
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
             #data is a nested list, get category id from list
             _categoryId=data[0][0]
-            flash(_categoryId)
+            #flash(_categoryId)
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
-                flash(filename)
+                #flash(filename)
                 #create the file path
                 filePath = "/static/Images/" + filename
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,IdCategory,FilePath) VALUES (%s,%s,%s,%s,%s)"
@@ -182,28 +182,28 @@ def register():
         if request.method == 'POST':
             #get all the fields value
             _user = request.form['userName']
-            flash(_user)
+            #flash(_user)
             _password = sha256_crypt.encrypt(str(request.form['password']))
-            flash(_password)
+            #flash(_password)
             #passHash = sha256_crypt.encrypt(str(_password))
             #flash(passHash)
             _email = request.form['email']
-            flash(_email)
+            #flash(_email)
             _gender = request.form['gender']
-            flash(_gender)
+            #flash(_gender)
             _city = request.form['city']
-            flash(_city)
+            #flash(_city)
             _country = request.form['country']
-            flash(_country)
+            #flash(_country)
             _firstName = request.form['firstName']
-            flash(_firstName)
+            #flash(_firstName)
             _lastName = request.form['lastName']
-            flash(_lastName)
+            #flash(_lastName)
             _day = request.form['day']
             _month = request.form['month']
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
-            flash(_dob)
+            #flash(_dob)
             #check if user name has existed in the DB
             # x = cursor.execute("SELECT * FROM USER WHERE UserName = %s",(_user))
             # if int(x) > 0:
@@ -212,11 +212,11 @@ def register():
             #     return render_template("register.html", error=error)
             #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            flash("writing command")
+            #flash("writing command")
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
-            flash("finish execute")
+            #flash("finish execute")
             conn.commit()
-            flash("finish commit")
+            #flash("finish commit")
             #For collecting gabage
             gc.collect()
             #session['logged_in'] = True
