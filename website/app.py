@@ -174,7 +174,7 @@ def uploadImage():
                 flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
-                thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailImages', _categoryName)
+                thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
                 thumbDestination = "/".join([thumbFullPath,filename])
                 flash("create thumbPath")
                 flash(thumbDestination)
