@@ -110,12 +110,12 @@ def imagePage(image):
     views = cursor.fetchall()
    
     flash(views[0][0])    
-    #views[0][0] = views[0][0] + 1
-    #flash(views[0][0])
-    #view = "Update ApprovedImg set views=%s + 1 where ImageId=(?)"
-    #cursor.execute(view, data[0][0])
-    #conn.commit()
-     #flash("It should be incremented now")
+    views[0][0] = views[0][0] + 1
+    flash(views[0][0])
+    view = "Update ApprovedImg set views=%s + 1 where ImageId=(%s)"
+    cursor.execute(view, views)
+    conn.commit()
+    flash("It should be incremented now")
     #Turning SQL Safe mode back on
     #SQLSAFEON = "SET SQL_SAFE_UPDATES=1;"
     #cursor.execute(SQLSAFEON)
