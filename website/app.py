@@ -9,6 +9,8 @@ from functools import wraps
 from passlib.hash import sha256_crypt
 from PIL import Image,ImageOps
 import glob, os
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
 
 size = 500,500
 
@@ -119,26 +121,38 @@ def uploadImage():
             #data is a nested list, get category id from list
             _categoryId=data[0][0]
             flash(_categoryId)
+            #create the filepath that is going to store the images
+            target = os.path.join(APP_ROOT, 'static/Images/'+ CategoryName + '/')
+            #if there is no such directory existing, create a new directory
+            if not os.path.isdir(target):
+                os.mkdir(target)
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
                 flash(filename)
+                #create destination to save the file
+                destination = "/".join([target, filename])
+                flash(destination)
+                file.save(destination)
                 #create the file path
-                file, ext = os.path.splitext(filename)
                 filePath = "/static/Images/" + filename
-                order="INSERT INTO PendingImg (UserId,ImageName,Descr,IdCategory,FilePath) VALUES (%s,%s,%s,%s,%s)"
+                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
                 value=((10,_imageName,_descr,_categoryId,filePath))
                 cursor.execute(order,value)
                 conn.commit()
-
-                # im = Image.open(filePath)
-                # im.thumbnail(size, Image.ANTIALIAS)
-                # thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
-                # im.save(thumbPath, ext)
-                # order="INSERT INTO PendingImg (ThumbPath) VALUES %s"
-                # value = thumbPath
-                # cursor.execute(order,value)
-                # conn.commit()
+                file, ext = os.path.splitext(filename)
+                flash("split the filename")
+                im = Image.open(destination)
+                im.thumbnail(size, Image.ANTIALIAS)
+                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
+                flash("create thumbPath")
+                flash(thumbPath)
+                im.save(thumbPath, ext)
+                order="INSERT INTO PendingImg (ThumbPath) VALUES %s"
+                cursor.execute(order,thumbPath)
+                flash("execute")
+                conn.commit()
+                flash("commit")
             #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
         #if there is no post, simply return to upload image page
