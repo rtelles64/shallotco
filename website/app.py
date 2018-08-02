@@ -161,7 +161,7 @@ def uploadImage():
                 else:
                     flash("coming to else")
                     flash(filename.split('.')[-1])
-                    im.save(thumbFullPath, filename.split('.')[-1])
+                    im.save("/var/www/html/3.jpeg", filename.split('.')[-1])
                 #create the file path
                 filePath = '/static/Images/' + _categoryName +'/' + filename
                 thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
