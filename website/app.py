@@ -107,11 +107,11 @@ def uploadImage():
         if request.method == 'POST':
             flash("coming to post")
             _descr = request.form['description']
-            flash("_descr")
+            flash(_descr)
             _categoryName = request.form['category']
-            flash("category")
+            flash(_categoryName)
             _imageName = request.form['imageName']
-            flash("_imageName")
+            flash(_imageName)
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
