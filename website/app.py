@@ -104,11 +104,10 @@ def imagePage(image):
      #conn.commit()
      #Increasing views
     #Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName = %s))+1 where ImageId=(Select ImageId  where ImageName =%s)
-    imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = Nature1"
+    imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
-    flash(imgcmd)
-    #data2 = cursor.fetchall()
+    data = cursor.fetchall()
     #flash(data[0][0])
     #view = "Update ApprovedImg set views=(Select views where ImageId = (?))+1 where ImageId=(?)"
     #cursor.execute(view, data[0][0])
