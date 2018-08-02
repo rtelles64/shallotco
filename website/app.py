@@ -99,7 +99,11 @@ def imagePage(image):
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
     flash(data[0][4])
-    #view = "Update ApprovedImg set views=(Select views where ImageId = (?))+1 where ImageId=(?)"
+    inner = "Select views where ImageId = %s"
+    cursor.execute(usernamecmd, data[0][4])
+    conn.commit()
+    flash(inner)
+    #view = "Update ApprovedImg set views=%s + 1 where ImageId=(?)"
     #cursor.execute(view, data[0][0])
     #conn.commit()
      #flash("It should be incremented now")
