@@ -141,6 +141,8 @@ def uploadImage():
                 conn.commit()
                 file, ext = os.path.splitext(filename)
                 flash("split the filename")
+                flash(file)
+                flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
