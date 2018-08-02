@@ -167,12 +167,11 @@ def uploadImage():
                 thumbFullPath = APP_ROOT + "/static/ThumbnailImages/" + _categoryName + "/" + filename
                 flash("create thumbPath")
                 flash(thumbFullPath)
-                if ext == '.jpg':
-                    im.save(thumbPath, 'jpeg')
-                else:
-                    flash("coming to else")
-                    flash(filename.split('.')[-1])
-                    im.save("/var/www/html/3.jpeg", filename.split('.')[-1])
+                #if ext == '.jpg':
+                #    im.save(thumbPath, 'jpeg')
+                #else:flash("coming to else")
+                #    flash(filename.split('.')[-1])
+                #    im.save("/var/www/html/3.jpeg", filename.split('.')[-1])
 
             #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
