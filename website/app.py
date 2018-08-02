@@ -147,6 +147,17 @@ def uploadImage():
                 destination = "/".join([target, filename])
                 flash(destination)
                 file.save(destination)
+                #create the file path
+                filePath = '/static/Images/' + _categoryName +'/' + filename
+                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
+                flash(filePath)
+                flash(thumbPath)
+                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
+                value=((10,_imageName,_descr,_categoryId,filePath,thumbPath))
+                cursor.execute(order,value)
+                flash("going to execute")
+                conn.commit()
+                flash("commit")
                 file, ext = os.path.splitext(filename)
                 flash("split the filename")
                 flash(file)
@@ -162,17 +173,7 @@ def uploadImage():
                     flash("coming to else")
                     flash(filename.split('.')[-1])
                     im.save("/var/www/html/3.jpeg", filename.split('.')[-1])
-                #create the file path
-                filePath = '/static/Images/' + _categoryName +'/' + filename
-                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
-                flash(filePath)
-                flash(thumbPath)
-                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
-                value=((10,_imageName,_descr,_categoryId,filePath,thumbPath))
-                cursor.execute(order,value)
-                flash("going to execute")
-                conn.commit()
-                flash("commit")
+
             #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
         #if there is no post, simply return to upload image page
