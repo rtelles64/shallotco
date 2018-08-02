@@ -102,9 +102,9 @@ def imagePage(image):
     userName=cursor.fetchall()
     userName=userName[0][0]
     #Turning SQL Safe mode off
-    SQLSAFEOFF = "SET SQL_SAFE_UPDATES=0;"
-    cursor.execute(SQLSAFEOFF, image)
-    conn.commit()
+   # SQLSAFEOFF = "SET SQL_SAFE_UPDATES=0;"
+    #cursor.execute(SQLSAFEOFF, image)
+    #conn.commit()
     #Increasing views
     view = "Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName=%s))+1 where ImageId=(Select ImageId  where ImageName=%s);"
     cursor.execute(view, image)
