@@ -252,7 +252,7 @@ def login():
         if request.method == "POST":
             attempted_username = request.form['username']
             attempted_password = request.form['password']
-            userCmd = "SELECT Password FROM User WHERE UserName = %s"
+            userCmd = "SELECT Password, IdUser FROM User WHERE UserName = %s"
             cursor.execute(userCmd, attempted_username)
             conn.commit()
             data = cursor.fetchall()
