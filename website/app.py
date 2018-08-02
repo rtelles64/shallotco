@@ -103,7 +103,8 @@ def imagePage(image):
      #cursor.execute(SQLSAFEOFF)
      #conn.commit()
      #Increasing views
-    view = "Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName=%s))+1 where ImageId=(Select ImageId  where ImageName=%s)"
+#Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName=%s))+1 where ImageId=(Select ImageId  where ImageName=%s)
+    view = "SELECT FilePath, ImageName, Descr, UserId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(view, image)
     conn.commit()
      #flash("It should be incremented now")
