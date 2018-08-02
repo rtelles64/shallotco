@@ -134,7 +134,7 @@ def uploadImage():
                 flash(destination)
                 file.save(destination)
                 #create the file path
-                filePath = "/static/Images/" + _categoryName +'/' + filename
+                filePath = '/static/Images/' + _categoryName +'/' + filename
                 flash(filePath)
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
                 value=((10,_imageName,_descr,_categoryId,filePath))
