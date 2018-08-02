@@ -99,10 +99,15 @@ def imagePage(image):
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
     flash(data[0][4])
+    conn = mysql.connect()
+
+    cursor = conn.cursor()
     inner = "Select views where ImageId = %s"
     cursor.execute(usernamecmd, data[0][4])
     conn.commit()
     flash(inner)
+    data = cursor.fetchall()
+    flash(data)    
     #view = "Update ApprovedImg set views=%s + 1 where ImageId=(?)"
     #cursor.execute(view, data[0][0])
     #conn.commit()
