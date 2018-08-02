@@ -108,10 +108,9 @@ def imagePage(image):
 
     conn.commit()
     
-    data = cursor.fetchall()
+    #data = cursor.fetchall()
    
-    views = data[0][0]
-  
+    views = 450
     views = views + 1
     flash(views)    
     #view = "Update ApprovedImg set views=%s + 1 where ImageId=(?)"
