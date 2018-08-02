@@ -64,7 +64,7 @@ def searchResult():
                 conn.commit()
             else:
                 _categoryId=data[0][0]
-                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
+                order = "SELECT ThumbPath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order, (int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             imgData=cursor.fetchall()
@@ -134,7 +134,7 @@ def uploadImage():
                 flash(destination)
                 file.save(destination)
                 #create the file path
-                filePath = "/static/Images/" + filename
+                filePath = "/static/Images/" + _categoryName +'/' + filename
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
                 value=((10,_imageName,_descr,_categoryId,filePath))
                 cursor.execute(order,value)
