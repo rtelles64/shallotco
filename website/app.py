@@ -256,8 +256,8 @@ def login():
             cursor.execute(userCmd, attempted_username)
             conn.commit()
             data = cursor.fetchall()
-            flash(data)
-            flash(data[0][0])
+            #flash(data)
+            flash(data[1][0])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 session['logged_in'] = True
                 return redirect(url_for('home'))
