@@ -44,6 +44,11 @@ def home():
     #render home page with the data that is being sent from DB
     return render_template("shallotHome.html",data=data,error=error)
 
+#congradulation page
+@app.route('/congratulation')
+def congradulation():
+    return render_template("congradulation.html")
+
 #define search page
 @app.route('/Search', methods=['POST', 'GET'])
 def searchResult():
@@ -73,7 +78,12 @@ def searchResult():
                 error = "We are sorry that the image you searched is not available, but here is our trending images for you:"
                 return redirect(url_for('home',error=error))
             else:
-                return render_template("ImageResult.html",imgData=imgData, error=error, imgCount=imgCount, search=_search)
+
+       		#flash("it has come to else")
+                numOfImage = len(imgData)
+                print(numOfImage)
+                return render_template("ImageResult.html",imgData=imgData)
+
         else:
             return redirect(url_for('home'))
     except Exception as e:
@@ -187,9 +197,9 @@ def uploadImage():
 
 @app.route('/admin')
 def adminPage():
-    arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
-    arg2 = [['/static/Images/IMG_20170113_140535.jpg', '25zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
-    arg3 = [['/static/Images/IMG_20170113_140535.jpg', '25zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
+    arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
+    arg2 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
+    arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     return render_template("/AdminPage.html", userData = arg, pendingData = arg2, approvedData = arg3)
 
 @app.route('/About')
