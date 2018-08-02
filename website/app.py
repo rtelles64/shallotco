@@ -159,7 +159,7 @@ def adminPage():
     cursor.execute(pendingCmd)
     conn.commit()
     pendingData = cursor.fetchall()
-    userCmd = "SELECT * FROM User"
+    userCmd = "SELECT * FROM User WHERE IdUser > 1"
     cursor.execute(userCmd)
     conn.commit()
     userData = cursor.fetchall()
