@@ -150,22 +150,22 @@ def uploadImage():
 def adminPage():
     conn = mysql.connect()
     cursor = conn.cursor()
-    _imageID = request.form['imageid']
+    #_imageID = request.form['imageid']
     approvedCmd = "SELECT * FROM ApprovedImg"
-    pendingCmd = "SELECT * FROM PendingImg"
-    userCmd = "SELECT * FROM User"
     cursor.execute(approvedCmd)
     conn.commit()
     approvedData = cursor.fetchall()
+    pendingCmd = "SELECT * FROM PendingImg"
     cursor.execute(pendingCmd)
     conn.commit()
     pendingData = cursor.fetchall()
+    userCmd = "SELECT * FROM User"
     cursor.execute(userCmd)
     conn.commit()
     userData = cursor.fetchall()
-    arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
-    arg2 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
-    arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
+    #arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
+    #arg2 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
+    #arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     return render_template("/AdminPage.html", userData = userData, pendingData = pendingData, approvedData = approvedData)
 
 @app.route('/About')
