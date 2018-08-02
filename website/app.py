@@ -123,7 +123,7 @@ def uploadImage():
             flash(_categoryId)
             flash(APP_ROOT)
             #create the filepath that is going to store the images
-            target = os.path.join(APP_ROOT, 'static/Images', CategoryName)
+            target = os.path.join(APP_ROOT, 'static/Images', _categoryName)
             flash(target)
             #if there is no such directory existing, create a new directory
             if not os.path.isdir(target):
