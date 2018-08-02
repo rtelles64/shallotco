@@ -146,8 +146,23 @@ def uploadImage():
         cursor.close()
         conn.close()
 
-@app.route('/admin')
+@app.route('/Admin')
 def adminPage():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    try:
+	if request.method == 'POST':
+	    _imageID = request.form['imageid']
+	    sqlCmd = "Insert into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath) Select UserId,ImageName,Descr,CategoryId,FilePath From PendingImg where PendingImg.ImageId = %s"
+	    cursor.execute(sqlCmd,_imageID)
+	    conn.commit()
+	    data = cursor.fetchall()
+    except Exception as e:
+        error="sorry, an error has occured when register, please try again"
+        return render_template("AdminPage.html", error=error)
+    finally:
+        cursor.close()
+        conn.close()
     arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
     arg2 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
