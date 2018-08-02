@@ -105,7 +105,7 @@ def imagePage(image):
      #SQLSAFEOFF = "SET SQL_SAFE_UPDATES=0;"
      #cursor.execute(SQLSAFEOFF)
      #conn.commit()
-     Increasing views
+     #Increasing views
      view = "Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName=%s))+1 where ImageId=(Select ImageId  where ImageName=%s);"
      cursor.execute(view, image)
      conn.commit()
