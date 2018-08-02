@@ -103,9 +103,13 @@ def imagePage(image):
      #cursor.execute(SQLSAFEOFF)
      #conn.commit()
      #Increasing views
-#Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName = %s))+1 where ImageId=(Select ImageId  where ImageName = %s)
-    view = "Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName = %s))+1 where ImageId=(Select ImageId  where ImageName = %s)"
-    cursor.execute(view, image)
+#Update mydb.ApprovedImg set views=(Select views where ImageId = (Select ImageId where ImageName = %s))+1 where ImageId=(Select ImageId  where ImageName =%s)
+    imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = %s"
+    cursor.execute(imgcmd, image)
+    conn.commit()
+    data = cursor.fetchall()
+    view = "Update ApprovedImg set views=(Select views where ImageId = (%s))+1 where ImageId=(%s)"
+    cursor.execute(view, data[0][0])
     conn.commit()
      #flash("It should be incremented now")
     #Turning SQL Safe mode back on
