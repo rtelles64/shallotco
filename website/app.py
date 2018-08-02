@@ -111,9 +111,9 @@ def imagePage(image):
     #conn.commit()
     #flash("It should be incremented now")
     #Turning SQL Safe mode back on
-    SQLSAFEON = "SET SQL_SAFE_UPDATES=1;"
-    cursor.execute(SQLSAFEON, image)
-    conn.commit()
+    #SQLSAFEON = "SET SQL_SAFE_UPDATES=1;"
+    #cursor.execute(SQLSAFEON, image)
+    #conn.commit()
     return render_template("ImagePage.html", data=data,userName=userName)
 
 #define upload image
