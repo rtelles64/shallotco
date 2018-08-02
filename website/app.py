@@ -10,6 +10,8 @@ from passlib.hash import sha256_crypt
 from PIL import Image,ImageOps
 import glob, os
 
+size = 500,500
+
 mysql = MySQL()
 app = Flask(__name__)
 app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
@@ -55,7 +57,7 @@ def searchResult():
             conn.commit()
             data=cursor.fetchall()
             if (len(data) == 0):
-                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                order = "SELECT ThumbPath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             else:
@@ -122,13 +124,19 @@ def uploadImage():
                 filename = file.filename
                 flash(filename)
                 #create the file path
+                file, ext = os.path.splitext(filename)
                 filePath = "/static/Images/" + filename
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,IdCategory,FilePath) VALUES (%s,%s,%s,%s,%s)"
                 value=((10,_imageName,_descr,_categoryId,filePath))
                 cursor.execute(order,value)
-                # if int(x) > 0:
-                #     error = "Sorry, we are not able to upload your image, please try again."
-                #     return render_template("UploadImage.html", error=error)
+                conn.commit()
+                im = Image.open(filePath)
+                im.thumbnail(size, Image.ANTIALIAS)
+                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
+                im.save(thumbPath, ext)
+                order="INSERT INTO PendingImg (ThumbPath) VALUES %s"
+                value = thumbPath
+                cursor.execute(order,value)
                 conn.commit()
             #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
