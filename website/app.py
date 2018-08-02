@@ -152,11 +152,11 @@ def adminPage():
     cursor = conn.cursor()
     try:
         if request.method == 'POST':
-	    _imageID = request.form['imageid']
-	    sqlCmd = "Insert into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath) Select UserId,ImageName,Descr,CategoryId,FilePath From PendingImg where PendingImg.ImageId = %s"
-	    cursor.execute(sqlCmd,_imageID)
-	    conn.commit()
-	    data = cursor.fetchall()
+            _imageID = request.form['imageid']
+            sqlCmd = "Insert into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath) Select UserId,ImageName,Descr,CategoryId,FilePath From PendingImg where PendingImg.ImageId = %s"
+            cursor.execute(sqlCmd,_imageID)
+            conn.commit()
+            data = cursor.fetchall()
     except Exception as e:
         error="sorry, an error has occured when register, please try again"
         return render_template("AdminPage.html", error=error)
