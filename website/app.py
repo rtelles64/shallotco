@@ -121,6 +121,7 @@ def uploadImage():
             #data is a nested list, get category id from list
             _categoryId=data[0][0]
             flash(_categoryId)
+            flash(APP_ROOT)
             #create the filepath that is going to store the images
             target = os.path.join(APP_ROOT, 'static/Images/'+ CategoryName + '/')
             flash(target)
