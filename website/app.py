@@ -155,7 +155,7 @@ def uploadImage():
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbFullPath = APP_ROOT + "/static/ThumbnailImages/" + _categoryName + "/" + filename
                 flash("create thumbPath")
-                flash(thumbPath)
+                flash(thumbFullPath)
                 if ext == '.jpg':
                     im.save(thumbPath, 'jpeg')
                 else:
