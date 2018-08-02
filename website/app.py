@@ -99,10 +99,24 @@ def imagePage(image):
     userName=userName[0][0]
     return render_template("ImagePage.html", data=data,userName=userName)
 
+
+def getUserId():
+    #get user id with current user name
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    userName = session.username
+    order = "SELECT IdUser FROM User WHERE UserName = %s"
+    cursor.execute(order,username)
+    conn.commit()
+    data = cursor.fetchall()
+    userId = data[0][0]
+
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
     flash("coming to uploadImage")
+    #get user id for inserting image
+    # userId = getUserId()
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
@@ -133,29 +147,30 @@ def uploadImage():
                 destination = "/".join([target, filename])
                 flash(destination)
                 file.save(destination)
-                #create the file path
-                filePath = '/static/Images/' + _categoryName +'/' + filename
-                flash(filePath)
-                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
-                value=((10,_imageName,_descr,_categoryId,filePath))
-                cursor.execute(order,value)
-                conn.commit()
                 file, ext = os.path.splitext(filename)
                 flash("split the filename")
                 flash(file)
                 flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
-                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
+                thumbFullPath = APP_ROOT + "/static/ThumbnailImages/" + _categoryName + "/" + filename
                 flash("create thumbPath")
                 flash(thumbPath)
                 if ext == '.jpg':
                     im.save(thumbPath, 'jpeg')
                 else:
-                    im.save(thumbPath, filename.split('.')[-1])
-                order="INSERT INTO PendingImg (ThumbPath) VALUES %s"
-                cursor.execute(order,thumbPath)
-                flash("execute")
+                    flash("coming to else")
+                    flash(filename.split('.')[-1])
+                    im.save(thumbFullPath, filename.split('.')[-1])
+                #create the file path
+                filePath = '/static/Images/' + _categoryName +'/' + filename
+                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
+                flash(filePath)
+                flash(thumbPath)
+                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
+                value=((10,_imageName,_descr,_categoryId,filePath,thumbPath))
+                cursor.execute(order,value)
+                flash("going to execute")
                 conn.commit()
                 flash("commit")
             #return to upload image page if users want to upload more
