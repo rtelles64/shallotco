@@ -98,7 +98,8 @@ def imagePage(image):
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
-    cursor.fetchall()
+    userName=cursor.fetchall()
+    userName=userName[0][0]
 
     imgcmd = "SELECT Views FROM ApprovedImg WHERE ImageName = %s"
   
@@ -106,11 +107,11 @@ def imagePage(image):
 
     conn.commit()
 
-    cursor.fetchall()
+    views = cursor.fetchall()
    
-    views = 450
-    views = views + 1
-    flash(views)    
+    flash(views[0][0])    
+    views[0][0] = views[0][0] + 1
+    flash(views[0][0])
     #view = "Update ApprovedImg set views=%s + 1 where ImageId=(?)"
     #cursor.execute(view, data[0][0])
     #conn.commit()
@@ -120,8 +121,7 @@ def imagePage(image):
     #cursor.execute(SQLSAFEON)
     #conn.commit()
     #get userName with that userId
-    userName=cursor.fetchall()
-    userName=userName[0][0]
+
     return render_template("ImagePage.html", data=data,userName=userName)
 
 #define upload image
