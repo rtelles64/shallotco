@@ -174,7 +174,7 @@ def adminApprove(imageID):
     conn = mysql.connect()
     cursor = conn.cursor()
     #_imageID = request.form['imageid']
-    selectCmd = "SELECT (UserId,ImageName,Descr,CategoryId,FilePath) From PendingImg where ImageId = %s"
+    selectCmd = "SELECT UserId,ImageName,Descr,CategoryId,FilePath FROM PendingImg WHERE ImageId = %s"
     cursor.execute(selectCmd, imageID)
     conn.commit()
     data = cursor.fetchall()
