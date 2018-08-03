@@ -97,16 +97,35 @@ def searchResult():
 def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT FilePath, ImageName, Descr, UserId FROM ApprovedImg WHERE ImageName = %s"
+    imgcmd = "SELECT FilePath, ImageName, Descr, UserId, ImageId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
-    #get userName with that userId
     userName=cursor.fetchall()
     userName=userName[0][0]
+
+    imgcmd = "SELECT views FROM ApprovedImg WHERE ImageName = %s"
+    cursor.execute(imgcmd, image)
+    conn.commit()
+    views = cursor.fetchall()
+    imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = %s"
+    cursor.execute(imgcmd, image)
+    conn.commit()
+    imagei = cursor.fetchall()
+    v=views[0][0]
+    i=imagei[0][0]
+    view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
+    cursor.execute(view, (v, i))
+    conn.commit()
+    #Turning SQL Safe mode back on
+    #SQLSAFEON = "SET SQL_SAFE_UPDATES=1;"
+    #cursor.execute(SQLSAFEON)
+    #conn.commit()
+    #get userName with that userId
+
     return render_template("ImagePage.html", data=data,userName=userName)
 
 
