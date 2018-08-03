@@ -101,19 +101,20 @@ def imagePage(image):
     userName=cursor.fetchall()
     userName=userName[0][0]
 
-    imgcmd = "SELECT Views FROM ApprovedImg WHERE ImageName = %s"
-  
+    imgcmd = "SELECT views FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
-
     conn.commit()
-
     views = cursor.fetchall()
-   
-    flash(views[0][0])    
-    views[0][0]+=1
+    imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = %s"
+    cursor.execute(imgcmd, image)
+    conn.commit()
+    id = cursor.fetchall()
+    #flash(id[0][0])    
+    #flash(views[0][0])    
+    #views[0][0]+=1
     #flash(views[0][0])
     #view = "Update ApprovedImg set views=%s + 1 where ImageId = %s"
-    #cursor.execute(view, views)
+    #cursor.execute(view, views[0][0])
     #conn.commit()
     flash("It should be incremented now")
     #Turning SQL Safe mode back on
