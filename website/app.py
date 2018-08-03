@@ -169,18 +169,18 @@ def adminPage():
     #arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     return render_template("/AdminPage.html", userData = userData, pendingData = pendingData, approvedData = approvedData)
 
-@app.route('/Admin/Approve')
-def adminApprove():
+@app.route('/Admin/Approve/<string:imageID>', methods = ['GET', 'POST'])
+def adminApprove(imageID):
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
         if request.method == 'POST':
-            _imageID = request.form['imageid']
+            #_imageID = request.form['imageid']
             moveCmd = "Insert into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) Select (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) From PendingImg where ImageId = %s"
-            cursor.execute(moveCmd, _imageID)
+            cursor.execute(moveCmd, imageID)
             conn.commit()
             deleteCmd = "DELETE from PendingImg where ImageId = %s"
-            cursor.execute(deleteCmd, _imageID)
+            cursor.execute(deleteCmd, imageID)
             conn.commit()
         return redirect(url_for('adminPage'))
     except Exception as e:
