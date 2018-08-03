@@ -94,6 +94,7 @@ def searchResult():
 #define searching for one particular image
 @app.route('/Search/<string:imageid>', methods=['GET', 'POST'])
 def imagePage(imageid):
+    flash(imageid)
     conn = mysql.connect()
     cursor = conn.cursor()
     #select info from db for that imagename
@@ -101,6 +102,7 @@ def imagePage(imageid):
     cursor.execute(imgcmd, imageid)
     conn.commit()
     data = cursor.fetchall()
+    flash(data)
     #get user name for displaying the image
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
