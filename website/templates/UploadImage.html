@@ -4,8 +4,55 @@
 
 {%extends "ShallotLayout/shallotLayout.html" %};
 {%block head%}
-<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<style>
+#uploadImage .upload {
+    background-color: #838282;
+    border: none;
+    color: rgb(250, 250, 250);
+    padding: 115px 182px;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#uploadImage .messageBox{
+    length: 80px;
+    height: 50px;
+}
+
+#uploadImage .button {
+    background-color: #9C00CD;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    padding: 5px 94px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#uploadImage .policy{
+    background-color: lightgrey;
+    padding: 25px;
+    margin: 25px;
+    size: 200px;
+}
+</style>
 {%endblock%}
+
+
+{%block banner%}
+<center><h1>Upload</h1></center>
+{%endblock%}
+
 {%block body%}
         <br>
         <br>
@@ -13,12 +60,16 @@
         {% if error %}
           <p class="error"><strong>Error:</strong>{{error}}</p>
         {% endif %}
+        <div class = "container-fluid">
         <div id="uploadImage" class = "container-fluid searchBar text-center">
-          <h1 style="text-align:center;">Please choose the image that you want to upload</h1>
+          <h3 style="text-align:center;">Drag and drop an image into the box</h3>
+          <h3 style="text-align:center;">or click the box to browse for your image</h3>
             <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
               <div class="form-group" style="display: center;">
               <br><br>
                 <input class = "container-fluid text-center upload" type="file" size="200" value="clickME" name="file" accept="image/*" multiple>
+                <div style="margin-bottom: -100px;"></div>
+                <div style="margin-bottom: 100px;"><h5>Click here or drag file here</h5></div>
                 <br><br>
                 <div>
                     Image Category:
@@ -43,10 +94,11 @@
                 <input class="button" type="submit" value="Upload">
                 </div>
             </form>
-            <br><br><br>
-            <style>
-            form{
-              margin-left: 280px;
-            }
-            </style>
+            <br>
+
+            <div class="policy">
+                Disclaimer: It may take up to 24 hours before the image is visible on the site
+            </div>
+
+            </div>
 {%endblock%}

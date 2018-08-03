@@ -7,6 +7,12 @@ import os
 import gc
 from functools import wraps
 from passlib.hash import sha256_crypt
+from PIL import Image,ImageOps
+import glob, os
+APP_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+
+size = 500,500
 
 mysql = MySQL()
 app = Flask(__name__)
@@ -31,7 +37,7 @@ def home():
     conn = mysql.connect()
     cursor = conn.cursor()
     error = request.args.get('error')  # counterpart for url_for()
-    imgCmd = "SELECT FilePath, ImageName From ApprovedImg WHERE Views >= 350"
+    imgCmd = "SELECT ThumbPath, ImageName From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
@@ -58,12 +64,12 @@ def searchResult():
             conn.commit()
             data=cursor.fetchall()
             if (len(data) == 0):
-                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                order = "SELECT ThumbPath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             else:
                 _categoryId=data[0][0]
-                order = "SELECT FilePath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
+                order = "SELECT ThumbPath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order, (int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             imgData=cursor.fetchall()
@@ -87,53 +93,118 @@ def searchResult():
 def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT FilePath, ImageName, Descr, UserId FROM ApprovedImg WHERE ImageName = %s"
+    #select info from db for that imagename
+    imgcmd = "SELECT FilePath, ImageName, Descr, UserId, ImageId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
+    #get user name for displaying the image
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
-    #get userName with that userId
     userName=cursor.fetchall()
     userName=userName[0][0]
+
+    #if user have clicked on this image, we will increase the view by 1
+    imgcmd = "SELECT views FROM ApprovedImg WHERE ImageName = %s"
+    cursor.execute(imgcmd, image)
+    conn.commit()
+    views = cursor.fetchall()
+    imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = %s"
+    cursor.execute(imgcmd, image)
+    conn.commit()
+    imagei = cursor.fetchall()
+    v=views[0][0]
+    i=imagei[0][0]
+    view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
+    cursor.execute(view, (v, i))
+    conn.commit()
+
     return render_template("ImagePage.html", data=data,userName=userName)
+
+
+def getUserId():
+    #get user id with current user name
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    if 'UserName' in session:
+        userName = session['UserName']
+        order = "SELECT IdUser FROM User WHERE UserName = %s"
+        cursor.execute(order,userName)
+        conn.commit()
+        data = cursor.fetchall()
+        userId = data[0][0]
+        return userId
 
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
     flash("coming to uploadImage")
+    #get user id for inserting image
+    userId = getUserId()
+    flash(userId)
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
         if request.method == 'POST':
             #flash("coming to post")
             _descr = request.form['description']
+
             #flash("_descr")
             _categoryName = request.form['category']
             #flash("category")
             _imageName = request.form['imageName']
             #flash("_imageName")
+
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
             #data is a nested list, get category id from list
             _categoryId=data[0][0]
-            #flash(_categoryId)
+
+            flash(_categoryId)
+            flash(APP_ROOT)
+            #create the filepath that is going to store the images
+            target = os.path.join(APP_ROOT, 'static/Images', _categoryName)
+            flash(target)
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
-                #flash(filename)
+                flash(filename)
+                #create destination to save the file
+                destination = "/".join([target, filename])
+                flash(destination)
+                file.save(destination)
+
                 #create the file path
-                filePath = "/static/Images/" + filename
-                order="INSERT INTO PendingImg (UserId,ImageName,Descr,IdCategory,FilePath) VALUES (%s,%s,%s,%s,%s)"
-                value=((10,_imageName,_descr,_categoryId,filePath))
+                filePath = '/static/Images/' + _categoryName +'/' + filename
+                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
+                flash(filePath)
+                flash(thumbPath)
+                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
+                value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
                 cursor.execute(order,value)
-                # if int(x) > 0:
-                #     error = "Sorry, we are not able to upload your image, please try again."
-                #     return render_template("UploadImage.html", error=error)
+                flash("going to execute")
                 conn.commit()
+                flash("commit")
+                file, ext = os.path.splitext(filename)
+                flash("split the filename")
+                flash(file)
+                flash(ext)
+                im = Image.open(destination)
+                im.thumbnail(size, Image.ANTIALIAS)
+                thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
+                thumbDestination = "/".join([thumbFullPath,filename])
+                flash("create thumbPath")
+                flash(thumbDestination)
+                if ext == '.jpg':
+                    im.save(thumbDestination, 'jpeg')
+                else:
+                    flash("coming to else")
+                    flash(filename.split('.')[-1])
+                    im.save(thumbDestination, filename.split('.')[-1])
+
             #return to upload image page if users want to upload more
             return render_template("UploadImage.html")
         #if there is no post, simply return to upload image page
@@ -242,13 +313,9 @@ def register():
             _month = request.form['month']
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
-            #flash(_dob)
-            #check if user name has existed in the DB
-            # x = cursor.execute("SELECT * FROM USER WHERE UserName = %s",(_user))
-            # if int(x) > 0:
-            #     error = 'This user name has existed, please choose a different username!'
-            #     #simple return to register page if error occurs
-            #     return render_template("register.html", error=error)
+
+            flash(_dob)
+
             #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             #flash("writing command")
@@ -258,7 +325,6 @@ def register():
             #flash("finish commit")
             #For collecting gabage
             gc.collect()
-            #session['logged_in'] = True
             #send confirmation message when the user has successfully registered
             flash("Thank you for signing up! Now you can log in")
             #return to homepage when user is successfully registered
@@ -271,6 +337,7 @@ def register():
     finally:
         cursor.close()
         conn.close()
+
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -298,11 +365,15 @@ def login():
             #flash(data)
             flash(data[0][1])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
+
                 if data[0][1] == 1:
                     return redirect(url_for('adminPage'))
                 else:
                     session['logged_in'] = True
+                    session['UserName'] = attempted_username
+                    flash(session['UserName'])
                     return redirect(url_for('home'))
+
             else:
                 #error has occured when login
                 error = "Invalid credentials. Try Again."
@@ -315,9 +386,6 @@ def login():
 @app.route('/Logout')
 @login_required
 def logout():
-    # session.pop('logged_in', None)
-    # flash('You were logged out.')
-    # return redirect(url_for('home'))
     session.clear()
     flash("You have been logged out!")
     gc.collect()
