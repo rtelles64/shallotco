@@ -112,16 +112,6 @@ def imagePage(imageid):
     userName=userName[0][0]
 
     #if user have clicked on this image, we will increase the view by 1
-    # imgcmd = "SELECT views FROM ApprovedImg WHERE ImageName = %s"
-    # cursor.execute(imgcmd, data[0][1])
-    # conn.commit()
-    # views = cursor.fetchall()
-    # imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = %s"
-    # cursor.execute(imgcmd, d)
-    # conn.commit()
-    # imagei = cursor.fetchall()
-    # v=views[0][0]
-    # i=imagei[0][0]
     view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
     cursor.execute(view, (data[0][4], imageid))
     conn.commit()
