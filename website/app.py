@@ -169,7 +169,7 @@ def adminPage():
     #arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     return render_template("/AdminPage.html", userData = userData, pendingData = pendingData, approvedData = approvedData)
 
-@app.route('/Admin/Approve/<string:imageID>', methods = ['GET', 'POST'])
+@app.route('/Admin/Approve/<integer:imageID>', methods = ['GET', 'POST'])
 def adminApprove(imageID):
     conn = mysql.connect()
     cursor = conn.cursor()
