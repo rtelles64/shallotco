@@ -97,16 +97,19 @@ def searchResult():
 def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
+    #select info from db for that imagename
     imgcmd = "SELECT FilePath, ImageName, Descr, UserId, ImageId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
+    #get user name for displaying the image
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
     userName=cursor.fetchall()
     userName=userName[0][0]
 
+    #if user have clicked on this image, we will increase the view by 1
     imgcmd = "SELECT views FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
@@ -120,11 +123,6 @@ def imagePage(image):
     view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
     cursor.execute(view, (v, i))
     conn.commit()
-    #Turning SQL Safe mode back on
-    #SQLSAFEON = "SET SQL_SAFE_UPDATES=1;"
-    #cursor.execute(SQLSAFEON)
-    #conn.commit()
-    #get userName with that userId
 
     return render_template("ImagePage.html", data=data,userName=userName)
 
