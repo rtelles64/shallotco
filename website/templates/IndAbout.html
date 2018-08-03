@@ -7,7 +7,14 @@
 {%block body%}
 
 <!-- change title to name -->
-<title>{%block name%}{%endblock%}</title>
+<title>
+    {%block name%}
+      {%block banner%}
+        <h3 class="margin">{{ self.name() }}</h3>
+      {%endblock%}
+    {%endblock%}
+</title>
+
 
 
 
