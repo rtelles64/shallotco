@@ -131,9 +131,10 @@ def getUserId():
     #get user id with current user name
     conn = mysql.connect()
     cursor = conn.cursor()
-    userName = session.username
+    if 'UserName' in session:
+        userName = session[UserName]
     order = "SELECT IdUser FROM User WHERE UserName = %s"
-    cursor.execute(order,username)
+    cursor.execute(order,userName)
     conn.commit()
     data = cursor.fetchall()
     userId = data[0][0]
@@ -308,7 +309,7 @@ def login():
             flash(data[0][0])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 session['logged_in'] = True
-                session['username'] = attempted_username
+                session['UserName'] = attempted_username
                 return redirect(url_for('home'))
             else:
                 #error has occured when login
