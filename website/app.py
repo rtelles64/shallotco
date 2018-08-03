@@ -176,10 +176,10 @@ def adminApprove(imageID):
     try:
         if request.method == 'POST':
             #_imageID = request.form['imageid']
-            moveCmd = "Insert into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) Select (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) From PendingImg where ImageId = %s"
+            moveCmd = "INSERT into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (Select (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) From PendingImg where ImageId = %s)"
             cursor.execute(moveCmd, imageID)
             conn.commit()
-            deleteCmd = "DELETE from PendingImg where ImageId = %s"
+            deleteCmd = "DELETE FROM PendingImg WHERE ImageId = %s"
             cursor.execute(deleteCmd, imageID)
             conn.commit()
         return redirect(url_for('adminPage'))
