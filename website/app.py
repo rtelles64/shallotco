@@ -198,7 +198,8 @@ def uploadImage():
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
                 filenameNew = file + str(imageCounter) + ext
-                fullpicPath = target + filenameNew
+                flash(filenameNew)
+                fullpicPath = "/".join([target,filenameNew])
                 if os.path.isfile(destination):
                     os.rename(destination, fullpicPath)
                 thumbDestination = "/".join([thumbFullPath,filenameNew])
