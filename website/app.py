@@ -169,7 +169,7 @@ def adminPage():
     #arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     return render_template("/AdminPage.html", userData = userData, pendingData = pendingData, approvedData = approvedData)
 
-@app.route('/Admin/Approve/<int:imageID>', methods = ['GET', 'POST'])
+@app.route('/Admin/Approve/<int:imageID>')
 def adminApprove(imageID):
     conn = mysql.connect()
     cursor = conn.cursor()
@@ -185,6 +185,22 @@ def adminApprove(imageID):
     cursor.execute(deleteCmd, imageID)
     conn.commit()
     return redirect(url_for('adminPage'))
+
+@app.route('/Admin/Delete/<string:table>/<int:imageID>')
+def adminDelete(table, imageID):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    #_imageID = request.form['imageid']
+    if table == 'A':
+        deleteCmd = "DELETE FROM ApprovedImg WHERE ImageId = %s"
+        cursor.execute(deleteCmd, imageID)
+        conn.commit()
+        return redirect(url_for('adminPage'))
+    if table == 'P':
+        deleteCmd = "DELETE FROM PendingImg WHERE ImageId = %s"
+        cursor.execute(deleteCmd, imageID)
+        conn.commit()
+        return redirect(url_for('adminPage'))
 
 @app.route('/About')
 def about():
