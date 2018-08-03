@@ -150,6 +150,7 @@ def uploadImage():
 def adminPage():
     conn = mysql.connect()
     cursor = conn.cursor()
+    error = request.args.get('error')
     #_imageID = request.form['imageid']
     approvedCmd = "SELECT * FROM ApprovedImg"
     cursor.execute(approvedCmd)
@@ -167,6 +168,24 @@ def adminPage():
     #arg2 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     #arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
     return render_template("/AdminPage.html", userData = userData, pendingData = pendingData, approvedData = approvedData)
+
+@app.route('/Admin/Approve')
+def adminApprove():
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    try:
+        if request.method == 'POST':
+            _imageID = request.form['imageid']
+            moveCmd = "Insert into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) Select (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) From PendingImg where ImageId = %s"
+            cursor.execute(moveCmd, _imageID)
+            conn.commit()
+            deleteCmd = "DELETE from PendingImg where ImageId = %s"
+            cursor.execute(deleteCmd, _imageID)
+            conn.commit()
+        return redirect(url_for('adminPage'))
+    except Exception as e:
+        error = 'Sorry, we are not able to approve the image'
+        return redirect(url_for('adminPage'))
 
 @app.route('/About')
 def about():
