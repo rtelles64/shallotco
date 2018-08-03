@@ -133,11 +133,11 @@ def getUserId():
     cursor = conn.cursor()
     if 'UserName' in session:
         userName = session[UserName]
-    order = "SELECT IdUser FROM User WHERE UserName = %s"
-    cursor.execute(order,userName)
-    conn.commit()
-    data = cursor.fetchall()
-    userId = data[0][0]
+        order = "SELECT IdUser FROM User WHERE UserName = %s"
+        cursor.execute(order,userName)
+        conn.commit()
+        data = cursor.fetchall()
+        userId = data[0][0]
 
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
