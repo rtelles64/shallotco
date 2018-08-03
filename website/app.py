@@ -145,6 +145,7 @@ def getUserId():
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
     imageCounter = random.randint(1,101)
+    flash(imageCounter)
     flash("coming to uploadImage")
     #get user id for inserting image
     userId = getUserId()
@@ -176,7 +177,7 @@ def uploadImage():
                 filename = file.filename
                 file, ext = os.path.splitext(filename)
                 flash(file)
-                filename = file + imageCounter + ext
+                filename = file + str(imageCounter) + ext
                 flash(filename)
                 #create destination to save the file
                 destination = "/".join([target, filename])
