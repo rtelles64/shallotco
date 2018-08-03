@@ -97,16 +97,19 @@ def searchResult():
 def imagePage(image):
     conn = mysql.connect()
     cursor = conn.cursor()
+    #select info from db for that imagename
     imgcmd = "SELECT FilePath, ImageName, Descr, UserId, ImageId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
     data = cursor.fetchall()
+    #get user name for displaying the image
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
     userName=cursor.fetchall()
     userName=userName[0][0]
 
+    #if user have clicked on this image, we will increase the view by 1
     imgcmd = "SELECT views FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
@@ -120,11 +123,6 @@ def imagePage(image):
     view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
     cursor.execute(view, (v, i))
     conn.commit()
-    #Turning SQL Safe mode back on
-    #SQLSAFEON = "SET SQL_SAFE_UPDATES=1;"
-    #cursor.execute(SQLSAFEON)
-    #conn.commit()
-    #get userName with that userId
 
     return render_template("ImagePage.html", data=data,userName=userName)
 
@@ -133,19 +131,22 @@ def getUserId():
     #get user id with current user name
     conn = mysql.connect()
     cursor = conn.cursor()
-    userName = session.username
-    order = "SELECT IdUser FROM User WHERE UserName = %s"
-    cursor.execute(order,username)
-    conn.commit()
-    data = cursor.fetchall()
-    userId = data[0][0]
+    if 'UserName' in session:
+        userName = session['UserName']
+        order = "SELECT IdUser FROM User WHERE UserName = %s"
+        cursor.execute(order,userName)
+        conn.commit()
+        data = cursor.fetchall()
+        userId = data[0][0]
+        return userId
 
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
     flash("coming to uploadImage")
     #get user id for inserting image
-    # userId = getUserId()
+    userId = getUserId()
+    flash(userId)
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
@@ -182,7 +183,7 @@ def uploadImage():
                 flash(filePath)
                 flash(thumbPath)
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
-                value=((10,_imageName,_descr,_categoryId,filePath,thumbPath))
+                value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
                 cursor.execute(order,value)
                 flash("going to execute")
                 conn.commit()
@@ -309,7 +310,8 @@ def login():
             flash(data[0][0])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 session['logged_in'] = True
-                session['username'] = attempted_username
+                session['UserName'] = attempted_username
+                flash(session['UserName'])
                 return redirect(url_for('home'))
             else:
                 #error has occured when login
