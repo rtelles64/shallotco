@@ -50,15 +50,18 @@
 
 
 {%block banner%}
-<center><h1>Upload</h1></center>
+<center><h2>Upload</h2></center>
 {%endblock%}
 
 {%block body%}
         <br>
         <br>
         <br>
+        {% if message %}
+          <h3 class="congrats" style="color: green";><strong>{{message}}</strong></h3>
+        {% endif %}
         {% if error %}
-          <p class="error"><strong>Error:</strong>{{error}}</p>
+          <h3 class="error" style="color: red";><strong>Error:</strong>{{error}}</h3>
         {% endif %}
         <div class = "container-fluid">
         <div id="uploadImage" class = "container-fluid searchBar text-center">

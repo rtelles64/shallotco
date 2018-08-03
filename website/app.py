@@ -9,6 +9,7 @@ from functools import wraps
 from passlib.hash import sha256_crypt
 from PIL import Image,ImageOps
 import glob, os
+import random
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -37,7 +38,7 @@ def home():
     conn = mysql.connect()
     cursor = conn.cursor()
     error = request.args.get('error')  # counterpart for url_for()
-    imgCmd = "SELECT ThumbPath, ImageName From ApprovedImg WHERE Views >= 350"
+    imgCmd = "SELECT ThumbPath, ImageName, ImageId From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
@@ -64,12 +65,12 @@ def searchResult():
             conn.commit()
             data=cursor.fetchall()
             if (len(data) == 0):
-                order = "SELECT ThumbPath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                order = "SELECT ThumbPath, ImageName, Descr, ImageId FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             else:
                 _categoryId=data[0][0]
-                order = "SELECT ThumbPath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
+                order = "SELECT ThumbPath, ImageName, Descr, ImageId FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order, (int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             imgData=cursor.fetchall()
@@ -78,7 +79,9 @@ def searchResult():
                 error = "We are sorry that the image you searched is not available, but here is our trending images for you:"
                 return redirect(url_for('home',error=error))
             else:
+
                 return render_template("ImageResult.html",imgData=imgData, imgCount=imgCount, search=_search)
+
 
         else:
             return redirect(url_for('home'))
@@ -89,15 +92,19 @@ def searchResult():
         conn.close()
 
 #define searching for one particular image
-@app.route('/Search/<string:image>', methods=['GET', 'POST'])
-def imagePage(image):
+@app.route('/Search/<string:imageid>', methods=['GET', 'POST'])
+def imagePage(imageid):
+    flash(imageid)
     conn = mysql.connect()
     cursor = conn.cursor()
     #select info from db for that imagename
-    imgcmd = "SELECT FilePath, ImageName, Descr, UserId, ImageId FROM ApprovedImg WHERE ImageName = %s"
-    cursor.execute(imgcmd, image)
+
+    imgcmd = "SELECT FilePath, ImageName, Descr, UserId, Views FROM ApprovedImg WHERE ImageId = %s"
+    cursor.execute(imgcmd, imageid)
     conn.commit()
     data = cursor.fetchall()
+    flash(data)
+
     #get user name for displaying the image
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
@@ -106,6 +113,7 @@ def imagePage(image):
     userName=userName[0][0]
 
     #if user have clicked on this image, we will increase the view by 1
+
     imgcmd = "SELECT views FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
@@ -116,8 +124,9 @@ def imagePage(image):
     imagei = cursor.fetchall()
     v=views[0][0]
     i=imagei[0][0]
+
     view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
-    cursor.execute(view, (v, i))
+    cursor.execute(view, (data[0][4], imageid))
     conn.commit()
 
     return render_template("ImagePage.html", data=data,userName=userName)
@@ -139,6 +148,8 @@ def getUserId():
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
+    imageCounter = random.randint(1,101)
+    flash(imageCounter)
     flash("coming to uploadImage")
     #get user id for inserting image
     userId = getUserId()
@@ -188,14 +199,21 @@ def uploadImage():
                 flash("going to execute")
                 conn.commit()
                 flash("commit")
+
                 file, ext = os.path.splitext(filename)
-                flash("split the filename")
                 flash(file)
                 flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
-                thumbDestination = "/".join([thumbFullPath,filename])
+                #create new file name to avoid the same file name from user
+                filenameNew = file + str(imageCounter) + ext
+                flash(filenameNew)
+                fullpicPath = "/".join([target,filenameNew])
+                #rename the file with the new file name
+                if os.path.isfile(destination):
+                    os.rename(destination, fullpicPath)
+                thumbDestination = "/".join([thumbFullPath,filenameNew])
                 flash("create thumbPath")
                 flash(thumbDestination)
                 if ext == '.jpg':
@@ -204,9 +222,20 @@ def uploadImage():
                     flash("coming to else")
                     flash(filename.split('.')[-1])
                     im.save(thumbDestination, filename.split('.')[-1])
-
+                #create the file path
+                filePath = '/static/Images/' + _categoryName +'/' + filenameNew
+                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filenameNew
+                flash(filePath)
+                flash(thumbPath)
+                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
+                value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
+                cursor.execute(order,value)
+                flash("going to execute")
+                conn.commit()
+                flash("commit")
             #return to upload image page if users want to upload more
-            return render_template("UploadImage.html")
+            message = "Thank you for uploading your image, now you can upload more images"
+            return render_template("UploadImage.html", message=message)
         #if there is no post, simply return to upload image page
         return render_template("UploadImage.html")
     except Exception as e:
@@ -366,6 +395,12 @@ def login():
             flash(data[0][1])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
 
+                session['logged_in'] = True
+                session['UserName'] = attempted_username
+                flash(session['UserName'])
+                return redirect(url_for('home'))
+
+
                 if data[0][1] == 1:
                     return redirect(url_for('adminPage'))
                 else:
@@ -373,6 +408,7 @@ def login():
                     session['UserName'] = attempted_username
                     flash(session['UserName'])
                     return redirect(url_for('home'))
+
 
             else:
                 #error has occured when login
