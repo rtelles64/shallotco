@@ -183,7 +183,7 @@ def uploadImage():
                 flash(filePath)
                 flash(thumbPath)
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
-                value=((10,_imageName,_descr,_categoryId,filePath,thumbPath))
+                value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
                 cursor.execute(order,value)
                 flash("going to execute")
                 conn.commit()
