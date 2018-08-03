@@ -9,6 +9,7 @@ from functools import wraps
 from passlib.hash import sha256_crypt
 from PIL import Image,ImageOps
 import glob, os
+import random
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -143,6 +144,7 @@ def getUserId():
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
+    imageCounter = random.randint(1,101)
     flash("coming to uploadImage")
     #get user id for inserting image
     userId = getUserId()
@@ -172,6 +174,9 @@ def uploadImage():
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
+                file, ext = os.path.splitext(filename)
+                flash(file)
+                filename = file + imageCounter + ext
                 flash(filename)
                 #create destination to save the file
                 destination = "/".join([target, filename])
@@ -188,9 +193,9 @@ def uploadImage():
                 flash("going to execute")
                 conn.commit()
                 flash("commit")
-                file, ext = os.path.splitext(filename)
+                order ="SELECT ImageId FROM PendingImg WHERE FilePath=%s"
+                cursor.execute(or)
                 flash("split the filename")
-                flash(file)
                 flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
