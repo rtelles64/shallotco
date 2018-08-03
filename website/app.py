@@ -175,8 +175,6 @@ def uploadImage():
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
-                file, ext = os.path.splitext(filename)
-                flash(file)
                 flash(filename)
                 #create destination to save the file
                 destination = "/".join([target, filename])
@@ -193,6 +191,8 @@ def uploadImage():
                 flash("going to execute")
                 conn.commit()
                 flash("commit")
+                file, ext = os.path.splitext(filename)
+                flash(file)
                 flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
