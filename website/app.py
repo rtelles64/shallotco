@@ -310,6 +310,7 @@ def login():
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 session['logged_in'] = True
                 session['UserName'] = attempted_username
+                flash(session['UserName'])
                 return redirect(url_for('home'))
             else:
                 #error has occured when login
