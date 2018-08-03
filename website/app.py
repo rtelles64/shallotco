@@ -113,22 +113,9 @@ def imagePage(imageid):
     userName=userName[0][0]
 
     #if user have clicked on this image, we will increase the view by 1
-
-    imgcmd = "SELECT views FROM ApprovedImg WHERE ImageName = %s"
-    cursor.execute(imgcmd, image)
-    conn.commit()
-    views = cursor.fetchall()
-    imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = %s"
-    cursor.execute(imgcmd, image)
-    conn.commit()
-    imagei = cursor.fetchall()
-    v=views[0][0]
-    i=imagei[0][0]
-
     view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
     cursor.execute(view, (data[0][4], imageid))
     conn.commit()
-
     return render_template("ImagePage.html", data=data,userName=userName)
 
 
@@ -160,7 +147,6 @@ def uploadImage():
         if request.method == 'POST':
             #flash("coming to post")
             _descr = request.form['description']
-
             #flash("_descr")
             _categoryName = request.form['category']
             #flash("category")
@@ -173,7 +159,6 @@ def uploadImage():
             data=cursor.fetchall()
             #data is a nested list, get category id from list
             _categoryId=data[0][0]
-
             flash(_categoryId)
             flash(APP_ROOT)
             #create the filepath that is going to store the images
@@ -187,25 +172,13 @@ def uploadImage():
                 destination = "/".join([target, filename])
                 flash(destination)
                 file.save(destination)
-
-                #create the file path
-                filePath = '/static/Images/' + _categoryName +'/' + filename
-                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
-                flash(filePath)
-                flash(thumbPath)
-                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
-                value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
-                cursor.execute(order,value)
-                flash("going to execute")
-                conn.commit()
-                flash("commit")
-
                 file, ext = os.path.splitext(filename)
                 flash(file)
                 flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
+
                 #create new file name to avoid the same file name from user
                 filenameNew = file + str(imageCounter) + ext
                 flash(filenameNew)
