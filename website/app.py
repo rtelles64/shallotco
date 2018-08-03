@@ -175,7 +175,7 @@ def adminApprove(imageID):
     cursor = conn.cursor()
     #_imageID = request.form['imageid']
     moveCmd = "INSERT into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath) SELECT (UserId,ImageName,Descr,CategoryId,FilePath) From PendingImg where ImageId = %s"
-    cursor.execute(moveCmd, imageID)
+    cursor.execute(moveCmd, (imageID))
     conn.commit()
     deleteCmd = "DELETE FROM PendingImg WHERE ImageId = %s"
     cursor.execute(deleteCmd, imageID)
