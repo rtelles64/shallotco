@@ -201,6 +201,11 @@ def adminDelete(table, imageID):
         cursor.execute(deleteCmd, imageID)
         conn.commit()
         return redirect(url_for('adminPage'))
+    if table == 'U':
+        deleteCmd = "DELETE FROM User WHERE IdUser = %s"
+        cursor.execute(deleteCmd, imageID)
+        conn.commit()
+        return redirect(url_for('adminPage'))
 
 @app.route('/About')
 def about():
