@@ -177,7 +177,6 @@ def uploadImage():
                 filename = file.filename
                 file, ext = os.path.splitext(filename)
                 flash(file)
-                filename = file + str(imageCounter) + ext
                 flash(filename)
                 #create destination to save the file
                 destination = "/".join([target, filename])
