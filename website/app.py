@@ -186,9 +186,11 @@ def uploadImage():
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
+                #create new file name to avoid the same file name from user
                 filenameNew = file + str(imageCounter) + ext
                 flash(filenameNew)
                 fullpicPath = "/".join([target,filenameNew])
+                #rename the file with the new file name
                 if os.path.isfile(destination):
                     os.rename(destination, fullpicPath)
                 thumbDestination = "/".join([thumbFullPath,filenameNew])
@@ -211,9 +213,9 @@ def uploadImage():
                 flash("going to execute")
                 conn.commit()
                 flash("commit")
-
             #return to upload image page if users want to upload more
-            return render_template("UploadImage.html")
+            message = "Thank you for uploading your image, now you can upload more images"
+            return render_template("UploadImage.html", message=message)
         #if there is no post, simply return to upload image page
         return render_template("UploadImage.html")
     except Exception as e:
