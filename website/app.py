@@ -108,11 +108,11 @@ def imagePage(image):
     imgcmd = "SELECT ImageId FROM ApprovedImg WHERE ImageName = %s"
     cursor.execute(imgcmd, image)
     conn.commit()
-    id = cursor.fetchall()
+    imagei = cursor.fetchall()
     flash(id[0][0])    
     flash(views[0][0])    
     v=views[0][0]
-    i=id[0][0]
+    i=imagei[0][0]
     view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
     cursor.execute(view, v, i)
     conn.commit()
