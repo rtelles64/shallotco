@@ -193,9 +193,6 @@ def uploadImage():
                 flash("going to execute")
                 conn.commit()
                 flash("commit")
-                order ="SELECT ImageId FROM PendingImg WHERE FilePath=%s"
-                cursor.execute(or)
-                flash("split the filename")
                 flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
