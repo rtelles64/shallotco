@@ -175,9 +175,9 @@ def uploadImage():
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
-                file, ext = os.path.splitext(filename)
+                name, ext = os.path.splitext(filename)
                 flash(file)
-                filename = file + str(imageCounter) + ext
+                filename = name + str(imageCounter) + ext
                 flash(filename)
                 #create destination to save the file
                 destination = "/".join([target, filename])
