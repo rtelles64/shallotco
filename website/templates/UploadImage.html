@@ -50,16 +50,17 @@
 
 
 {%block banner%}
-<center><h1>Upload</h1></center>
+{% if message %}
+  <h1 class="congrats"><strong></strong>{{message}}</h1>
+{% endif %}
+<center><h2>Upload</h2></center>
 {%endblock%}
 
 {%block body%}
         <br>
         <br>
         <br>
-        {% if message %}
-          <p class="error"><strong></strong>{{message}}</p>
-        {% endif %}
+
         {% if error %}
           <p class="error"><strong>Error:</strong>{{error}}</p>
         {% endif %}
