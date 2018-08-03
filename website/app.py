@@ -138,6 +138,7 @@ def getUserId():
         conn.commit()
         data = cursor.fetchall()
         userId = data[0][0]
+        return userId
 
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
