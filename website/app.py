@@ -109,7 +109,6 @@ def imagePage(image):
     cursor.execute(imgcmd, image)
     conn.commit()
     imagei = cursor.fetchall()
-    flash(id[0][0])    
     flash(views[0][0])    
     v=views[0][0]
     i=imagei[0][0]
