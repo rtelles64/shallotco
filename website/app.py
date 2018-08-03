@@ -173,19 +173,14 @@ def adminPage():
 def adminApprove(imageID):
     conn = mysql.connect()
     cursor = conn.cursor()
-    try:
-        if request.method == 'POST':
-            #_imageID = request.form['imageid']
-            moveCmd = "INSERT into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (Select (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) From PendingImg where ImageId = %s)"
-            cursor.execute(moveCmd, imageID)
-            conn.commit()
-            deleteCmd = "DELETE FROM PendingImg WHERE ImageId = %s"
-            cursor.execute(deleteCmd, imageID)
-            conn.commit()
-        return redirect(url_for('adminPage'))
-    except Exception as e:
-        error = 'Sorry, we are not able to approve the image'
-        return redirect(url_for('adminPage'))
+    #_imageID = request.form['imageid']
+    moveCmd = "INSERT into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (Select (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) From PendingImg where ImageId = %s)"
+    cursor.execute(moveCmd, imageID)
+    conn.commit()
+    deleteCmd = "DELETE FROM PendingImg WHERE ImageId = %s"
+    cursor.execute(deleteCmd, imageID)
+    conn.commit()
+    return redirect(url_for('adminPage'))
 
 @app.route('/About')
 def about():
