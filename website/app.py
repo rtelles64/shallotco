@@ -132,7 +132,7 @@ def getUserId():
     conn = mysql.connect()
     cursor = conn.cursor()
     if 'UserName' in session:
-        userName = session[UserName]
+        userName = session['UserName']
         order = "SELECT IdUser FROM User WHERE UserName = %s"
         cursor.execute(order,userName)
         conn.commit()
