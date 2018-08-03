@@ -145,7 +145,8 @@ def getUserId():
 def uploadImage():
     flash("coming to uploadImage")
     #get user id for inserting image
-    # userId = getUserId()
+    userId = getUserId()
+    flash(userId)
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
