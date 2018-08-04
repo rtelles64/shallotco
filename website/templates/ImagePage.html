@@ -61,12 +61,14 @@
 
 {%endblock%}
 
+{%block banner%}
+<header class="card-header">
+  <center><h2 class="card-title mt-2">{{data[0][1]}}</h2></center>
+</header>
+{%endblock%}
 
 
 {%block body%}
-
-
-
 
 
 
@@ -108,9 +110,7 @@
   
       <center>
           <div class="description">
-                  POLICY: Fluorine Uranium Carbon Potassium
-                  Bismuth Technetium Helium Sulfur Germanium Tau
-                  Molybdenum Neon Yttrium Aluminium Lepton
+                  Description: {{data[0][2]}}
           </div>
       </center>
   
