@@ -77,24 +77,6 @@
 <br>
 <div class="container" style="min-height:100% width:80%">
 
-  <div class="container">
-    <!-- Full-width images with number text -->
-    {% for data in data %}
-    {% if session.logged_in %}
-    <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
-    <p style="text-align:center;">{{data[1]}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Uploaded By: {{userName}}</p>
-    <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
-    <p style="text-align:center;">{{data[2]}}</p>
-    {% else %}
-    <a><button class="btn" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
-    <p style="text-align:center;">{{data[1]}}</p>
-    <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
-    <p style="text-align:center;">{{data[2]}}</p>
-    {% endif %}
-    {% endfor %}
-    <br>
-  </div>
-
   <div class = "container-fluid">
     <div id="imagePage" class = "container-fluid text-center">
       <div>
@@ -103,6 +85,7 @@
           </div>
       </div>
       <br>
+
 
       {% if session.logged_in %}
         <a href="{{data[0][0]}}" download="{{data[0][1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
