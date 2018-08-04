@@ -107,7 +107,7 @@
   
       <br><br>
       <input onclick="CancelButton()" class="CancelButton" type="submit" value="Cancel">
-      <br><br>
+      <br><br><br><br><br>
   </div>
   </div>
 
@@ -117,5 +117,9 @@
   function alertMessage() {
   alert("Please login before Downloading images!");
   }
+
+              function CancelButton(){
+                window.history.back();
+            }
   </script>
 {%endblock%}
