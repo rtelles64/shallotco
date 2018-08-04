@@ -103,10 +103,14 @@
           </div>
       </div>
       <br>
-  
-      <form id = "download-form" method="POST">
-          <input class="DownloadButton" type="submit" value="Click here to download">
-      </form>
+
+      {% if session.logged_in %}
+        <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+      {% else %}
+        <a><button class="btn" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
+      {% endif %}
+
+
   
       <center>
           <div class="description">
@@ -120,6 +124,7 @@
   
       <br><br>
       <input onclick="CancelButton()" class="CancelButton" type="submit" value="Cancel">
+      <br><br>
   </div>
   </div>
 
