@@ -1,49 +1,102 @@
-<!--Image Information Page-->
-<!--Front End: Roy Telles & Sam Zheng-->
-<!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
-
 {%extends "ShallotLayout/shallotLayout.html"%}
 
 {%block head%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+#imagePage .object-fit_contain {
+  object-fit: contain;
+}
+
+#imagePage img {
+  height: 450px;
+  width: 850px;
+  background-color: rgb(67, 68, 68);
+}
+
+#imagePage .image {
+  float: center;
+  margin: 20px;
+}
+
+#imagePage .DownloadButton {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px 94px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+#imagePage .description{
+  width: 700px;
+  background-color: lightgrey;
+  border: 1px solid black;
+  padding: 25px;
+  margin: 25px;
+  size: 200px;
+}
+#imagePage .uploader{
+  text-align: right;
+  padding: 10px;
+  padding-right: 100px;
+}
+#imagePage .CancelButton {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px 94px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
 
 {%endblock%}
 
+
+
 {%block body%}
+
+
+
+
+
+
+
 <!-- Container for the image gallery -->
 <br>
 <div class="container" style="min-height:100% width:80%">
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-  {% for message in messages %}
-  <div class="alert alert-warning alert-dismissible" role="alert">
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-  {{message}}
+
+  <div class="container">
+    <!-- Full-width images with number text -->
+
+    {% if session.logged_in %}
+    <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+    <p style="text-align:center;">{{data[1]}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Uploaded By: {{userName}}</p>
+    <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
+    <p style="text-align:center;">{{data[2]}}</p>
+    {% else %}
+    <a><button class="btn" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
+    <p style="text-align:center;">{{data[1]}}</p>
+    <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
+    <p style="text-align:center;">{{data[2]}}</p>
+    {% endif %}
+    <br>
   </div>
-{% endfor %}
-{% endif %}
-{% endwith %}
-<div class="container">
-  <!-- Full-width images with number text -->
-  {% for data in data %}
-  {% if session.logged_in %}
-  <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
-  <p style="text-align:center;">{{data[1]}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Uploaded By: {{userName}}</p>
-  <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
-  <p style="text-align:center;">{{data[2]}}</p>
-  {% else %}
-  <a><button class="btn" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
-  <p style="text-align:center;">{{data[1]}}</p>
-  <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
-  <p style="text-align:center;">{{data[2]}}</p>
-  {% endif %}
-  {% endfor %}
-  <br>
-</div>
-<script>
-function alertMessage() {
- alert("Please login before Downloading images!");
-}
-</script>
+
+
+
+  <script>
+  function alertMessage() {
+  alert("Please login before Downloading images!");
+  }
+  </script>
 {%endblock%}
