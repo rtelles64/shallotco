@@ -92,6 +92,36 @@
     <br>
   </div>
 
+  <div class = "container-fluid">
+    <div id="imagePage" class = "container-fluid text-center">
+      <div>
+          <div class="image">
+              <img class="object-fit_contain" src="{{data[0]}}">
+          </div>
+      </div>
+      <br>
+  
+      <form id = "download-form" method="POST">
+          <input class="DownloadButton" type="submit" value="Click here to download">
+      </form>
+  
+      <center>
+          <div class="description">
+                  POLICY: Fluorine Uranium Carbon Potassium
+                  Bismuth Technetium Helium Sulfur Germanium Tau
+                  Molybdenum Neon Yttrium Aluminium Lepton
+          </div>
+      </center>
+  
+      <div class="uploader">
+          <h3>Uploaded By: {{userName}}</h3>
+      </div>
+  
+      <br><br>
+      <input onclick="CancelButton()" class="CancelButton" type="submit" value="Cancel">
+  </div>
+  </div>
+
 
 
   <script>
