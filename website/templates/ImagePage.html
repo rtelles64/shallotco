@@ -88,9 +88,9 @@
 
 
       {% if session.logged_in %}
-        <a href="{{data[0][0]}}" download="{{data[0][1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+        <a href="{{data[0][0]}}" download="{{data[0][1]}}"><button class="DownloadButton"><i class="fa fa-download"></i> Download</button></a>
       {% else %}
-        <a><button class="btn" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
+        <a><button class="DownloadButton" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
       {% endif %}
 
 
