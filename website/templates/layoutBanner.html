@@ -28,18 +28,20 @@
         <div class="input-group-btn search-panel">
           <form action="/Search" method="post">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" name="category">
+              <!-- DROPWDOWN menu for categories -->
               <span id="search_concept">All</span> <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
               <li><a href="#All">All</a></li>
-              <li><a href="#Clip-art">Clip-art</a></li>
+              <li><a href="#Clip Art">Clip-art</a></li>
               <li><a href="#Fashion">Fashion</a></li>
               <li><a href="#Food">Food</a></li>
               <li><a href="#Nature">Nature</a></li>
             </ul>
+            <!-- END category select -->
           </div>
           <input type="hidden" name="category" value="{{request.form.category}}" id="search_param">
-          <input type="text" class="form-control" name="search" placeholder="Search term..." value="{{request.form.search}}">
+          <input type="text" class="form-control" name="search" maxlength="30" placeholder="Search term..." value="{{request.form.search}}">
           <span class="input-group-btn">
             <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-search"></span></button>
           </span>

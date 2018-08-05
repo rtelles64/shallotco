@@ -3,65 +3,105 @@
 <!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
 
 {%extends "ShallotLayout/shallotLayout.html" %};
+{%block head%}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-{%block content%}
-        <br><br><br>
+<style>
+#uploadImage .upload {
+    background-color: #838282;
+    border: none;
+    color: rgb(250, 250, 250);
+    padding: 115px 182px;
+    text-align: right;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#uploadImage .messageBox{
+    length: 80px;
+    height: 50px;
+}
+
+#uploadImage .button {
+    background-color: #9C00CD;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    padding: 5px 94px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#uploadImage .policy{
+    background-color: lightgrey;
+    padding: 25px;
+    margin: 25px;
+    size: 200px;
+}
+</style>
+{%endblock%}
+
+
+{%block banner%}
+<center><h2>Upload</h2></center>
+{%endblock%}
+
+{%block body%}
+        <br>
+        <br>
+        <br>
+        {% if message %}
+          <h3 class="congrats" style="color: green";><strong>{{message}}</strong></h3>
+        {% endif %}
+        {% if error %}
+          <h3 class="error" style="color: red";><strong>Error:</strong>{{error}}</h3>
+        {% endif %}
+        <div class = "container-fluid">
         <div id="uploadImage" class = "container-fluid searchBar text-center">
-            <h1>Image Uploader</h1>
-            <br><br><br><br>
-
-
-            <!--all action variables,button here, except the cancel button-->
-            <!--all action variables,button here, except the cancel button-->
-            <!-- url_for('Search')  redirect function name goes in here!!!!!!!!!!-->
-            <!-- url_for('Search')  redirect function name goes in here!!!!!!!!!!-->
-            <form id = "upload-form" action = "{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
-                <input class = "container-fluid text-center upload" type="file" value="clickME" name="file" accept="/" multiple>
+          <h3 style="text-align:center;">Drag and drop an image into the box</h3>
+          <h3 style="text-align:center;">or click the box to browse for your image</h3>
+            <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
+              <div class="form-group" style="display: center;">
+              <br><br>
+                <input class = "container-fluid text-center upload" type="file" size="200" value="clickME" name="file" accept="image/*" multiple>
+                <div style="margin-bottom: -100px;"></div>
+                <div style="margin-bottom: 100px;"><h5>Click here or drag file here</h5></div>
                 <br><br>
                 <div>
                     Image Category:
-                    <select name="category">
-                        <option value="nature">nature</option>
-                        <option value="people">people</option>
-                        <option value="animal">animal</option>
+                    <select name="category" value="{{request.form.category}}">
+                        <option value="Nature">Nature</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Food">Food</option>
+                        <option value="Clip Art">Clip Art</option>
                     </select>
                 </div>
                 <br>
-
-                Message:
-                <input class="messageBox" type="text" name='comment' id="searchBar" placeholder="Leave a Comments" size="75"/>
-
+                <div>
+                Description:
+                <input class="messageBox" type="text" name="description" maxlength="150" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
+              </div>
+                <br>
+                <div>
+                Image Name:
+                <input type="text" name="imageName" maxlength="40" placeholder="Please provide your image name" size="50" value="{{request.form.imageName}}"/>
+              </div>
                 <br><br>
                 <input class="button" type="submit" value="Upload">
+                </div>
             </form>
+            <br>
 
-
-
-
-
-
-
-            <input class="button" type="submit" value="Cancel">
-            <br><br><br><br><br><br><br><br>
-            <hr>
             <div class="policy">
-                POLICY: Fluorine Uranium Carbon Potassium
-                Bismuth Technetium Helium Sulfur Germanium Tau
-                Molybdenum Neon Yttrium Aluminium Lepton
-                Thorium	Rhenium	Electron Tellurium Americium
-                Lepton Electron Alpha Particle Deuterium
-                Hydrogen Alpha Particle	Vanadium Electron
-                Nobelium Iodine	Deuterium Electron Alpha Particle
-                Iodine Deuterium Electron Alpha Particle
-                Protactinium Sulfur	Sulfur
-                Vanadium Argon Iodine Alpha Particle Boron Lepton Electron
-                Francium Molybdenum Phosphorus Yttrium Thorium Oxygen Nitrogen
-                Tau	Oxygen Hydrogen	Thulium	Lepton Alpha Particle Neodymium
-                Vanadium Iodine	Cerium Vanadium	Erbium Sulfur Alpha Particle 7/19/2018
+                Disclaimer: It may take up to 24 hours before the image is visible on the site
             </div>
 
-        </div>
-
-
-
+            </div>
 {%endblock%}

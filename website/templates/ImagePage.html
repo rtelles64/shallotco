@@ -1,26 +1,124 @@
-<!--Image Information Page-->
-<!--Front End: Roy Telles & Sam Zheng-->
-<!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
-
 {%extends "ShallotLayout/shallotLayout.html"%}
 
 {%block head%}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/ImagePage.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+#imagePage .object-fit_contain {
+  object-fit: contain;
+}
+
+#imagePage img {
+  height: 450px;
+  width: 850px;
+  background-color: rgba(67, 68, 68, 0);
+}
+
+#imagePage .image {
+  float: center;
+  margin: 20px;
+}
+
+#imagePage .DownloadButton {
+  background-color: #9C00CD;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px 94px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+#imagePage .description{
+  width: 700px;
+  background-color: lightgrey;
+  border: 1px solid black;
+  padding: 25px;
+  margin: 25px;
+  size: 200px;
+}
+#imagePage .uploader{
+  text-align: right;
+  padding: 10px;
+  padding-right: 100px;
+}
+#imagePage .CancelButton {
+  background-color: #9C00CD;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  padding: 5px 94px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+</style>
 
 {%endblock%}
 
+{%block banner%}
+<header class="card-header">
+  <center><h2 class="card-title mt-2">{{data[0][1]}}</h2></center>
+</header>
+{%endblock%}
+
+
 {%block body%}
+
+
+
+
 <!-- Container for the image gallery -->
 <br>
-<div class="container">
-  <!-- Full-width images with number text -->
-  {% for data in data %}
-  <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
-  <p style="text-align:center;">{{data[1]}}</p>
-  <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
-  <p style="text-align:center;">{{data[2]}}</p>
-  {% endfor %}
-  <br>
-</div>
+<div class="container" style="min-height:100% width:80%">
+
+  <div class = "container-fluid">
+    <div id="imagePage" class = "container-fluid text-center">
+      <div>
+          <div class="image">
+              <img class="object-fit_contain" src="{{data[0][0]}}">
+          </div>
+      </div>
+      <br>
+
+
+      {% if session.logged_in %}
+        <a href="{{data[0][0]}}" download="{{data[0][1]}}"><button class="DownloadButton"><i class="fa fa-download"></i> Download</button></a>
+      {% else %}
+        <a><button class="DownloadButton" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
+      {% endif %}
+
+
+  
+      <center>
+          <div class="description">
+                  Description: {{data[0][2]}}
+          </div>
+      </center>
+  
+      <div class="uploader">
+          <h3>Uploaded By: {{userName}}</h3>
+      </div>
+
+      <br><br><br><br><br>
+  </div>
+  </div>
+
+
+
+  <script>
+  function alertMessage() {
+  alert("Please login before Downloading images!");
+  }
+
+              function CancelButton(){
+                window.history.back();
+            }
+  </script>
+
 {%endblock%}

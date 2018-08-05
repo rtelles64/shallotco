@@ -55,12 +55,13 @@
         <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="http://shallotco.com">
-        <img src="{{ url_for('static', filename='RingsLightPurple.png') }}" style="float: left; height: 3.8rem; margin-top: -8px;">
+        <img src="{{ url_for('static', filename='RingsLightPurple.png') }}" style="float: left; height: 3.8rem; margin-top: -6px;">
       </a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/About" onclick="location.assign('/About'),'_top'">About Us <span class="caret"></span></a>
+        <!-- ABOUT US button/dropdown -->
+        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/About" onclick="location.assign('/About'),'_top'" style="margin-top: 3px;">About Us <span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/About/James">James Clark</a></li>
             <li><a href="/About/Roy">Roy Telles</a></li>
@@ -73,14 +74,33 @@
       </ul>
       <!-- Signup/Login buttons -->
       <ul class="nav navbar-nav navbar-right">
-        <li><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></li>
-        <li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <!-- check if session is true, if it is, display Logout, UploadImage otherwise display UploadImage, Register and Login -->
+            {% if session.logged_in %}
+            <li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: -4px;">Upload</button></a></li>
+    				<li><a href="/Logout" onclick="location.assign('/Logout'),'_top'"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+    				{% else %}
+    				<!-- <li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li> -->
+            <li><a><button type="submit" onclick="alertMessage()" class="btn btn-primary" style="padding-top: 6px; margin-top: -4px; margin-bottom: -3px;">Upload</button></a></li>
+            <li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-pencil"></span> Sign up</a><li>
+    				<li><a href="/Login" onclick="location.assign('/Login'),'_top'"><span class="glyphicon glyphicon-log-in"></span> Login</a><li>
+    				{% endif %}
       </ul>
       <!-- END Signup/Login buttons -->
     </div> <!-- END collapsible -->
   </div>
 </nav>
+<br>
+<div class="container" style="min-height:100% width:80%">
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+  {{message}}
+  </div>
+{% endfor %}
+{% endif %}
+{% endwith %}
 <!-- END navbar -->
 <!-- BANNER -->
   <div class="banner container-fluid bg-2 text-center">
@@ -104,6 +124,11 @@
 <!-- END footer -->
 <!-- SEARCHBAR script -->
 </body>
+<script>
+function alertMessage() {
+ alert("Please login before uploading images!");
+}
+</script>
 <script>
 // This overrides the 'ordered list' functions and turns it into drop down
 $(document).ready(function(e){

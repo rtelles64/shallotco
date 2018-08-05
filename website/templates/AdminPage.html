@@ -1,0 +1,261 @@
+<!--admin Page-->
+<!--Front End: Roy Telles & Sam Zheng-->
+<!--Back End: Jenny Cai, Mike Lama, Patrick Coico-->
+{%extends "ShallotLayout/shallotLayout.html"%}
+{%block head%}
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
+<style>
+    body {font-family: Arial;}
+
+    /* Style the tab */
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+        font-size: 17px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    #clickable {
+        cursor : pointer;
+    }
+    .object-fit_contain {
+        object-fit: contain;
+    }
+
+
+    img {
+
+        height: 250px;
+        width: 250px;
+        background-color: rgb(112, 103, 103);
+    }
+
+    .image {
+
+        float: left;
+        margin: 20px;
+        padding-left: 100px;
+    }
+
+    .object-fit_contain:hover{
+        color: #424242;
+
+      -webkit-transition: all .3s ease-in;
+      -moz-transition: all .3s ease-in;
+      -ms-transition: all .3s ease-in;
+      -o-transition: all .3s ease-in;
+      transition: all .3s ease-in;
+      opacity: 1;
+      transform: scale(2);
+      -ms-transform: scale(2); /* IE 9 */
+      -webkit-transform: scale(2); /* Safari and Chrome */
+    }
+    </style>
+{%endblock%}
+
+{%block banner%}
+<header class="card-header">
+  <center><h2 class="card-title mt-2">Admin Dashboard</h2></center>
+</header>
+{%endblock%}
+
+{%block body%}
+<div id = "adminpage">
+
+<div class="tab">
+  <button class="tablinks" onclick="adminpage(event, 'Approved')">|Approved Images|</button>
+  <button class="tablinks" onclick="adminpage(event, 'Pending')">|Pending Images|</button>
+  <button class="tablinks" onclick="adminpage(event, 'User')">|User|</button>
+</div>
+
+
+<div id="User" class="tabcontent">
+    <table id="userTable">
+        <tr>
+            <th class="clickable" onclick="sortTable(0)">User ID &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(1)">User name &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(2)">Email &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(3)">Birth day &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(4)">First name &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(5)">Gender &#9650 &#x25BC</th>
+            <th class="clickable" onclick="sortTable(6)">City &#9650 &#x25BC</th>
+            <th>Delete</th>
+        </tr>
+        {% for row in userData %}
+        <tr>
+            <td>{{row[0]}}</td>
+            <td>{{row[1]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[5]}}</td>
+            <td>{{row[6]}}</td>
+            <td>{{row[4]}}</td>
+            <td>{{row[8]}}</td>
+            <td><a href="/Admin/Delete/U/{{row[0]}}"><input class="DeleteButton" type="submit" value="Delete" onclick="deleteButton(this)"></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div id="Pending" class="tabcontent">
+    <table id="pendingTable">
+        <tr>
+            <th>Image</th>
+            <th class="clickable" onclick="sortTable(6)">Uploader &#9650 &#x25BC</th>
+            <th>Action</th>
+        </tr>
+        {% for row in pendingData %}
+        <tr>
+            <td>
+                <div class="image">
+                    <img class="object-fit_contain" src="{{row[5]}}">
+                </div>
+            </td>
+            <td>{{row[0]}}</td>
+            <td>
+                <a href="/Admin/Approve/{{row[0]}}"><input class="AcceptButton" type="submit" value="Accept"></a><br><br>
+                <a href="/Admin/Delete/P/{{row[0]}}"><input class="DenyButton" type="submit" value="Reject" onclick="deleteButton(this)"></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+
+<div id="Approved" class="tabcontent">
+    <table id="approvedTable">
+        <tr>
+            <th>Image</th>
+            <th class="clickable" onclick="sortTable(7)">Uploader &#9650 &#x25BC</th>
+            <th>Delete</th>
+        </tr>
+        {% for row in approvedData %}
+        <tr>
+            <td>
+                <div class="image">
+                    <img class="object-fit_contain" src="{{row[6]}}">
+                </div>
+            </td>
+            <td>{{row[0]}}</td>
+            <td><a href="/Admin/Delete/A/{{row[0]}}"><input class="DeleteButton" type="submit" value="Delete"></a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<center>
+    <form action="http://shallotco.com">
+        <input id="button" type="submit" value="Back to home" />
+    </form>
+</center>
+
+
+
+<script>
+    function adminpage(evt, tabs) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabs).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function sortTable(n) {
+      var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+      table = document.getElementById("userTable");
+      if(n == 6){
+          n = n - 5;
+          table = document.getElementById("pendingTable");
+      } 
+      else if(n == 7){
+          n = n - 6;
+          table = document.getElementById("approvedTable");
+      }
+      switching = true;
+      dir = "asc";
+      while (switching) {
+        switching = false;
+        rows = table.getElementsByTagName("tr");
+        for (i = 1; i < (rows.length - 1); i++) {
+          shouldSwitch = false;
+          x = rows[i].getElementsByTagName("td")[n];
+          y = rows[i + 1].getElementsByTagName("td")[n];
+          if (dir == "asc") {
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              shouldSwitch= true;
+              break;
+            }
+          } else if (dir == "desc") {
+            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+              shouldSwitch = true;
+              break;
+            }
+          }
+        }
+        if (shouldSwitch) {
+          rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+          switching = true;
+          switchcount ++;
+        } else {
+          if (switchcount == 0 && dir == "asc") {
+            dir = "desc";
+            switching = true;
+          }
+        }
+      }
+    }
+    function backButton() {
+        window.history.back();
+    }
+    function deleteButton(t){
+    index = t.parentNode.parentNode;
+    index.parentNode.removeChild(index);    
+    }
+</script>
+
+</div>
+{%endblock%}
