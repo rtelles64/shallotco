@@ -107,58 +107,6 @@
 
       <br><br><br><br><br>
   </div>
-<<<<<<< HEAD
-{% endfor %}
-{% endif %}
-{% endwith %}
-<div class="container">
-  <!-- Full-width images with number text -->
-  {% for data in data %}
-  {% if session.logged_in %}
-  <a href="{{data[0]}}" download="{{data[1]}}"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
-  <p style="text-align:center;">{{data[1]}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Uploaded By: {{userName}}</p>
-  <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
-  <p style="text-align:center;">{{data[2]}}</p>
-  {% else %}
-  <a data-toggle="modal" data-target="#alert"><button class="btn" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
-  <p style="text-align:center;">{{data[1]}}</p>
-  <p style="text-align:center;"><img src="{{data[0]}}" style="width:700px;height:600px;"></p>
-  <p style="text-align:center;">{{data[2]}}</p>
-  {% endif %}
-  {% endfor %}
-  <br>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="alert" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <!-- <h4 class="modal-title">Terms of Use and Privacy Policy</h4> -->
-      </div>
-      <div class="modal-body">
-        <!-- <center><h4><b>Date of Birth</b></h4></center> -->
-        <p>Whoops! You need to be logged in to download this image!</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><a href="/Login" onclick="location.assign('/Login'),'_top'">Login</a></button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal"><a href="/Register" onclick="location.assign('/Register'),'_top'">Sign Up</a></button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-function alertMessage() {
- alert("Please login before Downloading images!");
-}
-</script>
-=======
   </div>
 
 
@@ -172,5 +120,5 @@ function alertMessage() {
                 window.history.back();
             }
   </script>
->>>>>>> af73f6db5e8f0ca184f95aadcd023b420a8f7b92
+
 {%endblock%}
