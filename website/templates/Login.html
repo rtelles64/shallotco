@@ -1,21 +1,40 @@
 {%extends "ShallotLayout/shallotLayout.html" %};
+{%block head%}
+<style>
+body {
+	padding-bottom: 20px;
+	text-align: center;
+}
+
+div.form {
+	display: block;
+	text-align: center;
+}
+</style>
+{%endblock%}
 {% block body %}
 <body>
-	<div class="container">
+	<div class="container-fluid">
 		<br>
 		{% if error %}
 			<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
 		<h4>Please Login:</h4>
 		<br>
-    <form action="/Login"  method="post">
-      <label class="active">Username:</label>
-        <input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
-          <label class="active">Password:</label>
-         <input type="password" class="form-control" maxlength="45" placeholder="Password" name="password" value="{{request.form.password}}">
-				 <br>
-        <input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
-      </form>
+		<form style="margin-left: auto; margin-right: auto; text-align: left;" action="/Login"  method="post">
+			<div class="form-group form-row col-md-5">
+				<label class="active">Username:</label>
+				<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
+			</div>
+			<div class="form-group form-row col-md-5">
+				<label class="active">Password:</label>
+				<input type="password" class="form-control" maxlength="45" placeholder="Password" name="password" value="{{request.form.password}}">
+			</div>
+			<br>
+			<div class="form-group">
+			<input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
+		</div>
+		</form>
       <div class="container">
 	   <br><p>No account? <a href="/Register">Register here</a></p>
 	   <p><a href="/forgot-password">Forgot Password?</a></p>

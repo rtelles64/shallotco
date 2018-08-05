@@ -51,11 +51,8 @@
         <!-- END password -->
         <!-- CONFIRM PASSWORD field -->
         <div class="form-group">
-          <label for="confirmPassword">Confirm Password</label>&nbsp;<i class="fa fa-asterisk text-danger" style="font-size:12px"></i>
+          <label for="confirmPassword">Confirm Password</label>&nbsp;<i class="fa fa-asterisk text-danger"></i>
           <input type="password" id="confirmPassword" class="form-control" aria-describedby="passwordHelpInline" placeholder="Confirm Password" maxlength="30" required>
-          <div class="invalid-feedback">
-            Your passwords don't match!
-          </div>
         </div>
         <!-- END confirm password -->
         <!-- USERNAME field -->
@@ -186,7 +183,7 @@
           </label> -->
         <!-- </div> --> <!-- form-group end.// -->
         <!-- GENDER selector -->
-        <div class="form-group col-md-6">
+        <div class="form-group">
             <label>Gender</label>
             <select id="inputGender" class="form-control" name="gender" value="{{request.form.gender}}">
               <option value = ""> Choose...</option>
@@ -194,15 +191,15 @@
               <option>Female</option>
               <option>Other/Prefer not to answer</option>
             </select>
-          </div> <!-- form-group end.// -->
+        </div> <!-- form-group end.// -->
           <!-- END gender -->
           <!-- CITY/COUNTRY fields -->
         <div class="form-row">
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-7">
             <label>City</label>
             <input type="text" class="form-control" maxlength="64" placeholder="City"name="city" value="{{request.form.city}}">
           </div> <!-- form-group end.// -->
-          <div class="form-group col-md-6">
+          <div class="form-group col-md-5">
             <label>Country</label>
             <select id="inputState" class="form-control" name="country" value="{{request.form.country}}">
               <option> Choose...</option>
@@ -215,6 +212,7 @@
           </div> <!-- form-group end.// -->
         </div> <!-- form-row.// -->
         <!-- END city/country -->
+        <br>
         <center>
           <small class="text-muted">By clicking 'Sign Up', you confirm that you accept our <br><a data-toggle="modal" data-target="#myModal"> Terms of Use and Privacy Policy.</a></small>
           <br>
@@ -274,5 +272,9 @@ function validatePassword(){
     confirmPassword.setCustomValidity('');
   }
 }
+
+password.onchange = validatePassword;
+confirmPassword.onkeyup = validatePassword;
+
 </script>
 {%endblock%}
