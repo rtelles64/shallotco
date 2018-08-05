@@ -90,7 +90,7 @@
       {% if session.logged_in %}
         <a href="{{data[0][0]}}" download="{{data[0][1]}}"><button class="DownloadButton"><i class="fa fa-download"></i> Download</button></a>
       {% else %}
-        <a data-toggle="modal" data-target="#myModal"><button class="DownloadButton" onclick="alertMessage()"><i class="fa fa-download"></i> Download</button></a>
+        <a data-toggle="modal" data-target="#myModal"><button class="DownloadButton"><i class="fa fa-download"></i> Download</button></a>
 
         <!-- Modal -->
         <div class="modal fade" id="myModal" role="dialog">
@@ -103,12 +103,11 @@
                 <h4 class="modal-title">Whoops!</h4>
               </div>
               <div class="modal-body">
-                <center><h4><b>Date of Birth</b></h4></center>
                 <p>You must be logged in to download this image!</p>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal"><a href="/Login" onclick="location.assign('/Login'),'_top'">Login</a></button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><a href="/Register" onclick="location.assign('/Register'),'_top'">Sign up</a></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><a href="/Login" onclick="location.assign('/Login'),'_top'" style="text-decoration: none;">Login</a></button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><a href="/Register" onclick="location.assign('/Register'),'_top'" style="text-decoration: none;">Sign up</a></button>
               </div>
             </div>
           </div>
