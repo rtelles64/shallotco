@@ -9,6 +9,7 @@ from functools import wraps
 from passlib.hash import sha256_crypt
 from PIL import Image,ImageOps
 import glob, os
+import random
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 
@@ -37,7 +38,7 @@ def home():
     conn = mysql.connect()
     cursor = conn.cursor()
     error = request.args.get('error')  # counterpart for url_for()
-    imgCmd = "SELECT ThumbPath, ImageName From ApprovedImg WHERE Views >= 350"
+    imgCmd = "SELECT ThumbPath, ImageName, ImageId From ApprovedImg WHERE Views >= 350"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
@@ -64,12 +65,12 @@ def searchResult():
             conn.commit()
             data=cursor.fetchall()
             if (len(data) == 0):
-                order = "SELECT ThumbPath, ImageName, Descr FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
+                order = "SELECT ThumbPath, ImageName, Descr, ImageId FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             else:
                 _categoryId=data[0][0]
-                order = "SELECT ThumbPath, ImageName, Descr FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
+                order = "SELECT ThumbPath, ImageName, Descr, ImageId FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
                 cursor.execute(order, (int(_categoryId), '%'+_search+'%','%'+_search+'%'))
                 conn.commit()
             imgData=cursor.fetchall()
@@ -79,10 +80,8 @@ def searchResult():
                 return redirect(url_for('home',error=error))
             else:
 
-       		#flash("it has come to else")
-                numOfImage = len(imgData)
-                print(numOfImage)
-                return render_template("ImageResult.html",imgData=imgData)
+                return render_template("ImageResult.html",imgData=imgData, imgCount=imgCount, search=_search)
+
 
         else:
             return redirect(url_for('home'))
@@ -93,20 +92,30 @@ def searchResult():
         conn.close()
 
 #define searching for one particular image
-@app.route('/Search/<string:image>', methods=['GET', 'POST'])
-def imagePage(image):
+@app.route('/Search/<string:imageid>', methods=['GET', 'POST'])
+def imagePage(imageid):
+    flash(imageid)
     conn = mysql.connect()
     cursor = conn.cursor()
-    imgcmd = "SELECT FilePath, ImageName, Descr, UserId FROM ApprovedImg WHERE ImageName = %s"
-    cursor.execute(imgcmd, image)
+    #select info from db for that imagename
+
+    imgcmd = "SELECT FilePath, ImageName, Descr, UserId, Views FROM ApprovedImg WHERE ImageId = %s"
+    cursor.execute(imgcmd, imageid)
     conn.commit()
     data = cursor.fetchall()
+    flash(data)
+
+    #get user name for displaying the image
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
     cursor.execute(usernamecmd, data[0][3])
     conn.commit()
-    #get userName with that userId
     userName=cursor.fetchall()
     userName=userName[0][0]
+
+    #if user have clicked on this image, we will increase the view by 1
+    view = "Update ApprovedImg set views=(%s) + 1 where ImageId = %s"
+    cursor.execute(view, (data[0][4], imageid))
+    conn.commit()
     return render_template("ImagePage.html", data=data,userName=userName)
 
 
@@ -114,30 +123,36 @@ def getUserId():
     #get user id with current user name
     conn = mysql.connect()
     cursor = conn.cursor()
-    userName = session.username
-    order = "SELECT IdUser FROM User WHERE UserName = %s"
-    cursor.execute(order,username)
-    conn.commit()
-    data = cursor.fetchall()
-    userId = data[0][0]
+    if 'UserName' in session:
+        userName = session['UserName']
+        order = "SELECT IdUser FROM User WHERE UserName = %s"
+        cursor.execute(order,userName)
+        conn.commit()
+        data = cursor.fetchall()
+        userId = data[0][0]
+        return userId
 
 #define upload image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
+    imageCounter = random.randint(1,101)
+    flash(imageCounter)
     flash("coming to uploadImage")
     #get user id for inserting image
-    # userId = getUserId()
+    userId = getUserId()
+    flash(userId)
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
         if request.method == 'POST':
-            flash("coming to post")
+            #flash("coming to post")
             _descr = request.form['description']
-            flash(_descr)
+            #flash("_descr")
             _categoryName = request.form['category']
-            flash(_categoryName)
+            #flash("category")
             _imageName = request.form['imageName']
-            flash(_imageName)
+            #flash("_imageName")
+
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
@@ -157,34 +172,43 @@ def uploadImage():
                 destination = "/".join([target, filename])
                 flash(destination)
                 file.save(destination)
-                #create the file path
-                filePath = '/static/Images/' + _categoryName +'/' + filename
-                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filename
-                flash(filePath)
-                flash(thumbPath)
-                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
-                value=((10,_imageName,_descr,_categoryId,filePath,thumbPath))
-                cursor.execute(order,value)
-                flash("going to execute")
-                conn.commit()
-                flash("commit")
                 file, ext = os.path.splitext(filename)
-                flash("split the filename")
                 flash(file)
                 flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
-                thumbFullPath = APP_ROOT + "/static/ThumbnailImages/" + _categoryName + "/" + filename
-                flash("create thumbPath")
-                flash(thumbFullPath)
-                #if ext == '.jpg':
-                #    im.save(thumbPath, 'jpeg')
-                #else:flash("coming to else")
-                #    flash(filename.split('.')[-1])
-                #    im.save("/var/www/html/3.jpeg", filename.split('.')[-1])
+                thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
 
+                #create new file name to avoid the same file name from user
+                filenameNew = file + str(imageCounter) + ext
+                flash(filenameNew)
+                fullpicPath = "/".join([target,filenameNew])
+                #rename the file with the new file name
+                if os.path.isfile(destination):
+                    os.rename(destination, fullpicPath)
+                thumbDestination = "/".join([thumbFullPath,filenameNew])
+                flash("create thumbPath")
+                flash(thumbDestination)
+                if ext == '.jpg':
+                    im.save(thumbDestination, 'jpeg')
+                else:
+                    flash("coming to else")
+                    flash(filename.split('.')[-1])
+                    im.save(thumbDestination, filename.split('.')[-1])
+                #create the file path
+                filePath = '/static/Images/' + _categoryName +'/' + filenameNew
+                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filenameNew
+                flash(filePath)
+                flash(thumbPath)
+                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
+                value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
+                cursor.execute(order,value)
+                flash("going to execute")
+                conn.commit()
+                flash("commit")
             #return to upload image page if users want to upload more
-            return render_template("UploadImage.html")
+            message = "Thank you for uploading your image, now you can upload more images"
+            return render_template("UploadImage.html", message=message)
         #if there is no post, simply return to upload image page
         return render_template("UploadImage.html")
     except Exception as e:
@@ -195,12 +219,66 @@ def uploadImage():
         cursor.close()
         conn.close()
 
-@app.route('/admin')
+@app.route('/Admin')
 def adminPage():
-    arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
-    arg2 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
-    arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
-    return render_template("/AdminPage.html", userData = arg, pendingData = arg2, approvedData = arg3)
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    error = request.args.get('error')
+    #_imageID = request.form['imageid']
+    approvedCmd = "SELECT * FROM ApprovedImg"
+    cursor.execute(approvedCmd)
+    conn.commit()
+    approvedData = cursor.fetchall()
+    pendingCmd = "SELECT * FROM PendingImg"
+    cursor.execute(pendingCmd)
+    conn.commit()
+    pendingData = cursor.fetchall()
+    userCmd = "SELECT * FROM User WHERE IdUser > 1"
+    cursor.execute(userCmd)
+    conn.commit()
+    userData = cursor.fetchall()
+    #arg = [['aa', '111someone@gmail.com', '1/1/1/', 'azs', 'male', 'sj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj'], ['b', 'b111someone@gmail.com', '21/1/1/', 'bazs', 'fmale', 'nsj']]
+    #arg2 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
+    #arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
+    return render_template("/AdminPage.html", userData = userData, pendingData = pendingData, approvedData = approvedData)
+
+@app.route('/Admin/Approve/<int:imageID>')
+def adminApprove(imageID):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    #_imageID = request.form['imageid']
+    selectCmd = "SELECT UserId,ImageName,Descr,CategoryId,FilePath FROM PendingImg WHERE ImageId = %s"
+    cursor.execute(selectCmd, imageID)
+    conn.commit()
+    data = cursor.fetchall()
+    moveCmd = "INSERT into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
+    cursor.execute(moveCmd, (data[0][0],data[0][1],data[0][2],data[0][3],data[0][4]))
+    conn.commit()
+    deleteCmd = "DELETE FROM PendingImg WHERE ImageId = %s"
+    cursor.execute(deleteCmd, imageID)
+    conn.commit()
+    return redirect(url_for('adminPage'))
+
+@app.route('/Admin/Delete/<string:table>/<int:imageID>')
+def adminDelete(table, imageID):
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    #_imageID = request.form['imageid']
+    if table == 'A':
+        deleteCmd = "DELETE FROM ApprovedImg WHERE ImageId = %s"
+        cursor.execute(deleteCmd, imageID)
+        conn.commit()
+        return redirect(url_for('adminPage'))
+    if table == 'P':
+        deleteCmd = "DELETE FROM PendingImg WHERE ImageId = %s"
+        cursor.execute(deleteCmd, imageID)
+        conn.commit()
+        return redirect(url_for('adminPage'))
+    if table == 'U':
+        deleteCmd = "DELETE FROM User WHERE IdUser = %s"
+        cursor.execute(deleteCmd, imageID)
+        conn.commit()
+        return redirect(url_for('adminPage'))
 
 @app.route('/About')
 def about():
@@ -216,35 +294,37 @@ def register():
         if request.method == 'POST':
             #get all the fields value
             _user = request.form['userName']
-            flash(_user)
+            #flash(_user)
             _password = sha256_crypt.encrypt(str(request.form['password']))
-            flash(_password)
+            #flash(_password)
             #passHash = sha256_crypt.encrypt(str(_password))
             #flash(passHash)
             _email = request.form['email']
-            flash(_email)
+            #flash(_email)
             _gender = request.form['gender']
-            flash(_gender)
+            #flash(_gender)
             _city = request.form['city']
-            flash(_city)
+            #flash(_city)
             _country = request.form['country']
-            flash(_country)
+            #flash(_country)
             _firstName = request.form['firstName']
-            flash(_firstName)
+            #flash(_firstName)
             _lastName = request.form['lastName']
-            flash(_lastName)
+            #flash(_lastName)
             _day = request.form['day']
             _month = request.form['month']
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
+
             flash(_dob)
+
             #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-            flash("writing command")
+            #flash("writing command")
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
-            flash("finish execute")
+            #flash("finish execute")
             conn.commit()
-            flash("finish commit")
+            #flash("finish commit")
             #For collecting gabage
             gc.collect()
             #send confirmation message when the user has successfully registered
@@ -280,16 +360,29 @@ def login():
         if request.method == "POST":
             attempted_username = request.form['username']
             attempted_password = request.form['password']
-            userCmd = "SELECT Password FROM User WHERE UserName = %s"
+            userCmd = "SELECT Password, IdUser FROM User WHERE UserName = %s"
             cursor.execute(userCmd, attempted_username)
             conn.commit()
             data = cursor.fetchall()
-            flash(data)
-            flash(data[0][0])
+            #flash(data)
+            flash(data[0][1])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
+
                 session['logged_in'] = True
-                session['username'] = attempted_username
+                session['UserName'] = attempted_username
+                flash(session['UserName'])
                 return redirect(url_for('home'))
+
+
+                if data[0][1] == 1:
+                    return redirect(url_for('adminPage'))
+                else:
+                    session['logged_in'] = True
+                    session['UserName'] = attempted_username
+                    flash(session['UserName'])
+                    return redirect(url_for('home'))
+
+
             else:
                 #error has occured when login
                 error = "Invalid credentials. Try Again."
