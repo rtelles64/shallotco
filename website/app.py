@@ -247,12 +247,12 @@ def adminApprove(imageID):
     conn = mysql.connect()
     cursor = conn.cursor()
     #_imageID = request.form['imageid']
-    selectCmd = "SELECT UserId,ImageName,Descr,CategoryId,FilePath FROM PendingImg WHERE ImageId = %s"
+    selectCmd = "SELECT UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath FROM PendingImg WHERE ImageId = %s"
     cursor.execute(selectCmd, imageID)
     conn.commit()
     data = cursor.fetchall()
-    moveCmd = "INSERT into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath) VALUES (%s,%s,%s,%s,%s)"
-    cursor.execute(moveCmd, (data[0][0],data[0][1],data[0][2],data[0][3],data[0][4]))
+    moveCmd = "INSERT into ApprovedImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
+    cursor.execute(moveCmd, (data[0][0],data[0][1],data[0][2],data[0][3],data[0][4],data[0][5]))
     conn.commit()
     deleteCmd = "DELETE FROM PendingImg WHERE ImageId = %s"
     cursor.execute(deleteCmd, imageID)
