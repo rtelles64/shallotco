@@ -367,14 +367,9 @@ def login():
             #flash(data)
             flash(data[0][1])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
-
-                session['logged_in'] = True
-                session['UserName'] = attempted_username
-                flash(session['UserName'])
-                return redirect(url_for('home'))
-
-
                 if data[0][1] == 1:
+                    session['logged_in'] = True
+                    session['UserName'] = attempted_username
                     return redirect(url_for('adminPage'))
                 else:
                     session['logged_in'] = True
