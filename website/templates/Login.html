@@ -21,7 +21,7 @@ form {
 
 {% block body %}
 <body>
-<center>
+
 	<div class="container-fluid">
 		<br>
 		{% if error %}
@@ -29,6 +29,7 @@ form {
 		{% endif %}
 		
 			<form action="/Login"  method="post">
+				<center>
 				<div class="form-group form-row col-md-5">
 					<label class="active">Username:</label>
 					<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
@@ -44,7 +45,7 @@ form {
 						<br>
 					</center>
 				</div>
-
+</center>
 			</form>
 		
 
@@ -63,7 +64,7 @@ form {
 
 		</div> -->
 	</div>
-</center>
+
 
 </body>
 {% endblock %}
