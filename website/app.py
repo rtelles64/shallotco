@@ -80,7 +80,7 @@ def searchResult():
                 return redirect(url_for('home',error=error))
             else:
 
-                return render_template("ImageResult.html",imgData=imgData, imgCount=imgCount, search=_search)
+                return render_template("ImageResult.html",imgData=imgData, imgCount=imgCount, search=_search, category=_categoryName)
 
 
         else:
