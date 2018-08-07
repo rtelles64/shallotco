@@ -10,6 +10,10 @@ form {
 	display: block;
 	text-align: left;
 }
+
+#loginForm {
+	width: 80%;
+}
 </style>
 {%endblock%}
 
@@ -20,7 +24,7 @@ form {
 {%endblock%}
 
 {% block body %}
-<center>
+
 
 
 		<br>
@@ -28,7 +32,7 @@ form {
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
 
-			<form action="/Login"  method="post">
+			<form id="loginForm" action="/Login" method="post">
 
 				<div class="form-group form-row col-md-5">
 					<label class="active">Username:</label>
@@ -39,7 +43,7 @@ form {
 					<div class="form-group">
 						<input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
 					</div>
-				</center>
+
 					<center>
 						<br><p>No account? <a href="/Register">Register here</a></p>
 						<p><a href="/forgot-password">Forgot Password?</a></p>
