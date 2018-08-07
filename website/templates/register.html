@@ -61,7 +61,7 @@
           <!-- USERNAME field -->
           <div class="col form-group">
             <label>Username &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
-            <input type="text" class="form-control" maxlength="50" placeholder="UserName" name="userName" value="{{request.form.userName}}" required>
+            <input type="text" class="form-control" id="username" maxlength="50" placeholder="UserName" name="userName" value="{{request.form.userName}}" required>
           </div> <!-- form-group end.// -->
           <!-- END username -->
 
@@ -71,7 +71,7 @@
           <small class="form-text text-muted"> Users must be at least 10 years of age to create an account.</small>
           <div class="form-row">
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control" placeholder="Month" name="month" value="{{request.form.month}}" required>
+              <select id="month" class="form-control" placeholder="Month" name="month" value="{{request.form.month}}" required>
                 <option value="" selected>Month</option>
                 <option>1</option>
                 <option>2</option>
@@ -88,7 +88,7 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control" name= "day" value="{{request.form.day}}" required>
+              <select id="day" class="form-control" name= "day" value="{{request.form.day}}" required>
                 <option value="" selected>Day</option>
                 <option>01</option>
                 <option>02</option>
@@ -124,7 +124,7 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control" name="year" value="{{request.form.year}}" required>
+              <select id="year" class="form-control" name="year" value="{{request.form.year}}" required>
                 <option value="" selected>Year</option>
                 <option>2008</option>
                 <option>2007</option>
@@ -204,7 +204,7 @@
             </div> <!-- form-group end.// -->
             <div class="form-group col-md-5">
               <label>Country</label>
-              <select id="inputState" class="form-control" name="country" value="{{request.form.country}}">
+              <select id="country" class="form-control" name="country" value="{{request.form.country}}">
                 <option> Choose...</option>
                 <option>Uzbekistan</option>
                 <option>Russia</option>
@@ -265,14 +265,45 @@
   <script type="text/javascript" src="{{ url_for('static', filename='js/registration.js') }}"></script>
   <script>
 // JS for password confirm
-var password = document.getElementById("password")
-, confirmPassword = document.getElementById("confirmPassword");
+var password = document.getElementById("password"),
+confirmPassword = document.getElementById("confirmPassword"),
+email = document.getElementById("email"),
+username = document.getElementById("username"),
+month = document.getElementById("month"),
+day = document.getElementById("day"),
+year = document.getElementById("year");
 
 function validatePassword(){
   if(password.value != confirmPassword.value) {
     alert("Passwords Don't Match!");
     return false;
   }
+
+  if(email.value === null) {
+    alert("Please enter your email!");
+    return false;
+  }
+
+  if (username.value === null) {
+    alert("Please enter a username!");
+    return false;
+  }
+
+  if (month.value === null) {
+    alert("Please enter a month for your birthdate!");
+    return false;
+  }
+
+  if (day.value === null) {
+    alert("Plase enter a day for your birthday!");
+    return false;
+  }
+
+  if (year.value === null) {
+    alert("Please enter a year for your birthday!");
+    return false;
+  }
+  
   return true;
 }
 
