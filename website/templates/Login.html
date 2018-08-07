@@ -10,14 +10,6 @@ form {
 	display: block;
 	text-align: left;
 }
-
-.center {
-    margin: auto;
-    width: 60%;
-    border: 3px solid #73AD21;
-    padding: 10px;
-}
-
 </style>
 {%endblock%}
 
@@ -35,7 +27,7 @@ form {
 		{% if error %}
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
-		<div class = "center">
+		
 			<form action="/Login"  method="post">
 				
 				<div class="form-group form-row col-md-5">
@@ -55,7 +47,7 @@ form {
 				</div>
 
 			</form>
-		</div>
+		
 
 
 		<!-- <div class="container" style="min-height:100% width:80%">
