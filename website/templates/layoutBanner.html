@@ -31,13 +31,14 @@
               <!-- DROPWDOWN menu for categories -->
               <span id="search_concept">All</span> <span class="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="#All">All</a></li>
-              <li><a href="#Clip Art">Clip-art</a></li>
-              <li><a href="#Fashion">Fashion</a></li>
-              <li><a href="#Food">Food</a></li>
-              <li><a href="#Nature">Nature</a></li>
-            </ul>
+            <select selected='1'>
+              <option value=''></option>
+              <option value='1'>All</option>
+              <option value='2'>Clip-art</option>
+              <option value='3'>Fashion</option>
+              <option value='4'>Food</option>
+              <option value='5'>Nature</option>
+            </select>
             <!-- END category select -->
           </div>
           <input type="hidden" name="category" value="{{request.form.category}}" id="search_param">
