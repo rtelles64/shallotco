@@ -12,6 +12,13 @@ div.form {
 }
 </style>
 {%endblock%}
+
+{%block banner%}
+<header class="card-header">
+  <h2 class="card-title mt-2">Login</h2>
+</header>
+{%endblock%}
+
 {% block body %}
 <body>
 	<div class="container-fluid">
@@ -19,8 +26,6 @@ div.form {
 		{% if error %}
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
-		<h4>Please Login:</h4>
-		<br>
 		<form style="margin-left: auto; margin-right: auto; text-align: left;" action="/Login"  method="post">
 			<div class="form-group form-row col-md-5">
 				<label class="active">Username:</label>
