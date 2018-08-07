@@ -54,54 +54,54 @@
 {%endblock%}
 
 {%block body%}
-        <br>
-        <br>
-        <br>
-        {% if message %}
-          <h3 class="congrats" style="color: green";><strong>{{message}}</strong></h3>
-        {% endif %}
-        {% if error %}
-          <h3 class="error" style="color: red";><strong>Error:</strong>{{error}}</h3>
-        {% endif %}
-        <div class = "container-fluid">
-        <div id="uploadImage" class = "container-fluid searchBar text-center">
-          <h3 style="text-align:center;">Drag and drop an image into the box</h3>
-          <h3 style="text-align:center;">or click the box to browse for your image</h3>
-            <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
-              <div class="form-group" style="display: center;">
+<br>
+<br>
+<br>
+{% if message %}
+<h3 class="congrats" style="color: green";><strong>{{message}}</strong></h3>
+{% endif %}
+{% if error %}
+<h3 class="error" style="color: red";><strong>Error:</strong>{{error}}</h3>
+{% endif %}
+<div class = "container-fluid">
+    <div id="uploadImage" class = "container-fluid searchBar text-center">
+      <h3 style="text-align:center;">Drag and drop an image into the box</h3>
+      <h3 style="text-align:center;">or click the box to browse for your image</h3>
+      <form id = "upload-form" action = "/UploadImage" method="POST" enctype="multipart/form-data">
+          <div class="form-group" style="display: center;">
               <br><br>
-                <input class = "container-fluid text-center upload" type="file" size="200" value="clickME" name="file" accept="image/*" multiple>
-                <div style="margin-bottom: -100px;"></div>
-                <div style="margin-bottom: 100px;"><h5>Click here or drag file here</h5></div>
-                <br><br>
-                <div>
-                    Image Category:
-                    <select name="category" value="{{request.form.category}}">
-                        <option value="Nature">Nature</option>
-                        <option value="Fashion">Fashion</option>
-                        <option value="Food">Food</option>
-                        <option value="Clip Art">Clip Art</option>
-                    </select>
-                </div>
-                <br>
-                <div>
+              <input class = "container-fluid text-center upload" type="file" size="200" value="clickME" name="file" accept="image/*" multiple>
+              <div style="margin-bottom: -100px;"></div>
+              <div style="margin-bottom: 100px;"><h5>Click here or drag file here</h5></div>
+              <br><br>
+              <div>
+                Image Category:
+                <select name="category" value="{{request.form.category}}">
+                    <option value="Nature">Nature</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Food">Food</option>
+                    <option value="Clip Art">Clip Art</option>
+                </select>
+            </div>
+            <br>
+            <div>
                 Image Name:
                 <input type="text" name="imageName" maxlength="40" placeholder="Please provide your image name" size="50" value="{{request.form.imageName}}"/>
-              </div>
-                <br>
-                <div>
+            </div>
+            <br>
+            <div>
                 Description:
                 <input class="messageBox" type="text" name="description" maxlength="150" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
-              </div>
-                <br><br>
-                <input class="button" type="submit" value="Upload">
-                </div>
-            </form>
-            <br>
-
-            <div class="policy">
-                Disclaimer: It may take up to 24 hours before the image is visible on the site
             </div>
+            <br><br>
+            <input class="button" type="submit" value="Upload">
+        </div>
+    </form>
+    <br>
 
-            </div>
+    <div class="policy">
+        Disclaimer: It may take up to 24 hours before the image is visible on the site
+    </div>
+
+</div>
 {%endblock%}
