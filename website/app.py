@@ -39,11 +39,12 @@ def home():
     cursor = conn.cursor()
     error = request.args.get('error')  # counterpart for url_for()
     imgCmd = "SELECT ThumbPath, ImageName, ImageId From ApprovedImg WHERE Views >= 350"
+    category = "All"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
     #render home page with the data that is being sent from DB
-    return render_template("shallotHome.html",data=data,error=error)
+    return render_template("shallotHome.html",data=data,error=error,category=category)
 
 #congradulation page
 @app.route('/congratulation')
@@ -59,7 +60,10 @@ def searchResult():
     try:
         if request.method == 'POST':
             _search = request.form['search']
-            _categoryName = request.form['category']
+            if request.form['category'] == '':
+                _categoryName = "All"
+            else:
+                _categoryName = request.form['category']
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
@@ -80,7 +84,7 @@ def searchResult():
                 return redirect(url_for('home',error=error))
             else:
 
-                return render_template("ImageResult.html",imgData=imgData, imgCount=imgCount, search=_search)
+                return render_template("ImageResult.html",imgData=imgData, imgCount=imgCount, search=_search, category=_categoryName)
 
 
         else:
