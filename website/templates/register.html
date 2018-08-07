@@ -8,6 +8,9 @@
 {%block head%}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css') }}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {%endblock%}
 {%block banner%}
 <header class="card-header">
@@ -70,7 +73,7 @@
           <div class="form-row">
             <div class="form-group col-md-4">
               <select id="inputState" class="form-control" placeholder="Month" name="month" value="{{request.form.month}}" required>
-                <!-- <option selected>Month</option> -->
+                <option value="" selected>Month</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -87,7 +90,7 @@
             </div>
             <div class="form-group col-md-4">
               <select id="inputState" class="form-control" name= "day" value="{{request.form.day}}" required>
-                <option selected>Day</option>
+                <option value="" selected>Day</option>
                 <option>01</option>
                 <option>02</option>
                 <option>03</option>
@@ -123,7 +126,7 @@
             </div>
             <div class="form-group col-md-4">
               <select id="inputState" class="form-control" name="year" value="{{request.form.year}}" required>
-                <option selected>Year</option>
+                <option value="" selected>Year</option>
                 <option>2008</option>
                 <option>2007</option>
                 <option>2006</option>
