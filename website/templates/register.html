@@ -220,7 +220,7 @@
             <br>
             <div class="clearfix">
               <button type="button" class="btn btn-danger"><a href="http://shallotco.com" style="color:white; text-decoration: none;">Cancel</a></button>
-              <button type="submit" class="btn btn-primary" onclick="validatePassword();">Sign up</button>
+              <button type="submit" class="btn btn-primary" onclick="return validatePassword()">Sign up</button>
             </div>
           </center>
           <!-- Modal -->
@@ -269,7 +269,9 @@ var password = document.getElementById("password")
 function validatePassword(){
   if(password.value != confirmPassword.value) {
     alert("Passwords Don't Match!");
+    return false;
   }
+  return true;
 }
 
 password.onchange = validatePassword;
