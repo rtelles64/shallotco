@@ -6,6 +6,7 @@ body {
 	text-align: center;
 }
 
+/* CENTER FORM */
 div.form {
   display: block;
   text-align: center;
@@ -44,9 +45,11 @@ form {
 					<label class="active">Password:</label>
 					<input type="password" class="form-control" maxlength="45" placeholder="Password" name="password" value="{{request.form.password}}">
 					<br>
-					<div class="form-group">
-						<input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
-					</div>
+					<center>
+						<div class="form-group col-md-3">
+							<input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
+						</div>
+					</center>
 
 					<center>
 						<br><p>No account? <a href="/Register">Register here</a></p>
