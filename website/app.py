@@ -60,7 +60,10 @@ def searchResult():
     try:
         if request.method == 'POST':
             _search = request.form['search']
-            _categoryName = request.form['category']
+                if request.form['category'] == '':
+                    _categoryName = "All"
+                else:
+                    _categoryName = request.form['category']
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
