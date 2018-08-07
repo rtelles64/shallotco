@@ -94,35 +94,7 @@
                 <input class="messageBox" type="text" name="description" maxlength="150" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
               </div>
                 <br><br>
-                
-                {% if session.logged_in %}
-        <button class="button" type="submit" value = "Upload">Upload</button>
-      {% else %}
-        <a data-toggle="modal" data-target="#myModal"><button class="button">Upload</button></a>
-
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Whoops!</h4>
-              </div>
-              <div class="modal-body">
-                <p>You must be logged in to download this image!</p>
-              </div>
-              <div class="modal-footer">
-                <center>
-                  <a href="/Login" onclick="location.assign('/Login'),'_top'" style="text-decoration: none;"><button style="background-color: #9C00CD; color: white;" type="button" class="btn btn-default" data-dismiss="modal">Login</button></a>
-                  <a href="/Register" onclick="location.assign('/Register'),'_top'" style="text-decoration: none;"><button type="button" class="btn btn-default" data-dismiss="modal">Sign up</button></a>
-                </center>
-              </div>
-            </div>
-          </div>
-        </div>
-      {% endif %}
+                <input class="button" type="submit" value="Upload">
                 </div>
             </form>
             <br>
