@@ -11,9 +11,6 @@ form {
 	text-align: left;
 }
 
-#loginForm {
-	width: 80%;
-}
 </style>
 {%endblock%}
 
@@ -34,7 +31,7 @@ form {
 
 			<form action="/Login" method="post">
 
-				<div id="loginForm" class="form-group form-row col-md-5">
+				<div class="form-group form-row col-md-5">
 					<label class="active">Username:</label>
 					<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
 					<label class="active">Password:</label>
