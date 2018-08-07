@@ -197,7 +197,7 @@ def uploadImage():
                     im.save(thumbDestination, filename.split('.')[-1])
                 #create the file path
                 filePath = '/static/Images/' + _categoryName +'/' + filenameNew
-                thumbPath = "/static/ThumbnailImages/" + _categoryName + "/" + filenameNew
+                thumbPath = "/static/ThumbnailsImages/" + _categoryName + "/" + filenameNew
                 flash(filePath)
                 flash(thumbPath)
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
