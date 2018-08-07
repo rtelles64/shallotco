@@ -8,7 +8,7 @@ body {
 
 div.form {
 	display: block;
-	text-align: center;
+	text-align: left;
 }
 </style>
 {%endblock%}
@@ -27,24 +27,26 @@ div.form {
 		{% if error %}
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
-		<form action="/Login"  method="post">
-			<div class="form-group form-row col-md-5">
-				<label class="active">Username:</label>
-				<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
-				<label class="active">Password:</label>
-				<input type="password" class="form-control" maxlength="45" placeholder="Password" name="password" value="{{request.form.password}}">
-				<br>
-				<div class="form-group">
-					<input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
-				</div>
-				<div class="container">
-					<br><p>No account? <a href="/Register">Register here</a></p>
-					<p><a href="/forgot-password">Forgot Password?</a></p>
+		<center>
+			<form action="/Login"  method="post">
+				<div class="form-group form-row col-md-5">
+					<label class="active">Username:</label>
+					<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
+					<label class="active">Password:</label>
+					<input type="password" class="form-control" maxlength="45" placeholder="Password" name="password" value="{{request.form.password}}">
 					<br>
+					<div class="form-group">
+						<input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
+					</div>
+					<div class="container">
+						<br><p>No account? <a href="/Register">Register here</a></p>
+						<p><a href="/forgot-password">Forgot Password?</a></p>
+						<br>
+					</div>
 				</div>
-			</div>
 
-		</form>
+			</form>
+		</center>
 
 
 		<!-- <div class="container" style="min-height:100% width:80%">
