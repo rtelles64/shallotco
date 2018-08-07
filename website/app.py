@@ -39,11 +39,12 @@ def home():
     cursor = conn.cursor()
     error = request.args.get('error')  # counterpart for url_for()
     imgCmd = "SELECT ThumbPath, ImageName, ImageId From ApprovedImg WHERE Views >= 350"
+    category = "All"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
     #render home page with the data that is being sent from DB
-    return render_template("shallotHome.html",data=data,error=error)
+    return render_template("shallotHome.html",data=data,error=error,category=category)
 
 #congradulation page
 @app.route('/congratulation')
