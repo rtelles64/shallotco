@@ -8,6 +8,8 @@
 {%block head%}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css') }}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 {%endblock%}
 {%block banner%}
 <header class="card-header">
@@ -47,6 +49,7 @@
             <!-- &nbsp is "non breaking space" -->
             <label>Create password &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
             <input class="form-control" type="password" id="password" name="password" maxlength="30" placeholder="Password" value="{{request.form.password}}" required>
+            <small class="form-text text-muted">Password must be less than 30 characters.</small>
           </div> <!-- form-group end.// -->
           <!-- END password -->
           <!-- CONFIRM PASSWORD field -->
@@ -58,7 +61,7 @@
           <!-- USERNAME field -->
           <div class="col form-group">
             <label>Username &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
-            <input type="text" class="form-control" maxlength="50" placeholder="UserName" name="userName" value="{{request.form.userName}}">
+            <input type="text" class="form-control" id="username" maxlength="50" placeholder="UserName" name="userName" value="{{request.form.userName}}" required>
           </div> <!-- form-group end.// -->
           <!-- END username -->
 
@@ -68,8 +71,8 @@
           <small class="form-text text-muted"> Users must be at least 10 years of age to create an account.</small>
           <div class="form-row">
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control" name="month" value="{{request.form.month}}">
-                <option selected>Month</option>
+              <select id="month" class="form-control" placeholder="Month" name="month" value="{{request.form.month}}" required>
+                <option value="" selected>Month</option>
                 <option>1</option>
                 <option>2</option>
                 <option>3</option>
@@ -85,8 +88,8 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control" name= "day" value="{{request.form.day}}" >
-                <option selected>Day</option>
+              <select id="day" class="form-control" name= "day" value="{{request.form.day}}" required>
+                <option value="" selected>Day</option>
                 <option>01</option>
                 <option>02</option>
                 <option>03</option>
@@ -121,8 +124,8 @@
               </select>
             </div>
             <div class="form-group col-md-4">
-              <select id="inputState" class="form-control" name="year" value="{{request.form.year}}">
-                <option selected>Year</option>
+              <select id="year" class="form-control" name="year" value="{{request.form.year}}" required>
+                <option value="" selected>Year</option>
                 <option>2008</option>
                 <option>2007</option>
                 <option>2006</option>
@@ -201,7 +204,7 @@
             </div> <!-- form-group end.// -->
             <div class="form-group col-md-5">
               <label>Country</label>
-              <select id="inputState" class="form-control" name="country" value="{{request.form.country}}">
+              <select id="country" class="form-control" name="country" value="{{request.form.country}}">
                 <option> Choose...</option>
                 <option>Uzbekistan</option>
                 <option>Russia</option>
@@ -219,7 +222,7 @@
             <br>
             <div class="clearfix">
               <button type="button" class="btn btn-danger"><a href="http://shallotco.com" style="color:white; text-decoration: none;">Cancel</a></button>
-              <button type="submit" class="btn btn-primary">Sign up</button>
+              <button type="submit" class="btn btn-primary" onclick="return validatePassword()">Sign up</button>
             </div>
           </center>
           <!-- Modal -->
@@ -259,22 +262,69 @@
     </div> <!-- card.// -->
   </div> <!-- col.//-->
   <!-- REGISTRATION script -->
-  <script type="text/javascript" src="{{ url_for('static', filename='js/registration.js') }}"></script>
+  <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/registration.js') }}"></script> -->
   <script>
 // JS for password confirm
-var password = document.getElementById("password")
-, confirmPassword = document.getElementById("confirmPassword");
+var password = document.getElementById("password"),
+confirmPassword = document.getElementById("confirmPassword"),
+email = document.getElementById("email"),
+username = document.getElementById("username"),
+month = document.getElementById("month"),
+day = document.getElementById("day"),
+year = document.getElementById("year");
 
 function validatePassword(){
   if(password.value != confirmPassword.value) {
-    confirmPassword.setCustomValidity("Passwords Don't Match");
-  } else {
-    confirmPassword.setCustomValidity('');
+    alert("Passwords Don't Match!");
+    return false;
   }
+
+  if(email.value === "") {
+    alert("Please enter your email!");
+    return false;
+  }
+
+  if (username.value === "") {
+    alert("Please choose a username!");
+    return false;
+  }
+
+  if (month.value === "") {
+    alert("Please enter a month for your birthdate!");
+    return false;
+  }
+
+  if (day.value === "") {
+    alert("Plase enter a day for your birthday!");
+    return false;
+  }
+
+  if (year.value === "") {
+    alert("Please enter a year for your birthday!");
+    return false;
+  }
+
+  return true;
 }
 
-password.onchange = validatePassword;
-confirmPassword.onkeyup = validatePassword;
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
 
 </script>
 {%endblock%}
