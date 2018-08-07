@@ -32,9 +32,9 @@ form {
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
 
-			<form id="loginForm" action="/Login" method="post">
+			<form action="/Login" method="post">
 
-				<div class="form-group form-row col-md-5">
+				<div id="loginForm" class="form-group form-row col-md-5">
 					<label class="active">Username:</label>
 					<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
 					<label class="active">Password:</label>
