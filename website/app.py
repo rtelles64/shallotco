@@ -48,7 +48,7 @@ def home():
 
 #congradulation page
 @app.route('/congratulations')
-def congradulation():
+def congratulation():
     return render_template("congradulation.html")
 
 #define search page
