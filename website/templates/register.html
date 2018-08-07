@@ -262,7 +262,7 @@
     </div> <!-- card.// -->
   </div> <!-- col.//-->
   <!-- REGISTRATION script -->
-  <script type="text/javascript" src="{{ url_for('static', filename='js/registration.js') }}"></script>
+  <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/registration.js') }}"></script> -->
   <script>
 // JS for password confirm
 var password = document.getElementById("password"),
@@ -279,31 +279,31 @@ function validatePassword(){
     return false;
   }
 
-  if(email.value === null) {
+  if(email.value === "") {
     alert("Please enter your email!");
     return false;
   }
 
-  if (username.value === null) {
-    alert("Please enter a username!");
+  if (username.value === "") {
+    alert("Please choose a username!");
     return false;
   }
 
-  if (month.value === null) {
+  if (month.value === "") {
     alert("Please enter a month for your birthdate!");
     return false;
   }
 
-  if (day.value === null) {
+  if (day.value === "") {
     alert("Plase enter a day for your birthday!");
     return false;
   }
 
-  if (year.value === null) {
+  if (year.value === "") {
     alert("Please enter a year for your birthday!");
     return false;
   }
-  
+
   return true;
 }
 
