@@ -19,6 +19,10 @@ form {
   text-align: left;
 }
 
+div.btn {
+	padding: 12px 28px;
+}
+
 </style>
 {%endblock%}
 
@@ -46,7 +50,7 @@ form {
 					<input type="password" class="form-control" maxlength="45" placeholder="Password" name="password" value="{{request.form.password}}">
 					<br>
 					<center>
-						<div class="form-group" style="padding: 12px 28px;">
+						<div class="form-group">
 							<input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
 						</div>
 					</center>
