@@ -8,7 +8,7 @@ body {
 
 form {
 	display: block;
-	text-align: left;
+	text-align: center;
 }
 </style>
 {%endblock%}
@@ -27,7 +27,7 @@ form {
 		{% if error %}
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
-		<center>
+		
 			<form action="/Login"  method="post">
 				<div class="form-group form-row col-md-5">
 					<label class="active">Username:</label>
@@ -46,7 +46,7 @@ form {
 				</div>
 
 			</form>
-		</center>
+		
 
 
 		<!-- <div class="container" style="min-height:100% width:80%">
