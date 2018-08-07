@@ -21,12 +21,12 @@ div.form {
 
 {% block body %}
 <body>
-	<div class="container-fluid">
-		<br>
-		{% if error %}
-		<p class="error"><strong>Error:</strong>{{error}}</p>
-		{% endif %}
-		<center>
+	<center>
+		<div class="container-fluid">
+			<br>
+			{% if error %}
+			<p class="error"><strong>Error:</strong>{{error}}</p>
+			{% endif %}
 			<form style="margin-left: auto; margin-right: auto; text-align: left;" action="/Login"  method="post">
 				<div class="form-group form-row col-md-5">
 					<label class="active">Username:</label>
@@ -45,22 +45,23 @@ div.form {
 				</div>
 
 			</form>
-		</center>
 
-		<div class="container" style="min-height:100% width:80%">
-			{% with messages = get_flashed_messages() %}
-			{% if messages %}
-			{% for message in messages %}
-			<div class="alert alert-warning alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-				{{message}}
+
+			<div class="container" style="min-height:100% width:80%">
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				{% for message in messages %}
+				<div class="alert alert-warning alert-dismissible" role="alert">
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+					{{message}}
+				</div>
+				{% endfor %}
+				{% endif %}
+				{% endwith %}
+
 			</div>
-			{% endfor %}
-			{% endif %}
-			{% endwith %}
-
 		</div>
-	</div>
+	</center>
 	
 </body>
 {% endblock %}
