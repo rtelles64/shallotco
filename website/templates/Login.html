@@ -20,16 +20,16 @@ form {
 {%endblock%}
 
 {% block body %}
-<body>
+
 
 	<div class="container-fluid">
 		<br>
 		{% if error %}
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
-		
+
 			<form action="/Login"  method="post">
-				
+
 				<div class="form-group form-row col-md-5">
 					<label class="active">Username:</label>
 					<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
@@ -47,7 +47,7 @@ form {
 				</div>
 
 			</form>
-		
+
 
 
 		<!-- <div class="container" style="min-height:100% width:80%">
@@ -66,5 +66,5 @@ form {
 	</div>
 
 
-</body>
+
 {% endblock %}
