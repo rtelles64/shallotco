@@ -6,41 +6,68 @@ body {
 	text-align: center;
 }
 
+/* CENTER FORM */
 div.form {
-	display: block;
-	text-align: center;
+  display: block;
+  text-align: center;
 }
+
+form {
+	display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+input.btn {
+	padding: 8px 40px;
+	width: 90%;
+}
+
 </style>
 {%endblock%}
+
+{%block banner%}
+<header class="card-header">
+	<h2 class="card-title mt-2">Login</h2>
+</header>
+{%endblock%}
+
 {% block body %}
-<body>
-	<div class="container-fluid">
+
+
+
 		<br>
 		{% if error %}
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
-		<h4>Please Login:</h4>
-		<br>
-		<form style="margin-left: auto; margin-right: auto; text-align: left;" action="/Login"  method="post">
-			<div class="form-group form-row col-md-5">
-				<label class="active">Username:</label>
-				<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
-			</div>
-			<div class="form-group form-row col-md-5">
-				<label class="active">Password:</label>
-				<input type="password" class="form-control" maxlength="45" placeholder="Password" name="password" value="{{request.form.password}}">
-			</div>
-			<br>
-			<div class="form-group">
-				<input class="btn" type="submit" value="Login" style="background-color:#FFD166;color:#000">
-			</div>
-		</form>
-		<div class="container">
-			<br><p>No account? <a href="/Register">Register here</a></p>
-			<p><a href="/forgot-password">Forgot Password?</a></p>
-			<br>
-		</div>
-		<div class="container" style="min-height:100% width:80%">
+
+			<form action="/Login" method="post">
+
+				<div class="form-group form-row">
+					<label class="active">Username:</label>
+					<input type="text" class="form-control" maxlength="30" placeholder="Username" name="username" value="{{request.form.username}}">
+					<label class="active">Password:</label>
+					<input type="password" class="form-control" maxlength="45" placeholder="Password" name="password" value="{{request.form.password}}">
+					<br>
+					<center>
+						<div class="form-group">
+							<input class="btn" type="submit" value="Login" style="background-color:#9C00CD;color:white;">
+						</div>
+					</center>
+
+					<center>
+						<br><p>No account? <a href="/Register">Register here</a></p>
+						<p><a href="/forgot-password">Forgot Password?</a></p>
+						<br>
+					</center>
+				</div>
+
+			</form>
+
+
+
+		<!-- <div class="container" style="min-height:100% width:80%">
 			{% with messages = get_flashed_messages() %}
 			{% if messages %}
 			{% for message in messages %}
@@ -52,7 +79,9 @@ div.form {
 			{% endif %}
 			{% endwith %}
 
-		</div>
-	</div>
-</body>
+		</div> -->
+
+
+
+
 {% endblock %}
