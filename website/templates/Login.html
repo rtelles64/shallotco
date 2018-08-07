@@ -22,12 +22,12 @@ form {
 {% block body %}
 <body>
 
-	<div class="container-fluid">
-		<br>
+	
+		
 		{% if error %}
 		<p class="error"><strong>Error:</strong>{{error}}</p>
 		{% endif %}
-		
+		<center>
 			<form action="/Login"  method="post">
 				
 				<div class="form-group form-row col-md-5">
@@ -48,7 +48,7 @@ form {
 
 			</form>
 		
-
+</center>
 
 		<!-- <div class="container" style="min-height:100% width:80%">
 			{% with messages = get_flashed_messages() %}
@@ -63,7 +63,7 @@ form {
 			{% endwith %}
 
 		</div> -->
-	</div>
+	
 
 
 </body>
