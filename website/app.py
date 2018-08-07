@@ -47,7 +47,7 @@ def home():
     return render_template("shallotHome.html",data=data,error=error,category=category)
 
 #congradulation page
-@app.route('/congratulation')
+@app.route('/congratulations')
 def congradulation():
     return render_template("congradulation.html")
 
