@@ -47,6 +47,7 @@
             <!-- &nbsp is "non breaking space" -->
             <label>Create password &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
             <input class="form-control" type="password" id="password" name="password" maxlength="30" placeholder="Password" value="{{request.form.password}}" required>
+            <small class="form-text text-muted">Password must be less than 30 characters.</small>
           </div> <!-- form-group end.// -->
           <!-- END password -->
           <!-- CONFIRM PASSWORD field -->
@@ -272,7 +273,6 @@ function validatePassword(){
 }
 
 password.onchange = validatePassword;
-confirmPassword.onkeyup = validatePassword;
 
 </script>
 {%endblock%}
