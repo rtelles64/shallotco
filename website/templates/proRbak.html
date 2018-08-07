@@ -9,49 +9,49 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="../static/js/search.js"></script>
-<script>
+  <script>
 // Get the elements with class="column"
 var elements = document.getElementsByClassName("column");
 
 // Two images side by side
 function two() {
-    for (i = 0; i < elements.length; i++) {
+  for (i = 0; i < elements.length; i++) {
         elements[i].style.msFlex = "20%";  // IE10
         elements[i].style.flex = "20%";
+      }
     }
-}
-</script>
+  </script>
 
 
   <style>
-    /* Remove the navbar's default rounded borders and increase the bottom margin */
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
+  /* Remove the navbar's default rounded borders and increase the bottom margin */
+  .navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
 
 
-.column {
+  .column {
     float:left;
     width: 30.33%;
-   -ms-flex: 10%; /* IE 10 */
+    -ms-flex: 10%; /* IE 10 */
     flex: 10%;
     padding: 0 4px;
     margin-bottom:100px;
-}
+  }
 
 
 
 
-.column img {
-  margin-top: 8px;
-  vertical-align: left;
-}
+  .column img {
+    margin-top: 8px;
+    vertical-align: left;
+  }
 
-/* Clear floats after image containers */
-.row::after {
-display: inline-block
-   display: -ms-flexbox; /* IE 10 */
+  /* Clear floats after image containers */
+  .row::after {
+    display: inline-block
+    display: -ms-flexbox; /* IE 10 */
     display: flex;
     -ms-flex-wrap: wrap; /* IE 10 */
     flex-wrap: wrap;
@@ -60,137 +60,137 @@ display: inline-block
     -ms-flex-wrap: wrap; /* IE 10 */
     flex-wrap: wrap;
     padding: 0 4px;
-}
+  }
 
 
 
 
-    /* Remove the jumbotron's default bottom margin */
-     .jumbotron {
-      margin-bottom: 0;
-    }
+  /* Remove the jumbotron's default bottom margin */
+  .jumbotron {
+    margin-bottom: 0;
+  }
 
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-  </style>
+  /* Add a gray background color and some padding to the footer */
+  footer {
+    background-color: #f2f2f2;
+    padding: 25px;
+  }
+</style>
 </head>
 <body>
 
 
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="#">    </a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">    </a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
 
-      <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav">
 
-        <li><a href="/">Home</a></li>
-<li class="dropdown">
+          <li><a href="/">Home</a></li>
+          <li class="dropdown">
 
-<a href="/About" onclick="location.replace('/About'),'_top'" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
+            <a href="/About" onclick="location.replace('/About'),'_top'" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
 
-<ul class="dropdown-menu">
+            <ul class="dropdown-menu">
 
-        <li><a href="/About/James">James Clark</a></li>
-        <li><a href="/About/Roy">Roy Telles</a></li>
-        <li><a href="/About/Patrick">Patrick Coico</a></li>
-        <li><a href="/About/Jenny">Jenny Cai</a></li>
-        <li><a href="/About/Michael">Michael Lama</a></li>
-        <li><a href="/About/Sam">Sam Zheng</a></li>
+              <li><a href="/About/James">James Clark</a></li>
+              <li><a href="/About/Roy">Roy Telles</a></li>
+              <li><a href="/About/Patrick">Patrick Coico</a></li>
+              <li><a href="/About/Jenny">Jenny Cai</a></li>
+              <li><a href="/About/Michael">Michael Lama</a></li>
+              <li><a href="/About/Sam">Sam Zheng</a></li>
 
-</ul>
+            </ul>
 
-    </div>
-  </div>
-</nav>
+          </div>
+        </div>
+      </nav>
 
-<div class="header">
-    <i><font color="Black"> SFSU Software Engineering Project CSC 648-848 Summer 2018. For Demonstration Only </font>
-    </i>
-</div>
+      <div class="header">
+        <i><font color="Black"> SFSU Software Engineering Project CSC 648-848 Summer 2018. For Demonstration Only </font>
+        </i>
+      </div>
 
-<div class="jumbotron" >
-  <div class="container" >
-    <header class="container">
-        <h2><center>Welcome!</center></h2>
-        <p><center>This is the prototype for Team 02</center></p>
-        <p><center>CSC648.01</center></p>
-        <p><center>Summer '18</center></p>
-        <p>To get results: Search for "tree" or "water" in the "Nature" category !</p>
-    <div class="row" >
-      <div class="col-lg-6">
-        <div class="input-group">
-          <div class="input-group-btn">
+      <div class="jumbotron" >
+        <div class="container" >
+          <header class="container">
+            <h2><center>Welcome!</center></h2>
+            <p><center>This is the prototype for Team 02</center></p>
+            <p><center>CSC648.01</center></p>
+            <p><center>Summer '18</center></p>
+            <p>To get results: Search for "tree" or "water" in the "Nature" category !</p>
+            <div class="row" >
+              <div class="col-lg-6">
+                <div class="input-group">
+                  <div class="input-group-btn">
 
-            <select class="btn btn-default dropdown-toggle">
+                    <select class="btn btn-default dropdown-toggle">
 
-                <option value="Nature">Nature</option>
+                      <option value="Nature">Nature</option>
                   <!-- <option value="Forest">Forest</option>
                   <option value="Snow">Snow</option>
                   <option value="Mountains">Mountains</option> -->
 
-          </select>
-          </div><!-- /btn-group -->
-	<form method= post>
-         <input type="searchBox" name="search" id="search" maxlength="30" placeholder="Search" value="{{request.form.search}}">
-  	<button id="btnSearch" type="submit"><i class="fa fa-search"></i> </button>
-	</form>
-	</div>
-        </div><!-- /input-group -->
-      </div><!-- /.col-lg-6 -->
-    </div><!-- /.row -->
-  </div><!-- / .container -->
+                </select>
+              </div><!-- /btn-group -->
+              <form method= post>
+               <input type="searchBox" name="search" id="search" maxlength="30" placeholder="Search" value="{{request.form.search}}">
+               <button id="btnSearch" type="submit"><i class="fa fa-search"></i> </button>
+             </form>
+           </div>
+         </div><!-- /input-group -->
+       </div><!-- /.col-lg-6 -->
+     </div><!-- /.row -->
+   </div><!-- / .container -->
+
+ </div>
+ <div class="container" style="min-height:100% width:80%">
+   {% with messages = get_flashed_messages() %}
+   {% if messages %}
+   {% for message in messages %}
+   <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    {{message}}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
 
 </div>
-	<div class="container" style="min-height:100% width:80%">
-	{% with messages = get_flashed_messages() %}
-	  {% if messages %}
-	    {% for message in messages %}
-		  <div class="alert alert-warning alert-dismissible" role="alert">
-		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-			{{message}}
-		  </div>
-		{% endfor %}
-	  {% endif %}
-	{% endwith %}
-
-	</div>
 <div class="container">
 	<h3><center>Results</center></h3>
-  		<p><center>Click on an image to go to its page and view more details</center></p>
+  <p><center>Click on an image to go to its page and view more details</center></p>
 
-		<!--<div class="column">-->
-		{% for item in data %}
+  <!--<div class="column">-->
+    {% for item in data %}
 
-                <div class="column">
-    		<tr>
-                <h1>{{item[1]}}</h1>
-	   	<td><p>{{item[2]}}</p> <img src="{{item[0]}}" class="img-thumbnail" alt="waves and rocks3" align="left" width="100" height="100" style="width:100%"/></td>
+    <div class="column">
+      <tr>
+        <h1>{{item[1]}}</h1>
+        <td><p>{{item[2]}}</p> <img src="{{item[0]}}" class="img-thumbnail" alt="waves and rocks3" align="left" width="100" height="100" style="width:100%"/></td>
 
-                </tr>
+      </tr>
 
-                </div>
-    		{% endfor %}
-		<!--</div>-->
-		<!-- /.row -->
-</div><br>
+    </div>
+    {% endfor %}
+    <!--</div>-->
+    <!-- /.row -->
+  </div><br>
 
-<br><br>
+  <br><br>
 
-<footer class="container-fluid bg-4 text-center">
-  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
-</footer>
+  <footer class="container-fluid bg-4 text-center">
+    <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
+  </footer>
 
 </body>
 </html>

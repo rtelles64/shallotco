@@ -25,7 +25,7 @@ var length = document.getElementById("length");
 
   // When the user clicks on the password field, show the message box
   myInput.onfocus = function() {
-      document.getElementById("message").style.display = "block";
+    document.getElementById("message").style.display = "block";
   }
   /*
   // When the user clicks outside of the password field, hide the message box

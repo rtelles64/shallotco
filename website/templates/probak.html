@@ -10,92 +10,92 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="../static/js/search.js"></script>
   <style>
-    /* Remove the navbar's default rounded borders and increase the bottom margin */ 
-    .navbar {
-      margin-bottom: 50px;
-      border-radius: 0;
-    }
-    
-    /* Remove the jumbotron's default bottom margin */ 
-     .jumbotron {
-      margin-bottom: 0;
-    }
-   
-    /* Add a gray background color and some padding to the footer */
-    footer {
-      background-color: #f2f2f2;
-      padding: 25px;
-    }
-  </style>
+  /* Remove the navbar's default rounded borders and increase the bottom margin */ 
+  .navbar {
+    margin-bottom: 50px;
+    border-radius: 0;
+  }
+  
+  /* Remove the jumbotron's default bottom margin */ 
+  .jumbotron {
+    margin-bottom: 0;
+  }
+  
+  /* Add a gray background color and some padding to the footer */
+  footer {
+    background-color: #f2f2f2;
+    padding: 25px;
+  }
+</style>
 </head>
 <body>
 
 
 
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-      <a class="navbar-brand" href="#">    </a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>                        
+        </button>
+        <a class="navbar-brand" href="#">    </a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
 
-      <ul class="nav navbar-nav">
+        <ul class="nav navbar-nav">
 
-        <li><a href="/">Home</a></li>
-<li class="dropdown">
-       
-<a href="/About" onclick="location.replace('/About'),'_top'" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
-    
-<ul class="dropdown-menu">
-      
-        <li><a href="/About/James">James Clark</a></li>
-        <li><a href="/About/Roy">Roy Telles</a></li>
-        <li><a href="/About/Patrick">Patrick Coico</a></li>
-        <li><a href="/About/Jenny">Jenny Cai</a></li>
-        <li><a href="/About/Michael">Michael Lama</a></li>
-        <li><a href="/About/Sam">Sam Zheng</a></li>
-     
-</ul>  
-      
-    </div>
-  </div>
-</nav>
-
-<div class="jumbotron">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-6">
-        <div class="input-group">
-          <div class="input-group-btn">
+          <li><a href="/">Home</a></li>
+          <li class="dropdown">
+           
+            <a href="/About" onclick="location.replace('/About'),'_top'" class="dropdown-toggle" data-toggle="dropdown">About Us <b class="caret"></b></a>
             
-            <select class="btn btn-default dropdown-toggle">
+            <ul class="dropdown-menu">
               
-                <option value="Nature">Nature</option>
+              <li><a href="/About/James">James Clark</a></li>
+              <li><a href="/About/Roy">Roy Telles</a></li>
+              <li><a href="/About/Patrick">Patrick Coico</a></li>
+              <li><a href="/About/Jenny">Jenny Cai</a></li>
+              <li><a href="/About/Michael">Michael Lama</a></li>
+              <li><a href="/About/Sam">Sam Zheng</a></li>
+              
+            </ul>  
+            
+          </div>
+        </div>
+      </nav>
+
+      <div class="jumbotron">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="input-group">
+                <div class="input-group-btn">
+                  
+                  <select class="btn btn-default dropdown-toggle">
+                    
+                    <option value="Nature">Nature</option>
                  <!--  <option value="Forest">Forest</option>
                   <option value="Snow">Snow</option>
                   <option value="Mountains">Mountains</option> -->
-             
-          </select>
-          </div><!-- /btn-group -->
-		<div>
-		<form action="/Search" method="post">
- 		 <input type="searchBox" name="search" id="search" maxlength="30" placeholder="Search" value="{{request.form.search}}">
-		 <button id="btnSearch" type="submit"><i class="fa fa-search"></i> </button>
-		</form>
-		</div>
-	  </div>
+                  
+                </select>
+              </div><!-- /btn-group -->
+              <div>
+                <form action="/Search" method="post">
+                  <input type="searchBox" name="search" id="search" maxlength="30" placeholder="Search" value="{{request.form.search}}">
+                  <button id="btnSearch" type="submit"><i class="fa fa-search"></i> </button>
+                </form>
+              </div>
+            </div>
 
-        </div><!-- /input-group -->
-      </div><!-- /.col-lg-6 -->
-    </div><!-- /.row -->
-  </div><!-- / .container -->
+          </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+      </div><!-- /.row -->
+    </div><!-- / .container -->
 
-</div>
+  </div>
 <!--
 <div name="flash" class="container" style="min-height:100% width:80%">
 	{% with messages = get_flashed_messages() %}
