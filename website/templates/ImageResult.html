@@ -41,7 +41,7 @@
 <p class="error"><strong>Error: </strong>{{error}}</p>
 {% endif %}
 <div class="container">
-  {% if {{search}} != "" %}
+  {% if {{search}} is not none %}
   <h5 class="imgCount">{{imgCount}} results found for "{{search}}" in the {{category}} Category</h5>
   {% else %}
   <h5 class="imgCount">{{imgCount}} results found for in the {{category}} Category</h5>
