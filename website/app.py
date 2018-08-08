@@ -2,12 +2,12 @@
 #__author__ = "Jenny, Mike, Patrick"
 
 from flask import Flask, render_template, json, redirect, request,flash,url_for,send_file,session
-from flaskext.mysql import MySQL
+from flaskext.mysql import MySQL #library for mysql commands
 import os
 import gc
 from functools import wraps
-from passlib.hash import sha256_crypt
-from PIL import Image,ImageOps
+from passlib.hash import sha256_crypt #hashing library
+from PIL import Image,ImageOps #ibrary for thumbnails
 import glob, os
 import random
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -19,7 +19,7 @@ mysql = MySQL()
 app = Flask(__name__)
 app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
 
-#Configure DB to allow to connect to DB
+#Configure app config values to connect to database from app.py
 app.config['MYSQL_DATABASE_USER'] = 'root'
 app.config['MYSQL_DATABASE_PASSWORD'] = 'BackEnd2921'
 app.config['MYSQL_DATABASE_DB'] = 'mydb'
@@ -31,19 +31,20 @@ app.config.update(
 
 mysql.init_app(app)
 
-#define home page
+#The following code will be executed when the user enters the home page
 @app.route('/')
 def home():
     #create db connection
     conn = mysql.connect()
     cursor = conn.cursor()
     error = request.args.get('error')  # counterpart for url_for()
+    #select popular images that have more than 350 views
     imgCmd = "SELECT ThumbPath, ImageName, ImageId From ApprovedImg WHERE Views >= 350"
     category = "All"
     cursor.execute(imgCmd)
     conn.commit()
     data=cursor.fetchall()
-    #render home page with the data that is being sent from DB
+    #render home page and display the most the popular images
     return render_template("shallotHome.html",data=data,error=error,category=category)
 
 #congradulation page
@@ -51,7 +52,8 @@ def home():
 def congratulation():
     return render_template("congradulation.html")
 
-#define search page
+#The following code will be executed when the user searches for an image
+#The following code retrieves picture information based on image name, image description, and category information provided by the user
 @app.route('/Search', methods=['POST', 'GET'])
 def searchResult():
     error =''
@@ -64,14 +66,17 @@ def searchResult():
                 _categoryName = "All"
             else:
                 _categoryName = request.form['category']
+            #select category id that is equal to the user selected category received through POST from the Front End
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
+            #if no category is selected then images from all categories that match the user request are returned
             if (len(data) == 0):
                 order = "SELECT ThumbPath, ImageName, Descr, ImageId FROM ApprovedImg WHERE ImageName Like %s OR Descr LIKE %s"
                 cursor.execute(order,('%'+_search+'%','%'+_search+'%'))
                 conn.commit()
+            #if a category is selected then images matching the user search values from the user specified category are returned
             else:
                 _categoryId=data[0][0]
                 order = "SELECT ThumbPath, ImageName, Descr, ImageId FROM ApprovedImg WHERE CategoryId=%s and (ImageName Like %s OR Descr LIKE %s)"
@@ -95,19 +100,17 @@ def searchResult():
         cursor.close()
         conn.close()
 
-#define searching for one particular image
+#When a user clicked on an image result the following code is executed
+#The following code displays the image information of the image, including the image name and description as well as displaying the full size image
 @app.route('/Search/<string:imageid>', methods=['GET', 'POST'])
 def imagePage(imageid):
-    #flash(imageid)
     conn = mysql.connect()
     cursor = conn.cursor()
-    #select info from db for that imagename
-
+    #select the filepath, imagename, description, uploader id and number of view for the image with the user provided image name
     imgcmd = "SELECT FilePath, ImageName, Descr, UserId, Views FROM ApprovedImg WHERE ImageId = %s"
     cursor.execute(imgcmd, imageid)
     conn.commit()
     data = cursor.fetchall()
-    #flash(data)
 
     #get user name for displaying the image
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
@@ -136,80 +139,58 @@ def getUserId():
         userId = data[0][0]
         return userId
 
-#define upload image
+#The following code is executed when the user uploads an image
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
     imageCounter = random.randint(1,101)
-    #flash(imageCounter)
-    #flash("coming to uploadImage")
-    #get user id for inserting image
+    #get id of user who is uploading the image
     userId = getUserId()
-    #flash(userId)
+    #connect to the database
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
         if request.method == 'POST':
-            #flash("coming to post")
             _descr = request.form['description']
-            #flash("_descr")
             _categoryName = request.form['category']
-            #flash("category")
             _imageName = request.form['imageName']
-            #flash("_imageName")
-
+            #select the id of the category selected by the user
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
             conn.commit()
             data=cursor.fetchall()
-            #data is a nested list, get category id from list
+            #data is a nested list, access category id in list and assign it to _categoryId
             _categoryId=data[0][0]
-            #flash(_categoryId)
-            #flash(APP_ROOT)
-            #create the filepath that is going to store the images
+            #create the filepath of the location of where the uploaded file will be stored
             target = os.path.join(APP_ROOT, 'static/Images', _categoryName)
-            #flash(target)
-            #loop through all the files that have been choosen by users
+            #loop through all the files to be uploaded
             for file in request.files.getlist("file"):
                 filename = file.filename
-                #flash(filename)
                 #create destination to save the file
                 destination = "/".join([target, filename])
-                #flash(destination)
                 file.save(destination)
                 file, ext = os.path.splitext(filename)
-                #flash(file)
-                #flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
 
                 #create new file name to avoid the same file name from user
                 filenameNew = file + str(imageCounter) + ext
-                #flash(filenameNew)
                 fullpicPath = "/".join([target,filenameNew])
                 #rename the file with the new file name
                 if os.path.isfile(destination):
                     os.rename(destination, fullpicPath)
                 thumbDestination = "/".join([thumbFullPath,filenameNew])
-                #flash("create thumbPath")
-                #flash(thumbDestination)
                 if ext == '.jpg':
                     im.save(thumbDestination, 'jpeg')
                 else:
-                    #flash("coming to else")
-                    #flash(filename.split('.')[-1])
                     im.save(thumbDestination, filename.split('.')[-1])
                 #create the file path
                 filePath = '/static/Images/' + _categoryName +'/' + filenameNew
                 thumbPath = "/static/ThumbnailsImages/" + _categoryName + "/" + filenameNew
-                #flash(filePath)
-                #flash(thumbPath)
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
                 value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
                 cursor.execute(order,value)
-                #flash("going to execute")
                 conn.commit()
-                #flash("commit")
             #return to upload image page if users want to upload more
             message = "Thank you for uploading your image, now you can upload more images"
             return render_template("UploadImage.html", message=message)
