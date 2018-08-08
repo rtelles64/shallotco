@@ -90,10 +90,10 @@
       {% if session.logged_in %}
       <a href="{{data[0][0]}}" download="{{data[0][1]}}"><button class="DownloadButton"><i class="fa fa-download"></i> Download</button></a>
       {% else %}
-      <a data-toggle="modal" data-target="#myModal"><button class="DownloadButton"><i class="fa fa-download"></i> Download</button></a>
+      <a data-toggle="modal" data-target="#downModal"><button class="DownloadButton"><i class="fa fa-download"></i> Download</button></a>
 
       <!-- Modal -->
-      <div class="modal fade" id="myModal" role="dialog">
+      <div class="modal fade" id="downModal" role="dialog">
         <div class="modal-dialog">
 
           <!-- Modal content-->
