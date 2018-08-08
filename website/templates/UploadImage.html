@@ -94,28 +94,7 @@
                 <input class="messageBox" type="text" name="description" maxlength="150" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
             </div>
             <br><br>
-              <a href="/UploadConfirmation" style="color:white; text-decoration: none;"><input class="button" type="submit" value="Upload"></a>
-        </div>
-
-        <!-- Modal -->
-        <div class="modal fade" id="UpCon" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Thanks for your Upload!</h4>
-              </div>
-              <div class="modal-body">
-                <p>Please give us up to 24 hours to approve it.</p>
-              </div>
-              <div class="modal-footer">
-                <a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'" style="text-decoration: none;"><button style="background-color: #9C00CD; color: white;" type="button" class="btn btn-default" data-dismiss="modal">Upload Again</button></a>
-                <a href="/" onclick="location.assign('/'),'_top'" style="text-decoration: none;"><button type="button" class="btn btn-default" data-dismiss="modal">Go Home</button></a>
-              </div>
-            </div>
-          </div>
+              <input class="button" type="submit" value="Upload">
         </div>
     </form>
     <br>
@@ -123,10 +102,6 @@
     <div class="policy">
         Disclaimer: It may take up to 24 hours before the image is visible on the site
     </div>
-
-    <script>
-       document.getElementById("UpCon").showModal();
-  </script>
 
 </div>
 {%endblock%}

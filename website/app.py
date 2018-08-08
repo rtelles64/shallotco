@@ -51,11 +51,6 @@ def home():
 def congratulation():
     return render_template("congradulation.html")
 
-# upload confirmation page
-@app.route('/UploadConfirmation')
-def uploadConfirm():
-    return render_template("uploadConfirm.html")
-
 #define search page
 @app.route('/Search', methods=['POST', 'GET'])
 def searchResult():
