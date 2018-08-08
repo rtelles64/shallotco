@@ -145,10 +145,10 @@ td, th {
       <tr>
         <td>
           <div class="image">
-            <img class="object-fit_contain" src="{{row[5]}}">
+            <img class="object-fit_contain" src="{{row[6]}}">
           </div>
         </td>
-        <td>{{row[0]}}</td>
+        <td>{{row[1]}}</td>
         <td>
           <a href="/Admin/Approve/{{row[0]}}"><input class="AcceptButton" type="submit" value="Accept"></a><br><br>
           <a href="/Admin/Delete/P/{{row[0]}}"><input class="DenyButton" type="submit" value="Reject" onclick="deleteButton(this)"></a>
@@ -171,10 +171,10 @@ td, th {
       <tr>
         <td>
           <div class="image">
-            <img class="object-fit_contain" src="{{row[6]}}">
+            <img class="object-fit_contain" src="{{row[7]}}">
           </div>
         </td>
-        <td>{{row[0]}}</td>
+        <td>{{row[1]}}</td>
         <td><a href="/Admin/Delete/A/{{row[0]}}"><input class="DeleteButton" type="submit" value="Delete"></a></td>
       </tr>
       {% endfor %}

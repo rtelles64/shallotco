@@ -164,37 +164,41 @@ def uploadImage():
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
-                #create destination to save the file
-                destination = "/".join([target, filename])
-                file.save(destination)
-                file, ext = os.path.splitext(filename)
-                im = Image.open(destination)
-                im.thumbnail(size, Image.ANTIALIAS)
-                thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
-
-                #create new file name to avoid the same file name from user
-                filenameNew = file + str(imageCounter) + ext
-                fullpicPath = "/".join([target,filenameNew])
-                #rename the file with the new file name
-                if os.path.isfile(destination):
-                    os.rename(destination, fullpicPath)
-                thumbDestination = "/".join([thumbFullPath,filenameNew])
-                if ext == '.jpg':
-                    im.save(thumbDestination, 'jpeg')
+                if filename == '':
+                    error = "You must choose an image to upload"
+                    return render_template("UploadImage.html",error=error)
                 else:
-                    #flash("coming to else")
-                    #flash(filename.split('.')[-1])
-                    im.save(thumbDestination, filename.split('.')[-1])
-                #create the file path
-                filePath = '/static/Images/' + _categoryName +'/' + filenameNew
-                thumbPath = "/static/ThumbnailsImages/" + _categoryName + "/" + filenameNew
-                order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
-                value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
-                cursor.execute(order,value)
-                conn.commit()
-            #return to upload image page if users want to upload more
-            message = "Thank you for uploading your image, now you can upload more images"
-            return render_template("uploadConfirm.html", message=message)
+                    #create destination to save the file
+                    destination = "/".join([target, filename])
+                    file.save(destination)
+                    file, ext = os.path.splitext(filename)
+                    im = Image.open(destination)
+                    im.thumbnail(size, Image.ANTIALIAS)
+                    thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
+
+                    #create new file name to avoid the same file name from user
+                    filenameNew = file + str(imageCounter) + ext
+                    fullpicPath = "/".join([target,filenameNew])
+                    #rename the file with the new file name
+                    if os.path.isfile(destination):
+                        os.rename(destination, fullpicPath)
+                    thumbDestination = "/".join([thumbFullPath,filenameNew])
+                    if ext == '.jpg':
+                        im.save(thumbDestination, 'jpeg')
+                    else:
+                        #flash("coming to else")
+                        #flash(filename.split('.')[-1])
+                        im.save(thumbDestination, filename.split('.')[-1])
+                    #create the file path
+                    filePath = '/static/Images/' + _categoryName +'/' + filenameNew
+                    thumbPath = "/static/ThumbnailsImages/" + _categoryName + "/" + filenameNew
+                    order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
+                    value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
+                    cursor.execute(order,value)
+                    conn.commit()
+                #return to upload image page if users want to upload more
+                message = "Thank you for uploading your image, now you can upload more images"
+                return render_template("uploadConfirm.html", message=message)
         #if there is no post, simply return to upload image page
         return render_template("UploadImage.html")
     except Exception as e:
