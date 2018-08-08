@@ -3,6 +3,31 @@
 <!-- SEARCHBAR GOES HERE -->
 <!-- END SearchBar -->
 {%include "layoutBanner.html"%}
+{%block head%}
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
+<style>
+#imageResult .object-fit_contain {
+  object-fit: contain;
+}
+
+#imageResult img {
+  /* height: 250px;
+  width: 250px; */
+  background-color: rgba(245, 245, 245, 0);
+}
+
+#imageResult .image {
+  float: left;
+  margin: 20px;
+}
+
+.resultCounts{
+  text-align: right;
+  padding: 10px;
+  padding-right: 100px;
+}
+</style>
+{%endblock%}
 <!-- TRENDING here -->
 {%block body%}
 <!-- Container for the image gallery -->
@@ -10,8 +35,8 @@
 {% if error %}
 <p class="error"><strong>Error: </strong>{{error}}</p>
 {% endif %}
+<div class="container">
 <form method="post">
-
   <div class = "container-fluid">
     <div id="homepage">
   <!-- Thumbnail images -->
@@ -23,5 +48,6 @@
 </div>
 </div>
 </form>
+</div>
 {%endblock%}
 <!-- END trending -->
