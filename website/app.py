@@ -317,19 +317,31 @@ def register():
         if request.method == 'POST':
             #Collecting all information from front end form
             _user = request.form['userName']
+            flash(_user)
             #Encrypt the entered password with sha256 and store in a variable
             _password = sha256_crypt.encrypt(str(request.form['password']))
+            flash(_password)
             _email = request.form['email']
+            flash(_email)
             _gender = request.form['gender']
+            flash(_gender)
             _city = request.form['city']
+            flash(_city)
             _country = request.form['country']
+            flash(_country)
             _firstName = request.form['firstName']
+            flash(_firstName)
             _lastName = request.form['lastName']
+            flash(_lastName)
             _day = request.form['day']
+            flash(_day)
             _month = request.form['month']
+            flash(_month)
             _year = request.form['year']
+            flash(_year)
             #Set up DOB in proper format
             _dob=_month +"/" + _day + "/" + _year
+            flash(_dob)
             #Insert new user into database if there is no error occurring
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             cursor.execute(MYSQLCmd,(_user,_password,_email,_gender,_dob,_city,_country,_firstName,_lastName))
@@ -339,7 +351,7 @@ def register():
             #Send confirmation message when the user has successfully registered
             flash("Thank you for signing up! Now you can log in")
             #Return to homepage when user is successfully registered
-            return redirect(url_for('login'))
+            return redirect(url_for('congradulation'))
         #If there is no post, render register page
         return render_template("register.html")
     except Exception as e:
