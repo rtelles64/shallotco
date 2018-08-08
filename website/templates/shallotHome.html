@@ -10,9 +10,10 @@
 {% if error %}
 <p class="error"><strong>Error: </strong>{{error}}</p>
 {% endif %}
-<div class="container">
-  <!-- Full-width images with number text -->
+<form method="post">
 
+  <div class = "container-fluid">
+    <div id="homepage">
   <!-- Thumbnail images -->
   {% for image in data %}
   <div class="image">
@@ -20,5 +21,7 @@
   </div>
   {% endfor %}
 </div>
+</div>
+</form>
 {%endblock%}
 <!-- END trending -->
