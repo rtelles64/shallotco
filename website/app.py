@@ -164,7 +164,7 @@ def uploadImage():
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
-                    if filename == '':
+                if filename == '':
                     error = 'You must choose an image to upload'
                     return render_template("UploadImage.html",error = error)
                 else:
