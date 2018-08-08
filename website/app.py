@@ -52,6 +52,11 @@ def home():
 def congratulation():
     return render_template("congradulation.html")
 
+# Upload Congratulation Page
+@app.route('/uploadConfirm')
+def upConfirm():
+    return render_template("uploadConfirm.html")
+
 #The following code will be executed when the user searches for an image
 #The following code retrieves picture information based on image name, image description, and category information provided by the user
 @app.route('/Search', methods=['POST', 'GET'])
