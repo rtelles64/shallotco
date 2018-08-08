@@ -41,9 +41,9 @@
 <p class="error"><strong>Error: </strong>{{error}}</p>
 {% endif %}
 <div class="container">
-
+  {% if {{search}} != "" %}
   <h5 class="imgCount">{{imgCount}} results found for "{{search}}" in the {{category}} Category</h5>
-
+  {% endif %}
   <form method="post">
 
     <div class = "container-fluid">
