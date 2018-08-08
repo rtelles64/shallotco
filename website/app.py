@@ -248,7 +248,7 @@ def adminPage():
     #arg3 = [['/static/Images/IMG_20170113_140535.jpg', 'a5zs'], ['/static/Images/IMG_20170113_140535.jpg', 'azs']]
         return render_template("/AdminPage.html", userData = userData, pendingData = pendingData, approvedData = approvedData)
     else:
-        return render_template("shallotHome.html",error = error)
+        return redirect(url_for('home',error=error))
 
 @app.route('/Admin/Approve/<int:imageID>')
 def adminApprove(imageID):
