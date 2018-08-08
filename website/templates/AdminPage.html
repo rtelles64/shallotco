@@ -101,7 +101,7 @@ td, th {
 <div id = "adminpage">
 
   <div class="tab">
-    <button class="tablinks" onclick="adminpage(event, 'Approved')">|Approved Images|</button>
+    <button id="init" class="tablinks" onclick="adminpage(event, 'Approved')">|Approved Images|</button>
     <button class="tablinks" onclick="adminpage(event, 'Pending')">|Pending Images|</button>
     <button class="tablinks" onclick="adminpage(event, 'User')">|User|</button>
   </div>
@@ -190,6 +190,7 @@ td, th {
 
 
   <script>
+    document.getElementsByClassName('tablinks')[2].click()
     function adminpage(evt, tabs) {
       var i, tabcontent, tablinks;
       tabcontent = document.getElementsByClassName("tabcontent");
