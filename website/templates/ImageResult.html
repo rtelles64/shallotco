@@ -10,8 +10,8 @@
 }
 
 #imageResult img {
-  height: 250px;
-  width: 250px;
+  height: 300px;
+  width: 300px;
   background-color: rgba(245, 245, 245, 0);
 }
 
@@ -41,9 +41,11 @@
 <p class="error"><strong>Error: </strong>{{error}}</p>
 {% endif %}
 <div class="container">
-
+  {% if search  %}
   <h5 class="imgCount">{{imgCount}} results found for "{{search}}" in the {{category}} Category</h5>
-
+  {% else %}
+  <h5 class="imgCount">{{imgCount}} results found for in the {{category}} Category</h5>
+  {% endif %}
   <form method="post">
 
     <div class = "container-fluid">
