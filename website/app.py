@@ -98,7 +98,7 @@ def searchResult():
 #define searching for one particular image
 @app.route('/Search/<string:imageid>', methods=['GET', 'POST'])
 def imagePage(imageid):
-    flash(imageid)
+    #flash(imageid)
     conn = mysql.connect()
     cursor = conn.cursor()
     #select info from db for that imagename
@@ -107,7 +107,7 @@ def imagePage(imageid):
     cursor.execute(imgcmd, imageid)
     conn.commit()
     data = cursor.fetchall()
-    flash(data)
+    #flash(data)
 
     #get user name for displaying the image
     usernamecmd = "SELECT UserName FROM User WHERE IdUser = %s"
@@ -140,11 +140,11 @@ def getUserId():
 @app.route('/UploadImage', methods = ['GET', 'POST'])
 def uploadImage():
     imageCounter = random.randint(1,101)
-    flash(imageCounter)
-    flash("coming to uploadImage")
+    #flash(imageCounter)
+    #flash("coming to uploadImage")
     #get user id for inserting image
     userId = getUserId()
-    flash(userId)
+    #flash(userId)
     conn = mysql.connect()
     cursor = conn.cursor()
     try:
@@ -163,53 +163,53 @@ def uploadImage():
             data=cursor.fetchall()
             #data is a nested list, get category id from list
             _categoryId=data[0][0]
-            flash(_categoryId)
-            flash(APP_ROOT)
+            #flash(_categoryId)
+            #flash(APP_ROOT)
             #create the filepath that is going to store the images
             target = os.path.join(APP_ROOT, 'static/Images', _categoryName)
-            flash(target)
+            #flash(target)
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
-                flash(filename)
+                #flash(filename)
                 #create destination to save the file
                 destination = "/".join([target, filename])
-                flash(destination)
+                #flash(destination)
                 file.save(destination)
                 file, ext = os.path.splitext(filename)
-                flash(file)
-                flash(ext)
+                #flash(file)
+                #flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
 
                 #create new file name to avoid the same file name from user
                 filenameNew = file + str(imageCounter) + ext
-                flash(filenameNew)
+                #flash(filenameNew)
                 fullpicPath = "/".join([target,filenameNew])
                 #rename the file with the new file name
                 if os.path.isfile(destination):
                     os.rename(destination, fullpicPath)
                 thumbDestination = "/".join([thumbFullPath,filenameNew])
-                flash("create thumbPath")
-                flash(thumbDestination)
+                #flash("create thumbPath")
+                #flash(thumbDestination)
                 if ext == '.jpg':
                     im.save(thumbDestination, 'jpeg')
                 else:
-                    flash("coming to else")
-                    flash(filename.split('.')[-1])
+                    #flash("coming to else")
+                    #flash(filename.split('.')[-1])
                     im.save(thumbDestination, filename.split('.')[-1])
                 #create the file path
                 filePath = '/static/Images/' + _categoryName +'/' + filenameNew
                 thumbPath = "/static/ThumbnailsImages/" + _categoryName + "/" + filenameNew
-                flash(filePath)
-                flash(thumbPath)
+                #flash(filePath)
+                #flash(thumbPath)
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
                 value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
                 cursor.execute(order,value)
-                flash("going to execute")
+                #flash("going to execute")
                 conn.commit()
-                flash("commit")
+                #flash("commit")
             #return to upload image page if users want to upload more
             message = "Thank you for uploading your image, now you can upload more images"
             return render_template("UploadImage.html", message=message)
@@ -324,7 +324,7 @@ def register():
             _year = request.form['year']
             _dob=_month +"/" + _day + "/" + _year
 
-            flash(_dob)
+            #flash(_dob)
 
             #insert new user to db if there is no error occur
             MYSQLCmd = "INSERT INTO User (UserName,Password,Email,Gender,Dob,City,Country,FirstName,LastName ) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s)"
@@ -336,7 +336,7 @@ def register():
             #For collecting gabage
             gc.collect()
             #send confirmation message when the user has successfully registered
-            flash("Thank you for signing up! Now you can log in")
+            #flash("Thank you for signing up! Now you can log in")
             #return to homepage when user is successfully registered
             return redirect(url_for('login'))
         #if there is no post, render register page
@@ -373,7 +373,7 @@ def login():
             conn.commit()
             data = cursor.fetchall()
             #flash(data)
-            flash(data[0][1])
+            #flash(data[0][1])
             if sha256_crypt.verify(attempted_password,data[0][0]) == True:
                 if data[0][1] == 1:
                     session['logged_in'] = True
@@ -382,7 +382,7 @@ def login():
                 else:
                     session['logged_in'] = True
                     session['UserName'] = attempted_username
-                    flash(session['UserName'])
+                    #flash(session['UserName'])
                     return redirect(url_for('home'))
 
 
