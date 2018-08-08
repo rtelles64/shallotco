@@ -317,7 +317,6 @@ def register():
         if request.method == 'POST':
             #Collecting all information from front end form
             _user = request.form['userName']
-            flash(_user)
             #Encrypt the entered password with sha256 and store in a variable
             _password = sha256_crypt.encrypt(str(request.form['password']))
             _email = request.form['email']
