@@ -229,7 +229,7 @@ def adminPage():
     cursor = conn.cursor()
     error = request.args.get('error')
     userId = getUserId()
-    if userId == 'Admin':
+    if userId == 1:
         #_imageID = request.form['imageid']
         approvedCmd = "SELECT * FROM ApprovedImg"
         cursor.execute(approvedCmd)
