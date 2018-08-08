@@ -34,3 +34,44 @@
     .btn:hover {
         background-color: #00BFFF;
     }
+
+    #imagePage .image {
+      float: center;
+      margin: 20px;
+    }
+
+    #imagePage .DownloadButton {
+      background-color: #9C00CD;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      padding: 5px 94px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    #imagePage .description{
+      width: 700px;
+      background-color: lightgrey;
+      border: 1px solid black;
+      padding: 25px;
+      margin: 25px;
+      size: 200px;
+    }
+    #imagePage .uploader{
+      text-align: right;
+      padding: 10px;
+      padding-right: 100px;
+    }
+    #imagePage .CancelButton {
+      background-color: #9C00CD;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      padding: 5px 94px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
