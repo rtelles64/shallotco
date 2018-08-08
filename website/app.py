@@ -200,7 +200,7 @@ def uploadImage():
                 message = "Thank you for uploading your image, now you can upload more images"
                 return render_template("uploadConfirm.html", message=message)
         #if there is no post, simply return to upload image page
-        return render_template("UploadImage.html", error=error)
+        return render_template("UploadImage.html")
     except Exception as e:
         error = 'Sorry, we are not able to upload your image'
         return render_template("UploadImage.html",error = error)
