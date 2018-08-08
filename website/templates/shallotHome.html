@@ -15,10 +15,8 @@
 
   <!-- Thumbnail images -->
   {% for image in data %}
-  <div class="column">
-    <tr>
-      <td> <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[2]}}"> <img src="{{image[0]}}" align="left" hspace="20" vspace="20"></a></td>
-    </tr>
+  <div class="image">
+      <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[2]}}"> <img class="object-fit_contain" src="{{image[0]}}" align="left" hspace="20" vspace="20"></a>
   </div>
   {% endfor %}
 </div>
