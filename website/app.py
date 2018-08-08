@@ -51,17 +51,12 @@ def home():
 def congratulation():
     return render_template("congradulation.html")
 
-<<<<<<< HEAD
-# Upload Congratulation Page
-@app.route('/uploadConfirm')
-def upConfirm():
+# upload confirmation page
+@app.route('/UploadConfirmation')
+def uploadConfirm():
     return render_template("uploadConfirm.html")
 
-#The following code will be executed when the user searches for an image
-#The following code retrieves picture information based on image name, image description, and category information provided by the user
-=======
 #define search page
->>>>>>> e129839ee9205096d7aac2e2aa7f671e7a476c5b
 @app.route('/Search', methods=['POST', 'GET'])
 def searchResult():
     error =''
@@ -284,7 +279,7 @@ def adminDelete(table, imageID):
     conn = mysql.connect()
     cursor = conn.cursor()
     #_imageID = request.form['imageid']
-    #If statements specifying which table to delete from 
+    #If statements specifying which table to delete from
     if table == 'A':
         #SQL command to delete from ApprovedImg table
         deleteCmd = "DELETE FROM ApprovedImg WHERE ImageId = %s"
@@ -368,7 +363,7 @@ def login_required(f):
 
     return wrap
 
-#Route for logging in 
+#Route for logging in
 @app.route('/Login', methods=["GET","POST"])
 def login():
     error = ''
