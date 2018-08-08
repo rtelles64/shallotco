@@ -57,9 +57,9 @@
 <br>
 <br>
 <br>
-{% if message %}
+<!-- {% if message %}
 <h3 class="congrats" style="color: green";><strong>{{message}}</strong></h3>
-{% endif %}
+{% endif %} -->
 {% if error %}
 <h3 class="error" style="color: red";><strong>Error:</strong>{{error}}</h3>
 {% endif %}
@@ -94,7 +94,7 @@
                 <input class="messageBox" type="text" name="description" maxlength="150" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
             </div>
             <br><br>
-            <input class="button" type="submit" value="Upload">
+              <input class="button" type="submit" value="Upload">
         </div>
     </form>
     <br>

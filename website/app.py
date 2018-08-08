@@ -194,7 +194,7 @@ def uploadImage():
                 conn.commit()
             #return to upload image page if users want to upload more
             message = "Thank you for uploading your image, now you can upload more images"
-            return render_template("UploadImage.html", message=message)
+            return render_template("uploadConfirm.html", message=message)
         #if there is no post, simply return to upload image page
         return render_template("UploadImage.html")
     except Exception as e:
@@ -274,7 +274,7 @@ def adminDelete(table, imageID):
     conn = mysql.connect()
     cursor = conn.cursor()
     #_imageID = request.form['imageid']
-    #If statements specifying which table to delete from 
+    #If statements specifying which table to delete from
     if table == 'A':
         #SQL command to delete from ApprovedImg table
         deleteCmd = "DELETE FROM ApprovedImg WHERE ImageId = %s"
@@ -358,7 +358,7 @@ def login_required(f):
 
     return wrap
 
-#Route for logging in 
+#Route for logging in
 @app.route('/Login', methods=["GET","POST"])
 def login():
     error = ''
