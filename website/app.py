@@ -199,7 +199,7 @@ def uploadImage():
                 conn.commit()
             #return to upload image page if users want to upload more
             message = "Thank you for uploading your image, now you can upload more images"
-            return render_template("uploadConfirmation.html", message=message)
+            return render_template("uploadConfirm.html", message=message)
         #if there is no post, simply return to upload image page
         return render_template("UploadImage.html")
     except Exception as e:
