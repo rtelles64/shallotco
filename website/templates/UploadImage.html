@@ -94,7 +94,7 @@
                 <input class="messageBox" type="text" name="description" maxlength="150" placeholder="Leave your description" size="50" value="{{request.form.description}}"/>
             </div>
             <br><br>
-              <input class="button" type="submit" value="Upload" data-toggle="modal" data-target="#UpCon">
+              <input class="button" type="submit" value="Upload">
         </div>
 
         <!-- Modal -->
@@ -123,6 +123,12 @@
     <div class="policy">
         Disclaimer: It may take up to 24 hours before the image is visible on the site
     </div>
+
+    <script>
+       $(window).load(function(){
+           $('#UpCon').modal('show');
+       });
+  </script>
 
 </div>
 {%endblock%}
