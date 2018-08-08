@@ -3,6 +3,31 @@
 <!-- SEARCHBAR GOES HERE -->
 <!-- END SearchBar -->
 {%include "layoutBanner.html"%}
+{%block head%}
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
+<style>
+#homepage .object-fit_contain {
+  object-fit: contain;
+}
+
+#homepage img {
+  height: 300px;
+  width: 300px;
+  background-color: rgba(245, 245, 245, 0);
+}
+
+#homepage .image {
+  float: left;
+  margin: 20px;
+}
+
+.resultCounts{
+  text-align: right;
+  padding: 10px;
+  padding-right: 100px;
+}
+</style>
+{%endblock%}
 <!-- TRENDING here -->
 {%block body%}
 <!-- Container for the image gallery -->
@@ -11,16 +36,18 @@
 <p class="error"><strong>Error: </strong>{{error}}</p>
 {% endif %}
 <div class="container">
-  <!-- Full-width images with number text -->
-
+<form method="post">
+  <div class = "container-fluid">
+    <div id="homepage">
   <!-- Thumbnail images -->
   {% for image in data %}
-  <div class="column">
-    <tr>
-      <td> <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[2]}}"> <img src="{{image[0]}}" align="left" style="width:500px;height:500px;" hspace="20" vspace="20"></a></td>
-    </tr>
+  <div class="image">
+      <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[2]}}"> <img class="object-fit_contain" src="{{image[0]}}"></a>
   </div>
   {% endfor %}
+</div>
+</div>
+</form>
 </div>
 {%endblock%}
 <!-- END trending -->
