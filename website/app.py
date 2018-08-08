@@ -165,7 +165,7 @@ def uploadImage():
             for file in request.files.getlist("file"):
                 filename = file.filename
                 if filename == '':
-                    error_ = 'You must choose an image to upload'
+                    error_ = "You must choose an image to upload"
                     return render_template("UploadImage.html",error=error_)
                 else:
                     #create destination to save the file
