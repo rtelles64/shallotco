@@ -47,9 +47,9 @@ def home():
     return render_template("shallotHome.html",data=data,error=error,category=category)
 
 #congradulation page
-@app.route('/congratulations')
-def congratulation():
-    return render_template("congradulation.html")
+# @app.route('/congratulations')
+# def congratulation():
+#     return render_template("congradulation.html")
 
 #define search page
 @app.route('/Search', methods=['POST', 'GET'])
@@ -351,7 +351,7 @@ def register():
             #Send confirmation message when the user has successfully registered
             flash("Thank you for signing up! Now you can log in")
             #Return to homepage when user is successfully registered
-            return redirect(url_for('congradulation'))
+            return render_template("congratulation.html")
         #If there is no post, render register page
         return render_template("register.html")
     except Exception as e:
