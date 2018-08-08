@@ -7,24 +7,30 @@
 {%block body%}
 
 <!-- change title to name -->
-<title>{%block name%}{%endblock%}</title>
+<title>
+  {%block name%}
+  {%block banner%}
+  <h3 class="margin">{{ self.name() }}</h3>
+  {%endblock%}
+  {%endblock%}
+</title>
+
 
 
 
 <!-- First Container: Name and Image-->
 <div class="container-fluid bg-1 text-center">
   <!--<h3 class="margin">James Clark</h3>-->
-  <h3 class="margin">{{ self.name() }}</h3>
   {%block image%}
   <!--
   <img src="James.jpg" class="img-responsive img-circle margin" style="display:inline" width="350" height="350">
-  -->
-  {%endblock%}
-  {%block title%}
+-->
+{%endblock%}
+{%block title%}
   <!--
   <h3>Team Lead</h3>
-  -->
-  {%endblock%}
+-->
+{%endblock%}
 </div>
 
 <!-- Second Container: Bio -->
@@ -33,8 +39,8 @@
   {% block bio %}
   <!--
   <p>I am a fourth-year student at San Francisco State University pursuing a Bachelor of Science in Computer Science with a Mathematics minor. </p>
-  -->
-  {%endblock%}
+-->
+{%endblock%}
 </div>
 
 <!-- Third Container (Grid): Contact Info-->
@@ -51,15 +57,15 @@
       <!--
       <p>Email: jclark1@mail.sfsu.edu</p>
       <p>GitHub: t8ortot</p>
-      -->
-      {%endblock%}
+    -->
+    {%endblock%}
 
-    </div>
-
-    <div class="col-sm-4">
-
-    </div>
   </div>
+
+  <div class="col-sm-4">
+
+  </div>
+</div>
 
 </div>
 {%endblock%}

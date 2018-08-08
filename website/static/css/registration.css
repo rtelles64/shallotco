@@ -1,30 +1,30 @@
 
-  body {
-    padding-bottom: 20px;
-    text-align: center;
-  }
+body {
+  padding-bottom: 20px;
+  text-align: center;
+}
 
-  .selector-for-some-widget {
-    box-sizing: content-box;
-  }
+.selector-for-some-widget {
+  box-sizing: content-box;
+}
 
-  label {
-      display: inline-block;
-  }
+label {
+  display: inline-block;
+}
 /* CENTER FORM ON PAGE */
-  div.form {
-    display: block;
-    text-align: center;
-  }
+div.form {
+  display: block;
+  text-align: center;
+}
 
-  form {
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-  }
+form {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
 
-  /* END center form */
+/* END center form */
 /*
   .form-size {
     max-width: 640px;
@@ -39,17 +39,17 @@
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-  } */
+    } */
 
-  /* The message box is shown when the user clicks on the password field */
-  #message {
-    display:none;
-    background: #f1f1f1;
-    color: #000;
-    position: relative;
-    padding: 20px;
-    margin-top: 10px;
-  }
+    /* The message box is shown when the user clicks on the password field */
+    #message {
+      display:none;
+      background: #f1f1f1;
+      color: #000;
+      position: relative;
+      padding: 20px;
+      margin-top: 10px;
+    }
     /* Message box */
     #message p {
       padding: 10px 35px;

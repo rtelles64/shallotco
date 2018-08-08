@@ -1,5 +1,6 @@
 <!--
-
+This is the parent layout for the entire site. All pages extend this file.
+This adds the nav-bar and footer to all pages.
   AUTHORED BY: Roy Telles, Jr.
 
 -->
@@ -11,12 +12,12 @@
 <head>
   <!-- Google Analytics -->
   <script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-  ga('create', 'UA-122656662-1', 'auto');
-  ga('send', 'pageview');
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', 'UA-122656662-1', 'auto');
+    ga('send', 'pageview');
   </script>
   <!-- End Google Analytics -->
   <title>Shallotco</title>
@@ -45,75 +46,123 @@
     </h5>
   </center>
   <!-- END disclaimer -->
-<!-- navbar -->
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="http://shallotco.com">
-        <img src="{{ url_for('static', filename='RingsLightPurple.png') }}" style="float: left; height: 3.8rem; margin-top: -8px;">
-      </a>
-    </div>
-    <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="nav navbar-nav">
-        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/About" onclick="location.assign('/About'),'_top'">About Us <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a href="/About/James">James Clark</a></li>
-            <li><a href="/About/Roy">Roy Telles</a></li>
-            <li><a href="/About/Patrick">Patrick Coico</a></li>
-            <li><a href="/About/Jenny">Jenny Cai</a></li>
-            <li><a href="/About/Michael">Michael Lama</a></li>
-            <li><a href="/About/Sam">Sam Zheng</a></li>
-          </ul>
-        </li>
-      </ul>
-      <!-- Signup/Login buttons -->
-      <ul class="nav navbar-nav navbar-right">
-        <li><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></li>
-        <li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-      <!-- END Signup/Login buttons -->
-    </div> <!-- END collapsible -->
-  </div>
-</nav>
-<!-- END navbar -->
-<!-- BANNER -->
-  <div class="banner container-fluid bg-2 text-center">
-    {%block banner%}
-    {%endblock%}
-  </div>
-<!-- END banner -->
+  <!-- navbar -->
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="http://shallotco.com">
+          <img src="{{ url_for('static', filename='RingsLightPurple.png') }}" style="float: left; height: 3.8rem; margin-top: -6px;">
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <!-- ABOUT US button/dropdown -->
+          <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="/About" onclick="location.assign('/About'),'_top'" style="margin-top: 3px;">About Us <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/About/James">James Clark</a></li>
+              <li><a href="/About/Roy">Roy Telles</a></li>
+              <li><a href="/About/Patrick">Patrick Coico</a></li>
+              <li><a href="/About/Jenny">Jenny Cai</a></li>
+              <li><a href="/About/Michael">Michael Lama</a></li>
+              <li><a href="/About/Sam">Sam Zheng</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- Signup/Login buttons -->
+        <ul class="nav navbar-nav navbar-right">
+          <!-- check if session is true, if it is, display Logout, UploadImage otherwise display UploadImage, Register and Login -->
+          {% if session.logged_in %}
+          <li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: -4px;">Upload</button></a></li>
+          <li><a href="/Logout" onclick="location.assign('/Logout'),'_top'"><span class="glyphicon glyphicon-log-out"></span>Logout</a></li>
+          {% else %}
+          <!-- <li><a href="/UploadImage" onclick="location.assign('/UploadImage'),'_top'"><button type="submit" class="btn btn-primary" style="padding-top: 6px; margin-top: 9px;">Upload</button></a></li> -->
+          <li><a data-toggle = "modal" data-target = "#myModal"><button class="btn btn-primary" style="padding-top: 6px; margin-top: -4px; margin-bottom: -3px;">Upload</button></a></li>
 
-<!-- CONTENT goes here -->
-<div class="container" style="margin-top: 20px;">
-{%block body%}
-{%endblock%}
-</div>
+          <li><a href="/Register" onclick="location.assign('/Register'),'_top'"><span class="glyphicon glyphicon-pencil"></span> Sign up</a><li>
+            <li><a href="/Login" onclick="location.assign('/Login'),'_top'"><span class="glyphicon glyphicon-log-in"></span> Login</a><li>
+              {% endif %}
+            </ul>
+            <!-- END Signup/Login buttons -->
+          </div> <!-- END collapsible -->
+        </div>
+      </nav>
+      <br>
+      <div class="container" style="min-height:100% width:80%">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+          {{message}}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+        <!-- END navbar -->
+        <!-- BANNER -->
+        <div class="banner container-fluid bg-2 text-center">
+          {%block banner%}
+          {%endblock%}
+        </div>
+        <!-- END banner -->
 
-<!-- footer -->
-<div id="footer" class="">
-    <div class="container">
-        <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
-    </div>
-</div>
-<!-- END footer -->
-<!-- SEARCHBAR script -->
-</body>
-<script>
+        <!-- CONTENT goes here -->
+        <div class="container" style="margin-top: 20px;">
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Whoops!</h4>
+                </div>
+                <div class="modal-body">
+                  <p>You must be logged in to upload an image!</p>
+                </div>
+                <div class="modal-footer">
+                  <center>
+                    <a href="/Login" onclick="location.assign('/Login'),'_top'" style="text-decoration: none;"><button style="background-color: #9C00CD; color: white;" type="button" class="btn btn-default" data-dismiss="modal">Login</button></a>
+                    <a href="/Register" onclick="location.assign('/Register'),'_top'" style="text-decoration: none;"><button type="button" class="btn btn-default" data-dismiss="modal">Sign up</button></a>
+                  </center>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {%block body%}
+          {%endblock%}
+        </div>
+
+        <!-- footer -->
+        <div id="footer" class="">
+          <div class="container">
+            <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p>
+          </div>
+        </div>
+        <!-- END footer -->
+        <!-- SEARCHBAR script -->
+      </body>
+      <script>
+        function alertMessage() {
+         alert("Please login before uploading images!");
+       }
+     </script>
+     <script>
 // This overrides the 'ordered list' functions and turns it into drop down
 $(document).ready(function(e){
-    $('.search-panel .dropdown-menu').find('a').click(function(e) {
-		e.preventDefault();
-		var param = $(this).attr("href").replace("#","");
-		var concept = $(this).text();
-		$('.search-panel span#search_concept').text(concept);
-		$('.input-group #search_param').val(param);
-	});
+  $('.search-panel .dropdown-menu').find('a').click(function(e) {
+    e.preventDefault();
+    var param = $(this).attr("href").replace("#","");
+    var concept = $(this).text();
+    $('.search-panel span#search_concept').text(concept);
+    $('.input-group #search_param').val(param);
+  });
 });
 </script>
 </html>

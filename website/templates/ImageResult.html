@@ -5,107 +5,77 @@
 {%block head%}
 <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/resultImage.css') }}"> -->
 <style>
-div.gallery {
-   border: 1px solid #ccc;
+#imageResult .object-fit_contain {
+  object-fit: contain;
 }
 
-div.gallery:hover {
-   border: 1px solid #777;
+#imageResult img {
+  height: 250px;
+  width: 250px;
+  background-color: rgba(245, 245, 245, 0);
 }
 
-div.gallery img {
-   width: 100%;
-   height: auto;
+#imageResult .image {
+  float: left;
+  margin: 20px;
 }
 
-div.desc {
-   padding: 15px;
-   text-align: center;
-}
-
-* {
-   box-sizing: border-box;
-}
-
-.responsive {
-   padding: 0 6px;
-   float: left;
-   width: 24.99999%;
-}
-
-@media only screen and (max-width: 700px) {
-   .responsive {
-       width: 49.99999%;
-       margin: 6px 0;
-   }
-}
-
-@media only screen and (max-width: 500px) {
-   .responsive {
-       width: 100%;
-   }
-}
-
-.clearfix:after {
-   content: “”;
-   display: table;
-   clear: both;
+.resultCounts{
+  text-align: right;
+  padding: 10px;
+  padding-right: 100px;
 }
 </style>
 {%endblock%}
+
 {%block banner%}
 <header class="card-header">
-  <center><h2 class="card-title mt-2">Results</h4></center>
+  <center><h2 class="card-title mt-2">Results</h2></center>
 </header>
 {%endblock%}
+
 {%block results%}
 <br>
-<form method="post">
-<!-- <div id="imageResult"> -->
 
-  <!-- <div class="row"> -->
-  <div class="container" style="min-height:100% width:80%">
-{% with messages = get_flashed_messages() %}
-  {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-warning alert-dismissible" role="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-    {{message}}
-    </div>
-  {% endfor %}
-  {% endif %}
-{% endwith %}
+{% if error %}
+<p class="error"><strong>Error: </strong>{{error}}</p>
+{% endif %}
+<div class="container">
 
-</div>
-    {% for image in imgData %}
+  <h5 class="imgCount">{{imgCount}} results found for "{{search}}" in the {{category}} Category</h5>
+
+  <form method="post">
+
+    <div class = "container-fluid">
+      <div id="imageResult">
+        {% for image in imgData %}
         <!-- <div class="column"> -->
-        <div class="column">
-        <tr>
-          <td> <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[1]}}"> <img src="{{image[0]}}" align="left" style="width:500px;height:400px;" hspace="20" vspace="20" /></a></td>
-        </tr>
+          <div class="image">
+            <a target="_blank" rel="noopener noreferrer" href="/Search/{{image[3]}}"> <img class="object-fit_contain" src="{{image[0]}}"/></a>
+          </div>
+          <!-- </div> -->
+          {% endfor %}
         </div>
-        <!-- </div> -->
-    {% endfor %}
+      </div>
 
-    <!-- </div> -->
 
-  <!-- </div> -->
-  </form>
-  <script type="text/javascript" src="{{ url_for('static', filename='js/resultImage.js') }}"></script>
-<script>
-  function reroute(img) {
-    window.location.replace('http://shallotco.com/' + img);
-  }
+    </form>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/resultImage.js') }}"></script>
+    <script>
+      function reroute(img) {
+        window.location.replace('http://shallotco.com/' + img);
+      }
 
   // Get the elements with class="column"
   var elements = document.getElementsByClassName("column");
 
   // Four images side by side
   function four() {
-      for (i = 0; i < elements.length; i++) {
+    for (i = 0; i < elements.length; i++) {
           elements[i].style.msFlex = "25%";  // IE10
           elements[i].style.flex = "25%";
+        }
       }
-  }
-</script>
-{%endblock%}
+    </script>
+    {%endblock%}

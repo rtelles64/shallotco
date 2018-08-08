@@ -8,207 +8,323 @@
 {%block head%}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/registration.css') }}">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 {%endblock%}
 {%block banner%}
 <header class="card-header">
-  <h2 class="card-title mt-2">Sign up!</h4>
+  <h2 class="card-title mt-2">Sign up!</h2>
   <i class="fa fa-asterisk text-danger"></i><small class="form-text text-muted"> Indicates a required field.</small>
 </header>
 {%endblock%}
 {%block body%}
-<div class="container-fluid">
-      <div class="card">
-        <article class="card-body">
-          <form class="needs-validation" novalidate>
-            <div class="form-group">
-              <label>Email address &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
-              <input type="email" class="form-control" placeholder="johndoe@email.com" id="email" name="email" required>
-              <small class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div> <!-- form-group end.// -->
-            <div class="form-group">
-              <!-- &nbsp is "non breaking space" -->
-              <label>Create password &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
-              <input class="form-control" type="password" id="password" name="password" placeholder="Password" required>
-            </div> <!-- form-group end.// -->
-            <div class="col form-group">
-              <label>Username &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
-              <input type="text" class="form-control" placeholder="">
-            </div> <!-- form-group end.// -->
 
-            <!-- DOB -->
-            <label for="repeat-psw">Date of birth &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
+{% if error %}
+<p class="error"><strong>Error:</strong>{{error}}</p>
+{% endif %}
+<div class="container" style="min-height:100% width:80%">
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+    {{message}}
+  </div>
+  {% endfor %}
+  {% endif %}
+  {% endwith %}
+  <div class="container-fluid">
+    <div class="card">
+      <article class="card-body">
+        <form class="needs-validation" action="/Register" method="post" novalidate>
+          <!-- EMAIL ADDRESS field -->
+          <div class="form-group">
+            <label>Email address &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
+            <input type="email" class="form-control" maxlength="254" placeholder="johndoe@email.com" id="email" name="email" value="{{request.form.email}}" required>
+            <small class="form-text text-muted">We'll never share your email with anyone else.</small>
+          </div> <!-- form-group end.// -->
+          <!-- END email -->
+          <!-- CREATE PASSWORD field -->
+          <div class="form-group">
+            <!-- &nbsp is "non breaking space" -->
+            <label>Create password &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
+            <input class="form-control" type="password" id="password" name="password" maxlength="30" placeholder="Password" value="{{request.form.password}}" required>
+            <small class="form-text text-muted">Password must be less than 30 characters.</small>
+          </div> <!-- form-group end.// -->
+          <!-- END password -->
+          <!-- CONFIRM PASSWORD field -->
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>&nbsp;<i class="fa fa-asterisk text-danger"></i>
+            <input type="password" id="confirmPassword" class="form-control" aria-describedby="passwordHelpInline" placeholder="Confirm Password" maxlength="30" required>
+          </div>
+          <!-- END confirm password -->
+          <!-- USERNAME field -->
+          <div class="col form-group">
+            <label>Username &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
+            <input type="text" class="form-control" id="username" maxlength="50" placeholder="UserName" name="userName" value="{{request.form.userName}}" required>
+          </div> <!-- form-group end.// -->
+          <!-- END username -->
+
+          <!-- DOB -->
+          <label for="repeat-psw">Date of birth &nbsp; </label><i class="fa fa-asterisk text-danger"></i>
+          <br>
+          <small class="form-text text-muted"> Users must be at least 10 years of age to create an account.</small>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <select id="month" class="form-control" placeholder="Month" name="month" value="{{request.form.month}}" required>
+                <option value="" selected>Month</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <select id="day" class="form-control" name= "day" value="{{request.form.day}}" required>
+                <option value="" selected>Day</option>
+                <option>01</option>
+                <option>02</option>
+                <option>03</option>
+                <option>04</option>
+                <option>05</option>
+                <option>06</option>
+                <option>07</option>
+                <option>08</option>
+                <option>09</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+                <option>18</option>
+                <option>19</option>
+                <option>20</option>
+                <option>21</option>
+                <option>22</option>
+                <option>23</option>
+                <option>24</option>
+                <option>25</option>
+                <option>26</option>
+                <option>27</option>
+                <option>28</option>
+                <option>29</option>
+                <option>30</option>
+                <option>31</option>
+              </select>
+            </div>
+            <div class="form-group col-md-4">
+              <select id="year" class="form-control" name="year" value="{{request.form.year}}" required>
+                <option value="" selected>Year</option>
+                <option>2008</option>
+                <option>2007</option>
+                <option>2006</option>
+                <option>2005</option>
+                <option>2004</option>
+                <option>2003</option>
+                <option>2002</option>
+                <option>2001</option>
+                <option>2000</option>
+                <option>1999</option>
+                <option>1998</option>
+                <option>1997</option>
+                <option>1996</option>
+                <option>1995</option>
+                <option>1994</option>
+                <option>1993</option>
+                <option>1992</option>
+                <option>1991</option>
+                <option>1990</option>
+                <option>1989</option>
+                <option>1988</option>
+                <option>1987</option>
+                <option>1986</option>
+                <option>1985</option>
+                <option>1984</option>
+                <option>1983</option>
+                <option>1982</option>
+                <option>1981</option>
+                <option>1980</option>
+              </select>
+            </div>
+          </div>
+          <!-- END dob -->
+          <!-- FIRST NAME field -->
+          <div class="col form-group">
+            <label>First name </label>
+            <input type="text" class="form-control" maxlength="44" placeholder="First Name" name="firstName" value="{{request.form.firstName}}">
+          </div> <!-- form-group end.// -->
+          <!-- END first name -->
+          <!-- LAST NAME field -->
+          <div class="col form-group">
+            <label>Last name </label>
+            <input type="text" class="form-control" maxlength="44" placeholder="Last Name" name="lastName" value="{{request.form.lastName}}">
+          </div>
+          <!-- END last name -->
+        <!-- <div class="form-group" name="gender">
+          <label class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Male">
+            <span class="form-check-label"> Male </span>
+          </label>
+          <label class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="Female">
+            <span class="form-check-label"> Female </span>
+          </label>
+          <label class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gender" value="NotState">
+            <span class="form-check-label"> Prefer Not to State </span>
+          </label> -->
+          <!-- </div> --> <!-- form-group end.// -->
+          <!-- GENDER selector -->
+          <div class="form-group">
+            <label>Gender</label>
+            <select id="inputGender" class="form-control" name="gender" value="{{request.form.gender}}">
+              <option value = ""> Choose...</option>
+              <option>Male</option>
+              <option>Female</option>
+              <option>Other/Prefer not to answer</option>
+            </select>
+          </div> <!-- form-group end.// -->
+          <!-- END gender -->
+          <!-- CITY/COUNTRY fields -->
+          <div class="form-row">
+            <div class="form-group col-md-7">
+              <label>City</label>
+              <input type="text" class="form-control" maxlength="64" placeholder="City"name="city" value="{{request.form.city}}">
+            </div> <!-- form-group end.// -->
+            <div class="form-group col-md-5">
+              <label>Country</label>
+              <select id="country" class="form-control" name="country" value="{{request.form.country}}">
+                <option> Choose...</option>
+                <option>Uzbekistan</option>
+                <option>Russia</option>
+                <option selected="">United States</option>
+                <option>India</option>
+                <option>Afganistan</option>
+              </select>
+            </div> <!-- form-group end.// -->
+          </div> <!-- form-row.// -->
+          <!-- END city/country -->
+          <br>
+          <center>
+            <small class="text-muted">By clicking 'Sign Up', you confirm that you accept our <br><a data-toggle="modal" data-target="#regModal"> Terms of Use and Privacy Policy.</a></small>
             <br>
-            <small class="form-text text-muted"> Users must be at least 10 years of age to create an account.</small>
-            <div class="form-row">
-              <div class="form-group col-md-4">
-                <select id="inputState" class="form-control">
-                  <option selected>Month</option>
-                  <option>Jan</option>
-                  <option>Feb</option>
-                  <option>Mar</option>
-                  <option>Apr</option>
-                  <option>May</option>
-                  <option>Jun</option>
-                  <option>Jul</option>
-                  <option>Aug</option>
-                  <option>Sep</option>
-                  <option>Oct</option>
-                  <option>Nov</option>
-                  <option>Dec</option>
-                </select>
-              </div>
-              <div class="form-group col-md-4">
-                <select id="inputState" class="form-control">
-                  <option selected>Day</option>
-                  <option>01</option>
-                  <option>02</option>
-                  <option>03</option>
-                  <option>04</option>
-                  <option>05</option>
-                  <option>06</option>
-                  <option>07</option>
-                  <option>08</option>
-                  <option>09</option>
-                  <option>10</option>
-                  <option>11</option>
-                  <option>12</option>
-                  <option>13</option>
-                  <option>14</option>
-                  <option>15</option>
-                  <option>16</option>
-                  <option>17</option>
-                  <option>18</option>
-                  <option>19</option>
-                  <option>20</option>
-                  <option>21</option>
-                  <option>22</option>
-                  <option>23</option>
-                  <option>24</option>
-                  <option>25</option>
-                  <option>26</option>
-                  <option>27</option>
-                  <option>28</option>
-                  <option>29</option>
-                  <option>30</option>
-                  <option>31</option>
-                </select>
-              </div>
-              <div class="form-group col-md-4">
-                <select id="inputState" class="form-control">
-                  <option selected>Year</option>
-                  <option>2008</option>
-                  <option>2007</option>
-                  <option>2006</option>
-                  <option>2005</option>
-                  <option>2004</option>
-                  <option>2003</option>
-                  <option>2002</option>
-                  <option>2001</option>
-                  <option>2000</option>
-                  <option>1999</option>
-                  <option>1998</option>
-                  <option>1997</option>
-                  <option>1996</option>
-                  <option>1995</option>
-                  <option>1994</option>
-                  <option>1993</option>
-                  <option>1992</option>
-                  <option>1991</option>
-                  <option>1990</option>
-                  <option>1989</option>
-                  <option>1988</option>
-                  <option>1987</option>
-                  <option>1986</option>
-                  <option>1985</option>
-                  <option>1984</option>
-                  <option>1983</option>
-                  <option>1982</option>
-                  <option>1981</option>
-                  <option>1980</option>
-                </select>
-              </div>
+            <br>
+            <div class="clearfix">
+              <button type="button" class="btn btn-danger"><a href="http://shallotco.com" style="color:white; text-decoration: none;">Cancel</a></button>
+              <button type="submit" class="btn btn-primary" onclick="return validatePassword()"><a href="{{ url_for('congratulation') }}" style="color:white; text-decoration: none;">Sign up</a></button>
             </div>
-            <!-- END dob -->
-            <div class="col form-group">
-              <label>First name </label>
-              <input type="text" class="form-control" placeholder="">
-            </div> <!-- form-group end.// -->
-            <div class="form-group">
-              <label class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" value="option1">
-                <span class="form-check-label"> Male </span>
-              </label>
-              <label class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" value="option2">
-                <span class="form-check-label"> Female </span>
-              </label>
-              <label class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="gender" value="option2">
-                <span class="form-check-label"> Prefer Not to State </span>
-              </label>
-            </div> <!-- form-group end.// -->
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label>City</label>
-                <input type="text" class="form-control">
-              </div> <!-- form-group end.// -->
-              <div class="form-group col-md-6">
-                <label>Country</label>
-                <select id="inputState" class="form-control">
-                  <option> Choose...</option>
-                  <option>Uzbekistan</option>
-                  <option>Russia</option>
-                  <option selected="">United States</option>
-                  <option>India</option>
-                  <option>Afganistan</option>
-                </select>
-              </div> <!-- form-group end.// -->
-            </div> <!-- form-row.// -->
-            <center>
-              <small class="text-muted">By clicking 'Sign Up', you confirm that you accept our <br><a data-toggle="modal" data-target="#myModal"> Terms of Use and Privacy Policy.</a></small>
-              <br>
-              <br>
-              <div class="clearfix">
-                <button type="button" class="btn btn-danger"><a href="http://shallotco.com" style="color:white; text-decoration: none;">Cancel</a></button>
-                <button type="submit" class="btn btn-primary">Sign up</button>
-              </div>
-            </div>
-        </center>
-        <!-- Modal -->
-        <div class="modal fade" id="myModal" role="dialog">
-          <div class="modal-dialog">
+          </center>
+          <!-- Modal -->
+          <div class="modal fade" id="regModal" role="dialog">
+            <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Terms of Use and Privacy Policy</h4>
-              </div>
-              <div class="modal-body">
-                <center><h4><b>Date of Birth</b></h4></center>
-                <p>Users must be at least 10 years of age to create an account.</p>
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Terms of Use and Privacy Policy</h4>
+                </div>
+                <div class="modal-body">
+                  <center><h4><b>Date of Birth</b></h4></center>
+                  <p>Users must be at least 10 years of age to create an account.</p>
 
-                <center><h4><b>Terms of Use</b></h4></center>
-                <p> As a registered user, you agree not to add content that is obscene to other
+                  <center><h4><b>Terms of Use</b></h4></center>
+                  <p> As a registered user, you agree not to add content that is obscene to other
                   users or violates the inclusivity of this site. </p>
                   <p> Furthermore, by registering, you agree not to modify content so as to make
-                    it obscene to other users or violate the inclusivity of this site. </p>
-                    <p> Though we support freedom of expression, we do not support hate speech
-                      of any kind or format.</p>
+                  it obscene to other users or violate the inclusivity of this site. </p>
+                  <p> Though we support freedom of expression, we do not support hate speech
+                  of any kind or format.</p>
 
-                      <center><h4><b>Privacy Policy</b></h4></center>
-                      <p> We will not share your information with any third parties.</p>
-                      <p> Username and email shall only be used for communication purposes.</p>
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </form>
-              </article> <!-- card-body end .// -->
-            </div> <!-- card.// -->
-          </div> <!-- col.//-->
-      </div><!-- form.// -->
-    <!-- REGISTRATION script -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/registration.js') }}"></script>
-    {%endblock%}
+                  <center><h4><b>Privacy Policy</b></h4></center>
+                  <p> We will not share your information with any third parties.</p>
+                  <p> Username and email shall only be used for communication purposes.</p>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </article> <!-- card-body end .// -->
+    </div> <!-- card.// -->
+  </div> <!-- col.//-->
+  <!-- REGISTRATION script -->
+  <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/registration.js') }}"></script> -->
+  <script>
+// JS for password confirm
+var password = document.getElementById("password"),
+confirmPassword = document.getElementById("confirmPassword"),
+email = document.getElementById("email"),
+username = document.getElementById("username"),
+month = document.getElementById("month"),
+day = document.getElementById("day"),
+year = document.getElementById("year");
+
+function validatePassword(){
+  if(password.value != confirmPassword.value) {
+    alert("Passwords Don't Match!");
+    return false;
+  }
+
+  if(email.value === "") {
+    alert("Please enter your email!");
+    return false;
+  }
+
+  if (username.value === "") {
+    alert("Please choose a username!");
+    return false;
+  }
+
+  if (month.value === "") {
+    alert("Please enter a month for your birthdate!");
+    return false;
+  }
+
+  if (day.value === "") {
+    alert("Plase enter a day for your birthday!");
+    return false;
+  }
+
+  if (year.value === "") {
+    alert("Please enter a year for your birthday!");
+    return false;
+  }
+
+  return true;
+}
+
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+</script>
+{%endblock%}
