@@ -149,13 +149,9 @@ def uploadImage():
     cursor = conn.cursor()
     try:
         if request.method == 'POST':
-            #flash("coming to post")
             _descr = request.form['description']
-            #flash("_descr")
             _categoryName = request.form['category']
-            #flash("category")
             _imageName = request.form['imageName']
-            #flash("_imageName")
 
             categoryCmd = "SELECT IdCategory FROM Category WHERE CategoryName = %s"
             cursor.execute(categoryCmd,_categoryName)
@@ -163,36 +159,26 @@ def uploadImage():
             data=cursor.fetchall()
             #data is a nested list, get category id from list
             _categoryId=data[0][0]
-            #flash(_categoryId)
-            #flash(APP_ROOT)
             #create the filepath that is going to store the images
             target = os.path.join(APP_ROOT, 'static/Images', _categoryName)
-            #flash(target)
             #loop through all the files that have been choosen by users
             for file in request.files.getlist("file"):
                 filename = file.filename
-                #flash(filename)
                 #create destination to save the file
                 destination = "/".join([target, filename])
-                #flash(destination)
                 file.save(destination)
                 file, ext = os.path.splitext(filename)
-                #flash(file)
-                #flash(ext)
                 im = Image.open(destination)
                 im.thumbnail(size, Image.ANTIALIAS)
                 thumbFullPath = os.path.join(APP_ROOT,'static/ThumbnailsImages', _categoryName)
 
                 #create new file name to avoid the same file name from user
                 filenameNew = file + str(imageCounter) + ext
-                #flash(filenameNew)
                 fullpicPath = "/".join([target,filenameNew])
                 #rename the file with the new file name
                 if os.path.isfile(destination):
                     os.rename(destination, fullpicPath)
                 thumbDestination = "/".join([thumbFullPath,filenameNew])
-                #flash("create thumbPath")
-                #flash(thumbDestination)
                 if ext == '.jpg':
                     im.save(thumbDestination, 'jpeg')
                 else:
@@ -202,14 +188,10 @@ def uploadImage():
                 #create the file path
                 filePath = '/static/Images/' + _categoryName +'/' + filenameNew
                 thumbPath = "/static/ThumbnailsImages/" + _categoryName + "/" + filenameNew
-                #flash(filePath)
-                #flash(thumbPath)
                 order="INSERT INTO PendingImg (UserId,ImageName,Descr,CategoryId,FilePath,ThumbPath) VALUES (%s,%s,%s,%s,%s,%s)"
                 value=((userId,_imageName,_descr,_categoryId,filePath,thumbPath))
                 cursor.execute(order,value)
-                #flash("going to execute")
                 conn.commit()
-                #flash("commit")
             #return to upload image page if users want to upload more
             message = "Thank you for uploading your image, now you can upload more images"
             return render_template("UploadImage.html", message=message)
