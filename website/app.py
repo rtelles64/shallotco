@@ -17,12 +17,12 @@ size = 500,500
 
 mysql = MySQL()
 app = Flask(__name__)
-app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
+app.secret_key = ''
 
 #Configure DB to allow to connect to DB
 app.config['MYSQL_DATABASE_USER'] = 'root'
-app.config['MYSQL_DATABASE_PASSWORD'] = 'BackEnd2921'
-app.config['MYSQL_DATABASE_DB'] = 'mydb'
+app.config['MYSQL_DATABASE_PASSWORD'] = ''
+app.config['MYSQL_DATABASE_DB'] = ''
 app.config['MYSQL_DATABASE_HOST'] = 'localhost'
 app.config.update(
     DEBUG=True,
